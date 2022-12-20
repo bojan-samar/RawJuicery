@@ -1,0 +1,63 @@
+ <!-- our partners-->
+ <section class="px-[20px] md:px-0 pt-[30px] pb-[30px] lg:pb-[85px]">
+    <h3 class="heading-3  md:px-[20px]">{{ section.settings.heading }}</h3>
+    <div class="grid grid-cols-3 md:hidden gap-y-[23px] mt-[20px]">
+        {%- for block in section.blocks -%}
+            {%- case block.type -%}
+                {%- when 'logo' -%}
+                    <div class="relative h-[77px]">
+                        <img class="absolute top-0 left-0 object-contain object-left w-full h-full" src="{{ block.settings.logo | image_url }}" alt="">
+                    </div>
+            {% endcase %}
+        {% endfor %}
+    </div>
+    <div
+        class="mt-[20px] lg:mt-[60px] hidden md:block"
+        x-data="logoSlider"
+    >
+        <div class="relative w-full swiper h-[100px] lg:h-[200px]" x-data="initSlider($el)" >
+            <div class="w-full h-full swiper-wrapper ">
+                {%- for block in section.blocks -%}
+                    {%- case block.type -%}
+                        {%- when 'logo' -%}
+                            <div class="relative h-full swiper-slide">
+                                <img class="absolute top-0 left-0 object-contain w-full h-full" src="{{ block.settings.logo | image_url }}" alt="">
+                            </div>
+                    {% endcase %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% schema %}
+{
+    "name": "Logo Slider",
+    "settings": [
+        {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "logo",
+            "name": "Logo",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "logo",
+                    "label": "Logo"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Logo Slider"
+        }
+    ]
+}
+{% endschema %}

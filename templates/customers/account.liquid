@@ -1,0 +1,129 @@
+{% if template == 'customers/account' %}
+	<style>
+		table {
+			border-collapse: collapse;
+		}
+
+		th, td {
+			text-align: left;
+			padding: 8px;
+		}
+
+		tr:nth-child(even) {
+			/*     background-color: #f2f2f2; */
+		}
+
+		th {
+			background-color: #000;
+			color: #fff;
+		}
+
+		.accountPageContainer {
+			padding: 20px;
+		}
+
+		@media screen and (max-width: 749px) {
+			table {
+				border-collapse: separate;
+			}
+
+			.responsive-table-row {
+				border: 1px solid #ccc;
+			}
+
+			.accountOrdersContainer {
+				width: 100%;
+			}
+
+			.account-orders-table td {
+				padding: 5px;
+			}
+
+			.account-orders-table td:hover {
+				background: rgba(140, 140, 140, 0.2);
+			}
+		}
+
+		@media screen and (min-width: 750px) {
+			.account-orders-table-body tr:hover {
+				background: rgba(140, 140, 140, 0.2);
+			}
+		}
+
+	</style>
+{% endif %}
+
+<div class="accountPageContainer">
+
+	<div class="accountTitleLogoutContainer flex flexAlignCenter flexWrap">
+		<div>
+			<h1 class="mb-[20px]">Account</h1>
+
+			<div style="margin-bottom: 20px;">
+				<a id="accountWholesaleLink" class="block px-[33px] hover:bg-green hover:text-white transition-all py-[10px] text-center border border-green uppercase mr-auto" href="/tools/bundle-subscriptions">Manage Subscriptions</a>
+			</div>
+
+			{{ 'Log Out' | customer_logout_link }}
+		</div>
+	</div>
+
+	<div style="margin-top: 30px;">
+		<h2>Account Details</h2>
+
+		{{ customer.default_address | format_address }}
+
+		<a style="font-weight: bold;" href="/account/addresses">{{ 'customer.account.view_addresses' | t }} ({{ customer.addresses_count }})</a>
+	</div>
+
+	<div style="margin-top: 50px;" class="flex flexWrap flexSpaceBetween">
+
+		<div class="accountOrdersContainer">
+			<h2>Orders</h2>
+
+			{% paginate customer.orders by 20 %}
+				{% if customer.orders.size != 0 %}
+					<table class="responsive-table account-orders-table">
+						<thead>
+						<tr>
+							<th class="bg-green">{{ 'customer.orders.order_number' | t }}</th>
+							<th class="bg-green">{{ 'customer.orders.date' | t }}</th>
+							<th class="bg-green">{{ 'customer.orders.payment_status' | t }}</th>
+							<th class="bg-green">{{ 'customer.orders.fulfillment_status' | t }}</th>
+							<th class="bg-green">{{ 'customer.orders.total' | t }}</th>
+						</tr>
+						</thead>
+						<tbody class="account-orders-table-body">
+						{% for order in customer.orders %}
+							<tr class="responsive-table-row">
+								<td data-label="{{ 'customer.orders.order_number' | t }}">{{ order.name | link_to: order.customer_url }}</td>
+								<td data-label="{{ 'customer.orders.date' | t }}">{{ order.created_at | date: "%B %d, %Y %I:%M%p" }}</td>
+								<td data-label="{{ 'customer.orders.payment_status' | t }}">{{ order.financial_status_label }}</td>
+								<td data-label="{{ 'customer.orders.fulfillment_status' | t }}">{{ order.fulfillment_status_label }}</td>
+								<td data-label="{{ 'customer.orders.total' | t }}">{{ order.total_price | money }}</td>
+								<td>
+									<p class="disclaimer__subtext">
+										<a target="_blank" class="flex items-center gap-x-[5px]" href='https://shopify-order-edit.herokuapp.com/order-editor/the-raw-juicery.myshopify.com/{{ order.id }}'>
+											<span class="border border-green hover:bg-green hover:text-white transition-all px-[15px] py-[5px]">Edit</span> or
+											<span class="border border-error text-error hover:bg-error hover:text-white transition-all px-[15px] py-[5px]">Cancel Order</span>
+										</a>
+									</p>
+								</td>
+								<!--                   <td><p class="disclaimer__subtext"><a target="_blank" href='https://shopify-order-edit.herokuapp.com/order-editor/reorder/the-raw-juicery.myshopify.com/{{ order.id }}'>Reorder</a></p></td> -->
+							</tr>
+						{% endfor %}
+						</tbody>
+					</table>
+				{% else %}
+					<p>{{ 'customer.orders.none' | t }}</p>
+				{% endif %}
+
+				{% if paginate.pages > 1 %}
+					{% include 'pagination' %}
+				{% endif %}
+
+			{% endpaginate %}
+
+		</div>
+
+	</div>
+</div>

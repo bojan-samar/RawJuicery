@@ -1,0 +1,41 @@
+<section class="p-[30px] border-green bg-[{{ section.settings.bg_color }}]">
+    <h2
+        x-intersect="$el.classList.add('!opacity-100')"
+        class="transition-opacity duration-700 ease-in opacity-0 heading-1"
+    >
+        {{section.settings.page_title}}
+    </h2>
+</section>
+
+{% schema %}
+{
+  "name": "Page Heading",
+  "settings": [
+    {
+      "type": "text",
+      "id": "page_title",
+      "label": "Page Title"
+    },
+    {
+      "type": "select",
+      "id": "bg_color",
+      "label": "Background Colour",
+      "options": [
+        {
+          "value": "#FFFFFF",
+          "label": "None"
+        },
+        {
+          "value": "#D3CECC",
+          "label": "Silver"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Page Heading"
+    }
+  ]
+}
+{% endschema %}

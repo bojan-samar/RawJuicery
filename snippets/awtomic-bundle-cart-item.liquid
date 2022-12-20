@@ -1,0 +1,106 @@
+{% assign bundle_price = 0 %}
+{% assign bundle_product = all_products[bundleHandle] %}
+{% assign bundle_product_image = '' %}
+{% if bundle_product.featured_media %}
+    {% if bundle_product.featured_media.media_type == "video" %}
+        {% capture bundle_product_image %}{{ bundle_product.featured_media | image_url: width: 400, height: 400, format: "jpg" }}{% endcapture %}
+    {% endif %}
+    {% if bundle_product.featured_media.media_type == "image" %}
+        {% capture bundle_product_image %}{{ bundle_product.featured_media | image_url: width: 400, height: 400 }}{% endcapture %}
+    {% endif %}
+{% endif %}
+
+<div class="border border-green p-[20px] flex gap-x-[20px]">
+    <div class="w-[90px] h-[90px] relative">
+        {% if bundle_product_image %}
+            <img class="absolute top-0 left-0 object-cover w-full h-full"
+                src="{{ bundle_product_image }}"
+                loading="lazy"
+            />
+        {% endif %}
+    </div>
+
+    <div class="flex flex-col">
+        <span class="font-bold uppercase">{{ bundle_product.title }}</span>
+        {%- if item.selling_plan_allocation != nil -%}
+            <small style="margin-top">{{ item.selling_plan_allocation.selling_plan.name }}</small>
+        {%- else -%}
+            <small style="margin-top">One-time</small>
+        {%- endif -%}
+
+        <div style="margin-bottom: 5px;">
+            {%- for item in cart.items -%}
+                {%- if item.properties['_bundleUid'] == current_bundleUid -%}
+                    <div class="bundle-subitem" style="display: flex; align-items: center; margin-bottom: 3px;">
+                        {% if item.image %}
+                            {% comment %} Leave empty space due to a:empty CSS display: none rule {% endcomment %}
+                            <img class="cart-item__image"
+                                src="{{ item.image | img_url: '30x' }}"
+                                alt="{{ item.image.alt | escape }}"
+                                loading="lazy"
+                                width="30"
+                                height="{{ 30 | divided_by: item.image.aspect_ratio | ceil }}"
+                                style="margin-right: 5px;"
+                            >
+                        {% endif %}
+                        <div class="bundle-subitem-details">
+                            {%- assign bundle_price = item.price | times: item.quantity | plus: bundle_price -%}
+                            <div class="product-option">
+                                <small>{{ item.title }}{%- if item.has_only_default_variant == false -%} | {{ item.variant.title }}{%- endif -%}:
+                                </small>
+                                <small>{{ item.quantity }}</small>
+
+    
+                            </div>
+                        </div>
+                    </div>
+                {%- endif -%}
+            {%- endfor -%}
+        </div>
+
+        <div class="flex mt-auto">
+            <a
+                type="cart__remove-bundle"
+                class="text-[14px] mr-auto border border-green uppercase py-[4px] px-[19px]"
+                data-bundle-id="{{ current_bundleUid }}"
+                onclick="removeBundleItem('{{ current_bundleUid }}')">
+                Remove
+            </a>
+        </div>
+    </div>
+    <span class="mb-auto ml-auto">{{ bundle_price | money_with_currency }}</span>
+</div>
+
+{% comment %} BUNDLE JS {% endcomment %}
+<script>
+    function removeBundleItem (bundle_id) {
+        const cartItems = {{ cart.items | json }};
+        // Removes all related bundle items from cart when user clicks remove on cart page
+        let bundle_items = [];
+        let qty = 0;
+        let data = {
+            updates: {}
+        };
+        
+        // Loop through each cart item
+        // If the item's bundle id matches the id passed in, add the
+        // cart item key along with a quantity of 0 to the data object
+        cartItems.forEach((item, i) => {
+            if (item.properties && item.properties._bundleUid && item.properties._bundleUid == bundle_id) {
+                data.updates[item.key] = 0;
+            }
+        })
+        
+        // API call to update the cart contents and set the
+        // bundle item quantities to 0
+        fetch('/cart/update.js', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(() => window.dispatchEvent(new Event('cart-updated')))
+            .catch(console.error);
+    }
+</script>

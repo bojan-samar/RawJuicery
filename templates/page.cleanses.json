@@ -1,0 +1,284 @@
+{
+    "sections": {
+        "main": {
+            "type": "main-page",
+            "disabled": true,
+            "settings": {
+                "padding_top": 28,
+                "padding_bottom": 28
+            }
+        },
+        "1660785022b042e263": {
+            "type": "inner-page-hero",
+            "settings": {
+                "image": "shopify:\/\/shop_images\/Green_Cleanse_Hero_0d48b8ca-1368-489d-92a7-104774cb4f4c.png",
+                "heading": "Cleanse"
+            }
+        },
+        "1660789339f4d16e02": {
+            "type": "signature-product-options",
+            "blocks": {
+                "c4a87e1a-78d5-4f32-909e-00bda0fcb730": {
+                    "type": "schedule",
+                    "settings": {
+                        "image": "shopify:\/\/shop_images\/Product-Celery.png",
+                        "time": "8:00AM",
+                        "product_name": "Celery Juice",
+                        "effect": "Celery, Lemon"
+                    }
+                },
+                "ea5ce891-a274-4db2-b780-88e0d5b208dd": {
+                    "type": "schedule",
+                    "settings": {
+                        "image": "shopify:\/\/shop_images\/Product-Master_59c24dcb-805b-481c-afd9-db90e68c03a1.png",
+                        "time": "10:00AM",
+                        "product_name": "Master Cleanse",
+                        "effect": "Pineapple, Extra Turmeric, Lemon, Dandelion, Cayenne, Maitake Mushroom"
+                    }
+                },
+                "9eaee5aa-7a57-4e25-8480-ae9d2b63c327": {
+                    "type": "schedule",
+                    "settings": {
+                        "image": "shopify:\/\/shop_images\/Product-G3_a779de5f-b3fa-4530-b1d6-13c81b727d04.png",
+                        "time": "12:00PM",
+                        "product_name": "G3 Live",
+                        "effect": "Cucumber, Celery, Kale, Spinach, Romaine, Lemon, Liquid Spirulina"
+                    }
+                },
+                "c139c7e2-7a82-47eb-a373-41e2183295e4": {
+                    "type": "schedule",
+                    "settings": {
+                        "image": "shopify:\/\/shop_images\/Product-Elixir_b959a86e-04f0-4e6a-8672-c768f3245635.png",
+                        "time": "2:00PM",
+                        "product_name": "After Math",
+                        "effect": "Grapefruit, Ginger, Aloe, Burdock Root, Basil Oil, Milk Thistle"
+                    }
+                },
+                "a55098ec-7dea-4e26-b7bf-62841f1ca30b": {
+                    "type": "schedule",
+                    "settings": {
+                        "image": "shopify:\/\/shop_images\/Product-Tropic_d716e3a4-1320-4334-9291-d3b6b7e0b578.png",
+                        "time": "4:00PM",
+                        "product_name": "Tropic Thunder",
+                        "effect": "Pineapple, Kale, Romaine, Apple, Lemon, Mint"
+                    }
+                },
+                "91cfe0b7-8a57-4e7a-b5cd-d465f691613f": {
+                    "type": "schedule",
+                    "settings": {
+                        "image": "shopify:\/\/shop_images\/Product-Red_Cure_ffd89236-fc1d-4a24-8dc8-937f1c11c58c.png",
+                        "time": "6:00PM",
+                        "product_name": "Red Cure",
+                        "effect": "Cucumber, Apple, Beet, Extra Ginger, Lemon, Cilantro"
+                    }
+                },
+                "e46d352f-3345-42c6-9117-e399d263a611": {
+                    "type": "schedule",
+                    "settings": {
+                        "image": "shopify:\/\/shop_images\/Chill_v23_TRANS.png",
+                        "time": "8:00PM",
+                        "product_name": "Chill Pill",
+                        "effect": "Pineapple, Lemon, Butterfly Pea Flower, Chamomile, Schisandra, Ashwagandha, Vanilla, Coconut Nectar, Vegan Probiotic"
+                    }
+                },
+                "02e81dab-a0f6-4e5f-bf92-7f2f9249c4b7": {
+                    "type": "green_schedule",
+                    "settings": {
+                        "image": "shopify:\/\/shop_images\/Celery_v21_Trans.png",
+                        "time": "8:00AM",
+                        "product_name": "Celery Juice",
+                        "effect": "Celery, Lemon"
+                    }
+                },
+                "5586e121-7dd2-4c45-9f91-032558b09aa4": {
+                    "type": "green_schedule",
+                    "settings": {
+                        "image": "shopify:\/\/shop_images\/Master_v21_Trans.png",
+                        "time": "10:00AM",
+                        "product_name": "Master Cleanse",
+                        "effect": "Pineapple, Extra Turmeric, Lemon, Dandelion, Cayenne, Maitake Mushroom"
+                    }
+                },
+                "714fdbb8-b9cc-4382-94c6-ab8b6c4ddf33": {
+                    "type": "green_schedule",
+                    "settings": {
+                        "image": "shopify:\/\/shop_images\/G3_v21_Trans.png",
+                        "time": "12:00PM",
+                        "product_name": "G3 Live",
+                        "effect": "Cucumber, Celery, Kale, Spinach, Romaine, Lemon, Liquid Spirulina"
+                    }
+                },
+                "a8e51eef-52ca-42f6-a69c-f52b6cc8914f": {
+                    "type": "green_schedule",
+                    "settings": {
+                        "image": "shopify:\/\/shop_images\/Product-Elixir_b959a86e-04f0-4e6a-8672-c768f3245635.webp",
+                        "time": "2:00PM",
+                        "product_name": "After Math",
+                        "effect": "Grapefruit, Ginger, Aloe, Burdock Root, Basil Oil, Milk Thistle"
+                    }
+                },
+                "05f77a25-c9e7-42b2-b11a-94c3ece9838c": {
+                    "type": "green_schedule",
+                    "settings": {
+                        "image": "shopify:\/\/shop_images\/Green_Fiend_v21_Trans.png",
+                        "time": "4:00PM",
+                        "product_name": "Green Fiend",
+                        "effect": ""
+                    }
+                },
+                "30a23523-54dc-4b51-89e4-fee4341899d4": {
+                    "type": "green_schedule",
+                    "settings": {
+                        "image": "shopify:\/\/shop_images\/G3_v21_Trans_4fa3ce4c-fc7e-4f4f-9989-7a46db4e4f52.png",
+                        "time": "6:00PM",
+                        "product_name": "G3 Live",
+                        "effect": "Cucumber, Celery, Kale, Spinach, Romaine, Lemon, Liquid Spirulina"
+                    }
+                },
+                "792589af-cd21-47c8-aab0-a44f6c0e28f9": {
+                    "type": "green_schedule",
+                    "settings": {
+                        "image": "shopify:\/\/shop_images\/Chill_v23_TRANS.png",
+                        "time": "9:00PM",
+                        "product_name": "Chill Pill",
+                        "effect": "Pineapple, Lemon, Butterfly Pea Flower, Chamomile, Schisandra, Ashwagandha, Vanilla, Coconut Nectar, Vegan Probiotic"
+                    }
+                }
+            },
+            "block_order": [
+                "c4a87e1a-78d5-4f32-909e-00bda0fcb730",
+                "ea5ce891-a274-4db2-b780-88e0d5b208dd",
+                "9eaee5aa-7a57-4e25-8480-ae9d2b63c327",
+                "c139c7e2-7a82-47eb-a373-41e2183295e4",
+                "a55098ec-7dea-4e26-b7bf-62841f1ca30b",
+                "91cfe0b7-8a57-4e7a-b5cd-d465f691613f",
+                "e46d352f-3345-42c6-9117-e399d263a611",
+                "3f47abdc-f997-4f17-8429-923df738dd46",
+                "02e81dab-a0f6-4e5f-bf92-7f2f9249c4b7",
+                "5586e121-7dd2-4c45-9f91-032558b09aa4",
+                "714fdbb8-b9cc-4382-94c6-ab8b6c4ddf33",
+                "a8e51eef-52ca-42f6-a69c-f52b6cc8914f",
+                "05f77a25-c9e7-42b2-b11a-94c3ece9838c",
+                "30a23523-54dc-4b51-89e4-fee4341899d4",
+                "792589af-cd21-47c8-aab0-a44f6c0e28f9",
+                "920c9759-8c6e-4266-9902-ba7a5d60ce9f"
+            ],
+            "settings": {
+                "heading": "Signature Cleanse [15% OFF]",
+                "blurb": "Our 100% Certified Organic Signature Cleanse is designed to purify, detoxify, and reawaken the best version of yourself in 3 days or less. This best selling Cleanse has been carefully formulated from raw, living juices derived from 30 of the purest ingredients found around the world. The Signature leverages the metabolism-boosting, gut-cleansing compounds found in ingredients such as Pineapple, Grapefruit, Turmeric, Ginger, and Liquid Spirulina to crush your habitual appetite, flush toxins, and beat that bloat.",
+                "signature_product": "signature-cleanse"
+            }
+        },
+        "1660803727a2b89b3e": {
+            "type": "related-product-slider",
+            "blocks": {
+                "82c00440-ee1b-4b02-9634-c07b56224c71": {
+                    "type": "product",
+                    "settings": {
+                        "related_product": "g3-live"
+                    }
+                },
+                "ce252bc4-3df3-4beb-b353-45d06dd33bdd": {
+                    "type": "product",
+                    "settings": {
+                        "related_product": "master-cleanse"
+                    }
+                },
+                "3a307fba-7c1e-41d8-9bf2-872f929d5b31": {
+                    "type": "product",
+                    "settings": {
+                        "related_product": "red-cure"
+                    }
+                },
+                "804bbd6b-0c11-4c9b-b3ad-e985417d3adc": {
+                    "type": "product",
+                    "settings": {
+                        "related_product": "tropic-thunder"
+                    }
+                },
+                "cf32e3e0-6653-4719-8c76-c32c82efe5f9": {
+                    "type": "product",
+                    "settings": {
+                        "related_product": "celery-juice"
+                    }
+                },
+                "e23e9056-26f0-4b37-9d24-8f26c46aec31": {
+                    "type": "product",
+                    "settings": {
+                        "related_product": "chill-pill"
+                    }
+                },
+                "aa36a2bb-48df-4950-943d-a82339fc1b32": {
+                    "type": "product",
+                    "settings": {
+                        "related_product": "aftermath"
+                    }
+                }
+            },
+            "block_order": [
+                "82c00440-ee1b-4b02-9634-c07b56224c71",
+                "ce252bc4-3df3-4beb-b353-45d06dd33bdd",
+                "3a307fba-7c1e-41d8-9bf2-872f929d5b31",
+                "804bbd6b-0c11-4c9b-b3ad-e985417d3adc",
+                "cf32e3e0-6653-4719-8c76-c32c82efe5f9",
+                "e23e9056-26f0-4b37-9d24-8f26c46aec31",
+                "aa36a2bb-48df-4950-943d-a82339fc1b32"
+            ],
+            "settings": {
+                "heading": "What's Included"
+            }
+        },
+        "1660805615fb3cdb99": {
+            "type": "3-col-text-image",
+            "blocks": {
+                "5bdb96ce-b26c-408c-911b-91c88f3d5cbf": {
+                    "type": "panel",
+                    "settings": {
+                        "heading": "Features",
+                        "image": "shopify:\/\/shop_images\/Green_Cleanse_Hero_v06_6148033b-9616-4349-a8fc-4cb249549370.jpg",
+                        "location": "",
+                        "content": "<p>Digestive Enzymes and Metabolites such as Bromelain to boost metabolism and encourage detoxification.<br\/>Powerful Antioxidants such as Curcumin.<br\/>Blue-Green Algae (AFA) as the most nutrient-dense natural substance found on planet earth.<\/p>",
+                        "button_text": "",
+                        "button_link": ""
+                    }
+                },
+                "6ded3b91-93bd-4eaf-826e-4b18829018c1": {
+                    "type": "panel",
+                    "settings": {
+                        "heading": "Ginger Root",
+                        "image": "shopify:\/\/shop_images\/Ginger_v02.jpg",
+                        "location": "Pichanaki, Peru",
+                        "content": "<p>Fiery yellow with famously intense flavor, Peruvian Yellow Ginger Root is a key ingredient in many of our beverages. Peru is our sole origin source because it grows consistently and sustainably there year-round. It's also the spiciest variety of any origin we've ever tried, likely due to its high levels of gingerol; a compound similar to capsaicin and piperine.<\/p>",
+                        "button_text": "",
+                        "button_link": ""
+                    }
+                },
+                "d51f43a2-71c5-4850-b471-47932853991a": {
+                    "type": "panel",
+                    "settings": {
+                        "heading": "Chill Pill",
+                        "image": "shopify:\/\/shop_images\/chill_pill_erik_-_0811_-_002_v1_0033.jpg",
+                        "location": "",
+                        "content": "<p>This purple concoction is no kiddie drink — it's a carefully blended mix of adaptogens and botanicals geared to chill you the F out. Our special blend of Croatian Chamomile Blossoms, Butterfly Pea Flower, and Schisandra Berries are steeped for 18 hours until we achieve the optimal taste and tannin structure. Once complete, we dose each bottle with 5000mg of Ashwagandha Root extract and gently finesse with a Madagascarian Vanilla Oleoresin.<\/p>",
+                        "button_text": "",
+                        "button_link": ""
+                    }
+                }
+            },
+            "block_order": [
+                "5bdb96ce-b26c-408c-911b-91c88f3d5cbf",
+                "6ded3b91-93bd-4eaf-826e-4b18829018c1",
+                "d51f43a2-71c5-4850-b471-47932853991a"
+            ],
+            "settings": {
+            }
+        }
+    },
+    "order": [
+        "main",
+        "1660785022b042e263",
+        "1660789339f4d16e02",
+        "1660803727a2b89b3e",
+        "1660805615fb3cdb99"
+    ]
+}

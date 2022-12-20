@@ -1,0 +1,92 @@
+{% comment %} {% for block in section.blocks %}
+<div class="py-3 {{ section.settings.text_align }}" style="background-color: {{ block.settings.bg_color }}; color: {{ block.settings.text_color }}">
+{{ block.settings.text }}
+</div>
+{% endfor %} {% endcomment %}
+
+
+<section style="background-color: {{ section.settings.bg_color }}; color: {{ section.settings.text_color }}" class="ticker w-full h-[40px] text-white overflow-hidden flex items-center space-x-[10px] md:space-x-[30px] relative z-[1000]">
+  <ul class="ticker--list animate-ticker leading-[40px] flex uppercase space-x-[10px] md:space-x-[30px] text-[14px] md:text-[14px]">
+    <li class="flex items-center">
+      <svg
+        width="30"
+        height="6"
+        viewBox="0 0 30 6"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <path d="M2.55093 5.50458L-1.37793e-07 3.15233C1.13942 2.05022 2.35323 1.07688 3.85934 0.484761C4.55417 0.20757 5.29366 0.0460483 6.0457 0.00721363C7.42746 -0.0607177 8.64552 0.353968 9.74136 1.12859C10.2048 1.45608 10.6491 1.8079 11.104 2.14756C11.2156 2.2307 11.3325 2.30775 11.4505 2.3838C11.9713 2.71534 12.5027 2.73968 13.0172 2.38887C13.4997 2.05935 13.9642 1.70651 14.4319 1.35773C15.3492 0.674361 16.3451 0.175522 17.5238 0.0396589C18.4865 -0.0839117 19.4638 0.122313 20.282 0.621638C20.8592 0.969406 21.381 1.3993 21.9263 1.79472C22.1123 1.93058 22.2941 2.07152 22.479 2.20839C23.0838 2.65856 23.7545 2.73055 24.4677 2.51256C25.4296 2.22157 26.2097 1.64771 26.941 1.00489C27.1124 0.839833 27.2749 0.66657 27.4278 0.485775L30 2.88061C29.6131 3.21925 29.2432 3.56195 28.851 3.88133C27.7881 4.74923 26.619 5.44882 25.2436 5.78949C23.2836 6.27616 21.5426 5.85235 19.9982 4.62553C19.6315 4.33454 19.2638 4.04457 18.8918 3.75966C18.2381 3.26082 17.8384 3.22027 17.1391 3.65827C16.6374 3.97258 16.1729 4.34164 15.6999 4.69549C14.9623 5.24705 14.1725 5.70027 13.2436 5.88987C12.6259 6.0241 11.9859 6.03576 11.3633 5.92413C10.7407 5.81251 10.1489 5.57997 9.62444 5.24097C9.0186 4.86177 8.45527 4.4116 7.88344 3.98982C7.37644 3.61974 6.84499 3.26792 6.17644 3.36829C5.70876 3.43971 5.25421 3.57458 4.82657 3.76878C4.02515 4.13075 3.36829 4.69448 2.74225 5.28964C2.6761 5.35926 2.61366 5.43201 2.55518 5.50763" fill="white" />
+      </svg>
+    </li>
+    <li class="flex whitespace-nowrap">{{ section.settings.text }}</li>
+  </ul>
+</section>
+
+{% schema %}
+  {
+    "name": "Announcement Bar",
+    "max_blocks": 12,
+    "settings": [
+      {
+        "type": "select",
+        "id": "text_align",
+        "label": "Text alignment",
+        "options": [
+          {
+            "value": "text-left",
+            "label": "Text left"
+          }, {
+            "value": "text-center",
+            "label": "Text Center"
+          }, {
+            "value": "text-right",
+            "label": "Text right"
+          }
+        ]
+      }, {
+        "type": "color",
+        "id": "text_color",
+        "label": "Text Color",
+        "default": "#fff"
+      }, {
+        "type": "color",
+        "id": "bg_color",
+        "label": "Background Color",
+        "default": "#353E28"
+      }, {
+        "type": "richtext",
+        "id": "text",
+        "label": "Text"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "announcement",
+        "name": "t:sections.announcement-bar.blocks.announcement.name",
+        "settings": [
+          {
+            "type": "richtext",
+            "id": "text",
+            "label": "Text"
+          }, {
+            "type": "color",
+            "id": "bg_color",
+            "label": "Background color",
+            "default": "#fff"
+          }, {
+            "type": "color",
+            "id": "text_color",
+            "label": "Color",
+            "default": "#000"
+          }
+        ]
+      }
+    ],
+    "default": {
+      "blocks": [
+        {
+          "type": "announcement"
+        }
+      ]
+    }
+  }
+{% endschema %}

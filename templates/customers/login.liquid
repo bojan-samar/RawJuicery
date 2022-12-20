@@ -1,0 +1,138 @@
+<div x-cloak x-data="{ resetPassword: $persist(false) }" class="account-login-container">
+
+	<div x-show="!resetPassword" x-transition.opacity class="px-[30px] py-[30px] max-w-[650px] mx-auto">
+
+		{% form 'customer_login' %}
+			
+			<div class="flex flex-col gap-y-[19px]">
+				<div class="flex justify-between">
+					<h3 class="heading-3">Login</h3>
+					<a href="/account/register" class="text-[19px] hover:bg-green hover:text-white transition-all uppercase pt-[12px] pb-[9px] px-[22px] border border-green text-center ml-auto">Create Account</a>
+				</div>
+
+				{%- if form.errors -%}
+					<div class="text-red-500 mb-2">
+					  {{ form.errors | default_errors }}
+					</div>
+				{%- endif -%}
+
+				<input 
+					type="email"
+					name="customer[email]"
+					id="customerEmail"
+					autocorrect="off"
+					autocapitalize="off"
+					autocomplete="email"
+					placeholder="Email Address"
+					class="w-full border border-green py-[18px] px-[20px] text-[18px]">
+				<input 
+					type="password"
+					name="customer[password]"
+					id="customerPassword"
+					placeholder="Password"
+					class="w-full border border-green py-[18px] px-[20px] text-[18px]" >
+
+				<button type="submit" class="bg-green text-white py-[18px] px-[20px] text-[18px] uppercase">Sign In</button>
+				
+				<a @click.prevent="resetPassword = true" class="underline text-[16px] cursor-pointer">Forgot Password?</a>
+			</div>
+		  
+			{% comment %} <div style="margin-top: 50px;" class='oxi-social-login'></div> {% endcomment %}
+
+		{% endform %}
+
+	</div>
+
+	<div x-show="resetPassword" x-transition.opacity class="px-[30px] py-[30px] max-w-[650px] mx-auto">
+
+		<div class="flex flex-col gap-y-[19px]">
+
+			<h3 class="heading-3">Reset Password</h3>
+			
+			{%- if recover_success == true -%}
+				<h4 class="heading-4">{{ 'customer.recover_password.success' | t }}</h4>
+			{%- endif -%}
+
+			{%- form 'recover_customer_password' -%}
+				{% assign recover_success = form.posted_successfully? %}
+
+				<div class="flex flex-col gap-y-[19px]">
+
+					<input type="email"
+							value=""
+							name="email"
+							id="RecoverEmail"
+							autocorrect="off"
+							autocapitalize="off"
+							autocomplete="email"
+							placeholder="{{ 'customer.login_page.email' | t }}"
+							class="w-full border border-green py-[18px] px-[20px] text-[18px]"
+							{% if form.errors %}
+							aria-invalid="true"
+							aria-describedby="RecoverEmail-email-error"
+							autofocus
+							{% endif %}
+					>
+					
+
+					{%- if form.errors -%}
+					<small id="RecoverEmail-email-error" class="form__message">
+						{{ form.errors.messages['form'] }}
+					</small>
+					{%- endif -%}
+
+					<button type="submit" class="bg-green text-white py-[18px] px-[20px] text-[18px] uppercase">
+						{{ 'customer.login_page.submit' | t }}
+					</button>
+			
+					<a href="" @click="resetPassword = false" class="underline text-[16px] cursor-pointer">
+					{{ 'customer.login_page.cancel' | t }}
+					</a>
+
+				</div>
+
+			{%- endform -%}
+
+		</div>
+
+	</div>
+
+	{% comment %} <div id="RecoverPasswordForm" class="hide" style="margin-top: 30px;">
+		<h2>{{ 'customer.recover_password.title' | t }}</h2>
+		<p>{{ 'customer.recover_password.subtext' | t }}</p>
+
+		{% form 'recover_customer_password' %}
+			{{ form.errors | default_errors }}
+
+			{% if form.posted_successfully? %}
+				<span class="hide reset-password-success"></span>
+			{% endif %}
+
+			<label for="RecoverEmail" class="label-hidden">
+				{{ 'customer.recover_password.email' | t }}
+			</label>
+			<input type="email"
+			       name="email"
+			       id="RecoverEmail"
+			       placeholder="{{ 'customer.recover_password.email' | t }}"
+			       spellcheck="false"
+			       autocomplete="off"
+			       autocapitalize="off">
+
+			<input type="submit" class="btn" value="{{ 'customer.recover_password.submit' | t }}">
+
+			<button type="button" id="HideRecoverPasswordLink">
+				{{ 'customer.recover_password.cancel' | t }}
+			</button>
+		{% endform %}
+
+	</div> {% endcomment %}
+
+	{% comment %} {% if shop.checkout.guest_login %}
+		<h2>{{ 'customer.login.guest_title' | t }}</h2>
+
+		{% form 'guest_login' %}
+			<input type="submit" class="btn" value="{{ 'customer.login.guest_continue' | t }}">
+		{% endform %}
+	{% endif %} {% endcomment %}
+</div>

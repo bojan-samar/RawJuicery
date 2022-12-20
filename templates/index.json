@@ -1,0 +1,175 @@
+{
+    "sections": {
+        "1660094723388f5b76": {
+            "type": "hero",
+            "blocks": {
+                "314657aa-ee02-4842-9c8b-e0ee08d3735b": {
+                    "type": "panel",
+                    "settings": {
+                        "heading": "Featured",
+                        "image": "shopify:\/\/shop_images\/Earth_Reveal_v03_dae8e435-a4dc-4f0a-a757-d72eb2e058a9.jpg",
+                        "link_label": "Earth Nectar",
+                        "link": "shopify:\/\/products\/earth-nectar"
+                    }
+                },
+                "07c9ce65-4aec-4cb6-951e-bb2695b4734e": {
+                    "type": "panel",
+                    "settings": {
+                        "heading": "Cleanse",
+                        "image": "shopify:\/\/shop_images\/Green_Cleanse_Hero_ca6cad2e-bb9b-4735-ab27-32435ac96a07.png",
+                        "link_label": "Order Now",
+                        "link": "shopify:\/\/pages\/cleanses"
+                    }
+                },
+                "497e9952-efc6-4b1d-a5ff-93f43be8b13a": {
+                    "type": "panel",
+                    "settings": {
+                        "heading": "Make a box",
+                        "image": "shopify:\/\/shop_images\/Make_A_Box_hero4.jpg",
+                        "link_label": "Mix & match",
+                        "link": "https:\/\/rawjuicery.com\/tools\/bundle-subscriptions\/bundle\/7636268974229?product=make-a-box&selling_plan=onetime"
+                    }
+                }
+            },
+            "block_order": [
+                "314657aa-ee02-4842-9c8b-e0ee08d3735b",
+                "07c9ce65-4aec-4cb6-951e-bb2695b4734e",
+                "497e9952-efc6-4b1d-a5ff-93f43be8b13a"
+            ],
+            "settings": {}
+        },
+        "166010359844cb4688": {
+            "type": "steps",
+            "blocks": {
+                "d21b03b6-231a-4936-8048-2c63891ac681": {
+                    "type": "step",
+                    "settings": {
+                        "heading": "You Choose",
+                        "blurb": "Pick your Box Size, then Mix And Match any Juices you like."
+                    }
+                },
+                "c0d87769-1f5e-43b6-9bda-f029e08a561a": {
+                    "type": "step",
+                    "settings": {
+                        "heading": "We Pack",
+                        "blurb": "Orders are packed the same day if placed by 1pm PST, Monday—Thursday."
+                    }
+                },
+                "a8303ece-edcd-4f29-9bba-5d3ed069e87f": {
+                    "type": "step",
+                    "settings": {
+                        "heading": "We Deliver",
+                        "blurb": "We ship all orders Next Day Air no matter where you live in the USA."
+                    }
+                },
+                "5bbdf8d8-4b59-4dcb-9864-f8e2c1fe0e70": {
+                    "type": "step",
+                    "settings": {
+                        "heading": "Drink Up!",
+                        "blurb": "Enjoy your never-frozen, certified organic juices. Drink yourself clean!"
+                    }
+                }
+            },
+            "block_order": [
+                "d21b03b6-231a-4936-8048-2c63891ac681",
+                "c0d87769-1f5e-43b6-9bda-f029e08a561a",
+                "a8303ece-edcd-4f29-9bba-5d3ed069e87f",
+                "5bbdf8d8-4b59-4dcb-9864-f8e2c1fe0e70"
+            ],
+            "settings": {}
+        },
+        "16601038943b717846": {
+            "type": "3-col-cta",
+            "blocks": {
+                "e402a795-e169-4b13-9544-d744878a44b5": {
+                    "type": "panel",
+                    "settings": {
+                        "heading": "Ingredients",
+                        "image": "shopify:\/\/shop_images\/Ingredients_Hero_952eb923-4416-4e64-a590-c96bd034bbf6.jpg",
+                        "link": "shopify:\/\/pages\/ingredients"
+                    }
+                },
+                "6410eb0d-f605-4766-bdeb-08f65801c614": {
+                    "type": "panel",
+                    "settings": {
+                        "heading": "Our Story",
+                        "image": "shopify:\/\/shop_images\/OurStory_Hero_f02a2dba-f225-44ef-8310-224c9ab52d12.png",
+                        "link": "shopify:\/\/pages\/our-story"
+                    }
+                },
+                "ac8e9005-87de-48c2-8a0f-b1da67636784": {
+                    "type": "panel",
+                    "settings": {
+                        "heading": "Rewards",
+                        "image": "shopify:\/\/shop_images\/Green_Cleanse_9ed5bb9c-e9dc-44d4-ba19-2fef28a7a874.png",
+                        "link": "\/?loyal"
+                    }
+                }
+            },
+            "block_order": [
+                "e402a795-e169-4b13-9544-d744878a44b5",
+                "6410eb0d-f605-4766-bdeb-08f65801c614",
+                "ac8e9005-87de-48c2-8a0f-b1da67636784"
+            ],
+            "settings": {}
+        },
+        "16601044897418016f": {
+            "type": "logo-slider",
+            "blocks": {
+                "b84cc801-ccd2-4499-9d89-dcc2b90417e2": {
+                    "type": "logo",
+                    "settings": {
+                        "logo": "shopify:\/\/shop_images\/partners-logo-1.png"
+                    }
+                },
+                "cca4c399-d0f7-4382-adb2-9822def8c2ee": {
+                    "type": "logo",
+                    "settings": {
+                        "logo": "shopify:\/\/shop_images\/partners-logo-2.png"
+                    }
+                },
+                "ce91a7b0-504d-4ef5-bf69-180c53df0ae0": {
+                    "type": "logo",
+                    "settings": {
+                        "logo": "shopify:\/\/shop_images\/partners-logo-3.jpg"
+                    }
+                },
+                "439219a0-7f7f-4a18-b63b-29a9cd1aa77f": {
+                    "type": "logo",
+                    "settings": {
+                        "logo": "shopify:\/\/shop_images\/partners-logo-4.png"
+                    }
+                },
+                "31bf4be9-d6eb-49d6-b963-f48f9e01377b": {
+                    "type": "logo",
+                    "settings": {
+                        "logo": "shopify:\/\/shop_images\/partners-logo-5.png"
+                    }
+                },
+                "e9bf66ab-ab2b-4110-b1da-cff8f64a3e12": {
+                    "type": "logo",
+                    "settings": {
+                        "logo": "shopify:\/\/shop_images\/partners-logo-6.png"
+                    }
+                }
+            },
+            "block_order": [
+                "b84cc801-ccd2-4499-9d89-dcc2b90417e2",
+                "cca4c399-d0f7-4382-adb2-9822def8c2ee",
+                "ce91a7b0-504d-4ef5-bf69-180c53df0ae0",
+                "439219a0-7f7f-4a18-b63b-29a9cd1aa77f",
+                "31bf4be9-d6eb-49d6-b963-f48f9e01377b",
+                "e9bf66ab-ab2b-4110-b1da-cff8f64a3e12"
+            ],
+            "settings": {
+                "heading": "Our Partners"
+            }
+        }
+    },
+    "order": [
+        "1660094723388f5b76",
+        "166010359844cb4688",
+        "16601038943b717846",
+        "16601044897418016f"
+    ]
+}

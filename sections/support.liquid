@@ -1,0 +1,84 @@
+<div x-cloak :class="supportContactPanelOpen ? 'opacity-[1]' : 'opacity-0 pointer-events-none'" class="transition-opacity flex fixed top-0 left-0 w-screen h-screen z-[1001]">
+
+    <div :class="supportContactPanelOpen ? 'opacity-1' : 'opacity-0'" class="flex flex-col bg-white m-auto w-full max-w-[690px] max-h-[90%] z-[2]">
+        <div class="flex p-[30px] border-b border-green">
+            <span class="text-[40px] leading-[40px] uppercase">Contact Us</span>
+            <button @click="supportContactPanelOpen = false" class="ml-auto my-auto">
+                <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M6.432 4.84L4.84 6.433 10.409 12l-5.568 5.569 1.59 1.59L12 13.592l5.569 5.569 1.59-1.591L13.592 12l5.569-5.568-1.591-1.591L12 10.409 6.432 4.841z"></path>
+                </svg>
+            </button>
+        </div>
+
+        <div class="flex flex-col px-[30px] py-[60px] gap-y-[60px]">
+            <div class="flex flex-col gap-y-[19px]">
+                <span>Please fill out the form below with your comments/questions and we will get back to you as soon as possible.</span>
+                {% form 'contact' %}
+                    <input class="w-full border border-green py-[18px] px-[20px] text-[18px]" placeholder="Email Address" type="text">
+                    <textarea class="w-full border border-green py-[18px] px-[20px] text-[18px] mt-[20px]" name="" id="" rows="8" placeholder="Message"></textarea>
+                    <button class="bg-green w-full text-white py-[18px] px-[20px] text-[18px] uppercase mt-[20px]">Submit</button>
+                {% endform %}
+            </div>
+        </div>
+    </div>
+
+    <div x-cloak @click="supportContactPanelOpen = false" :class="supportContactPanelOpen ? 'opacity-[0.3]' : 'opacity-0 pointer-events-none'" class="fixed transition-opacity top-0 left-0 w-screen h-screen bg-black opacity-[0.3] z-[1]"></div>
+</div>
+
+<section class="p-[30px] border-green flex">
+    <h2 class="heading-1">Support</h2>
+    <button @click="supportContactPanelOpen = true" class="ml-auto bg-green text-white uppercase py-[19px] px-[37px] my-auto">Contact Us</button>
+</section>
+
+<div class="hidden">
+    {%- for block in section.blocks -%}
+        {%- case block.type -%}
+            {%- when 'support-item' -%}
+                <div>{{ block.settings.heading }}</div>
+                <div>{{ block.settings.content }}</div>
+        {% endcase %}
+    {% endfor %}
+</div>
+
+<div x-data="{ activeTab: 1 }" class="grid grid-cols-1 border-t divide-x md:grid-cols-2 divide-green border-green">
+    <div class="flex flex-col">
+        {% for supportType in section.blocks %}
+            <button @click="activeTab = {{ forloop.index }}" :class="activeTab == {{ forloop.index }} ? 'opacity-100' : 'opacity-[0.5]'" class="uppercase text-[30px] transition-colors ease-in-out duration-700 leading-[30px] p-[30px] text-left border-b border-green">{{ supportType.settings.heading }}</button>
+        {% endfor %}
+    </div>
+    {% for supportContent in section.blocks %}
+        <div x-show="activeTab == {{ forloop.index }}" class="flex flex-col p-[30px] lg:p-[50px] gap-y-[30px]">
+            {{ supportContent.settings.content }}
+        </div>
+    {% endfor %}
+</div>
+
+{% schema %}
+{
+    "name": "Support",
+    "blocks": [
+        {
+            "type": "support-item",
+            "name": "Support Item",
+            "limit": 10,
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "heading",
+                    "label": "Heading"
+                },
+                {
+                    "type": "richtext",
+                    "id": "content",
+                    "label": "Content"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Support"
+        }
+    ]
+}
+{% endschema %}

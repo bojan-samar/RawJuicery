@@ -1,0 +1,141 @@
+<!doctype html>
+<html class="no-js scrollbar-hide" lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32 }}">
+    {%- endif -%}
+
+    {%- unless settings.type_header_font.system? and settings.type_body_font.system? -%}
+      <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+    {%- endunless -%}
+
+    <title>
+      {{ page_title }}
+      {%- if current_tags %}
+        &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
+      {%- if current_page != 1 %}
+        &ndash; Page {{ current_page }}{% endif -%}
+      {%- unless page_title contains shop.name %}
+        &ndash; {{ shop.name }}{% endunless -%}
+    </title>
+
+    {% if page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {% endif %}
+
+    {% render 'meta-tags' %}
+
+    <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
+    {{ content_for_header }}
+
+    {% render 'head-styles' %}
+
+    <link rel="stylesheet" href="{{ 'app.css' | asset_url }}">
+
+    {%- unless settings.type_body_font.system? -%}
+      <link rel="preload" as="font" href="{{ settings.type_body_font | font_url }}" type="font/woff2" crossorigin>
+    {%- endunless -%}
+    {%- unless settings.type_header_font.system? -%}
+      <link rel="preload" as="font" href="{{ settings.type_header_font | font_url }}" type="font/woff2" crossorigin>
+    {%- endunless -%}
+
+    <script>
+      document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+      if (Shopify.designMode) {
+        document.documentElement.classList.add('shopify-design-mode');
+      }
+    </script>
+
+    <script>
+      window.bundleapp = window.bundleapp || {};
+      window.bundleapp.settings = Object.assign({}, window.bundleapp.settings || {}, {
+        bab: {
+          productImage: 800
+        }
+      });
+    </script>
+
+    {% comment %}
+      Awtomic Subscriptions
+    {% endcomment %}
+    {% capture awtomic-translations %}
+      {% render 'awtomic-translations', product: product %}{% endcapture %}
+    {% unless awtomic-translations contains "Liquid error" %}
+      {{ awtomic-translations }}
+    {% endunless %}
+    {% comment %}
+      End Awtomic Subscriptions
+    {% endcomment %}
+
+    {{ shop.metafields.loox["global_html_head"] }}
+  </head>
+
+  <body x-data="{
+          cartOpen: false,
+          signInPanelOpen: false,
+          rewardsPanelOpen: false,
+          productDetailPaneOpen: false,
+          supportContactPanelOpen: false,
+          subscriptionPanelOpen: false,
+          menuOpen: false,
+          desktopMenuOpen: false,
+        }" class="font-sans text-[16px] leading-[19.2px] xl:leading-[21.6px] xl:text-[18px] antialiased font-normal bg-white text-green selection:bg-green selection:text-white">
+
+    <div x-cloak @click="cartOpen = false" :class="cartOpen ? 'opacity-[0] !z-[-1]' : 'opacity-0 pointer-events-none'" class="hidden z-[-1] fixed transition-opacity top-0 left-0 w-screen h-screen bg-black opacity-[0.3]"></div>
+
+    {% section 'announcement-bar' %}
+    {% section 'header' %}
+
+    {% render 'cart' %}
+
+    <main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
+      {{ content_for_layout }}
+    </main>
+
+    {% section 'subscribe' %}
+    {% section 'insta-feed' %}
+    {% section 'footer' %}
+
+    {% render 'footer-scripts' %}
+
+    {% comment %}
+      Awtomic Subscriptions
+    {% endcomment %}
+    {% capture awtomic-theme-custom %}
+      {% render 'awtomic-theme-custom' %}{% endcapture %}
+    {% unless awtomic-theme-custom contains "Liquid error" %}
+      {{ awtomic-theme-custom }}
+    {% endunless %}
+    {% comment %}
+      End Awtomic Subscriptions
+    {% endcomment %}
+
+
+    {{ shop.metafields.loox["global_html_body"] }}
+
+
+    <script>
+
+
+    console.log({{ page.url | json  }})
+    </script>
+
+
+    {% include "giftkart_script.cart" %}<!--Gorgias Chat Widget Start--><script id="gorgias-chat-widget-install-v2" src="https://config.gorgias.chat/gorgias-chat-bundle-loader.js?applicationId=24037"></script>
+    <script id="gorgias-chat-shopify-install">
+      !function(_) {
+        _.SHOPIFY_PERMANENT_DOMAIN ="{{shop.permanent_domain}}",
+        _.SHOPIFY_CUSTOMER_ID ="{{customer.id}}",
+        _.SHOPIFY_CUSTOMER_EMAIL ="{{customer.email}}"
+      }(window || {});
+    </script>
+    <!--Gorgias Chat Widget End-->
+  </body>
+</html>

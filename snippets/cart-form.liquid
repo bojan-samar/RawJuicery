@@ -1,0 +1,66 @@
+{% assign bundles_displayed = '' | split:',' %}
+
+
+{% if cart.item_count > 0 %}
+  <form action="{{ routes.cart_url }}" method="post" class="gap-y-[20px] flex flex-col w-full h-full">
+    <div class="flex flex-col gap-y-[20px] max-h-[calc(100%-200px)] overflow-scroll scrollbar-hide">
+
+
+      {% for item in cart.items %}
+        {%- if item.properties['_bundleUid'] -%}
+          {%- unless bundles_displayed contains item.properties['_bundleUid'] -%}
+            {%- assign bundles_displayed = item.properties['_bundleUid'] | concat: bundles_displayed -%}
+            {%- render 'awtomic-bundle-cart-item', item: item, cart: cart, current_bundleUid: item.properties['_bundleUid'], bundleHandle: item.properties['_bundleHandle'] -%}
+          {%- endunless -%}
+        {% else %}
+          <div class="border border-green p-[20px] flex gap-x-[20px]">
+            <div class="w-[90px] h-[90px] relative">
+              {% if item.image %}
+                {{ item.image | image_url: width: 400 | image_tag: loading: 'lazy', class: 'absolute top-0 left-0 object-cover w-full h-full' }}
+              {% endif %}
+            </div>
+            {% comment %}
+              <script>console.log({{ item.product | json }});</script>
+            {% endcomment %}
+            {% comment %}
+              <script>console.log({{ item | json }});</script>
+            {% endcomment %}
+            <div class="flex flex-col">
+              <span class="font-bold uppercase">{{ item.product.title }}</span>
+              {% comment %}
+                <span>Every 1 Month</span>
+              {% endcomment %}
+              <div class="flex mt-auto">
+                <button type="button" @click.debounce="loading = true; Sunrise.updateQuantity({{ forloop.index }}, 0);" class="text-[14px] mr-auto border border-green uppercase py-[4px] px-[19px]">Remove
+                </button>
+              </div>
+            </div>
+            <span class="mb-auto ml-auto">{{ item.price | money_with_currency }}</span>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <div class="flex text-[22px] leading-[22px] font-bold">
+      <span>Subtotal</span>
+
+      <span class="ml-auto">{{ cart.total_price | money_with_currency }}</span>
+    </div>
+
+    <div x-data="{policyCheck: false}" class="flex flex-col mt-[auto] gap-y-[20px] items-center">
+      <div class="flex" @click="policyCheck = !policyCheck">
+        <div class="border border-green w-[20px] h-[20px] mr-[10px]">
+          <svg x-show="policyCheck" class="h-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 490 490" style="enable-background:new 0 0 490 490" xml:space="preserve"><path d="M452.253 28.326 197.831 394.674 29.044 256.875 0 292.469l207.253 169.205L490 54.528z"/></svg>
+        </div>
+        <span>I have read and understand the
+          <a target="_blank" href="https://rawjuicery.com/pages/legal">Refund Policy</a>
+        </span>
+      </div>
+      <button name="checkout" :disabled="policyCheck == false" type="submit" :class="policyCheck ? 'bg-green' : 'bg-greyed'" class="text-white uppercase text-center py-[20px] px-[20px] w-full">Checkout</button>
+    </div>
+  </form>
+{% else %}
+  <div class="flex items-center justify-center w-full h-full">
+    <span class="uppercase">Your cart is empty</span>
+  </div>
+{% endif %}

@@ -1,0 +1,99 @@
+<div class="grid grid-cols-1 border-t divide-y border-green divide-green">
+  {%- for block in section.blocks -%}
+    {%- case block.type -%}
+        {%- when 'image-with-text' -%}
+          <div class="grid lg:grid-cols-2 md:min-h-[700px] lg:h-full divide-x divide-green bg-[{{ block.settings.bg_color }}]">
+              <div class="flex px-[20px] md:px-[72px] py-[30px] h-full">
+                  <div class="flex flex-col max-w-[740px] mx-auto my-auto gap-y-[30px]">
+                      <span
+                          x-intersect="$el.classList.add('!opacity-100')"
+                          class="transition-opacity duration-700 ease-in opacity-0 text-[40px] leading-[48px] uppercase"
+                      >
+                          {{ block.settings.heading }}
+                      </span>
+                      <p
+                          x-intersect="$el.classList.add('!opacity-100')"
+                          class="text-[21px] leading-[27px] transition-opacity delay-200 duration-700 ease-in opacity-0"
+                      >
+                        {{ block.settings.blurb | newline_to_br }}
+                      </p>
+                  </div>
+              </div>
+              {%- if block.settings.arrangement == 'text-then-image' -%}
+                <div class="relative w-full h-[300px] lg:h-full overflow-hidden group order-first lg:order-last ">
+                    <img class="absolute top-0 left-0 object-cover w-full h-full transition-transform duration-700 ease-in-out scale-100 group-hover:scale-105" src="{{ block.settings.image | image_url }}" alt="">
+                </div>
+              {%- else -%}
+                <div class="relative w-full h-[300px] lg:h-full overflow-hidden group order-first lg:order-first ">
+                    <img class="absolute top-0 left-0 object-cover w-full h-full transition-transform duration-700 ease-in-out scale-100 group-hover:scale-105" src="{{ block.settings.image | image_url }}" alt="">
+                </div>
+              {%- endif -%}
+          </div>
+    {% endcase %}
+  {% endfor %}
+</div>
+
+{% schema %}
+{
+    "name": "Image with Text",
+    "blocks": [
+        {
+            "type": "image-with-text",
+            "name": "Image with Text",
+            "limit": 50,
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Image"
+                },
+                {
+                    "type": "text",
+                    "id": "heading",
+                    "label": "Heading"
+                },
+                {
+                    "type": "textarea",
+                    "id": "blurb",
+                    "label": "Blurb"
+                },
+                {
+                  "type": "select",
+                  "id": "bg_color",
+                  "label": "Background Colour",
+                  "options": [
+                    {
+                      "value": "#FFFFFF",
+                      "label": "None"
+                    },
+                    {
+                      "value": "#D3CECC",
+                      "label": "Silver"
+                    }
+                  ]
+                },
+                {
+                  "type": "select",
+                  "id": "arrangement",
+                  "label": "Arrangement",
+                  "options": [
+                    {
+                      "value": "image-then-text",
+                      "label": "Image then Text"
+                    },
+                    {
+                      "value": "text-then-image",
+                      "label": "Text then Image"
+                    }
+                  ]
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Image with Text"
+        }
+    ]
+}
+{% endschema %}

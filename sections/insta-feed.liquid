@@ -1,0 +1,63 @@
+<!-- insta feed -->
+<section class="border-t border-green p-[20px] lg:p-[30px] space-y-[40px] flex flex-col">
+    <article
+        x-intersect="$el.classList.add('!opacity-100')"
+        class="flex flex-row items-center justify-between w-full transition-opacity duration-700 ease-in-out opacity-0"
+    >
+        <h3 class="heading-3">{{ section.settings.heading }}</h3>
+        <a href="{{ section.settings.link }}" class="flex uppercase flex items-center space-x-[5px] "><span>Follow</span><span><svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0.425781 9.23796L1.57778 10.39L8.84978 3.11796V8.28396L10.4158 8.30196V0.381958L2.51378 0.417957L2.53178 1.98396L7.71578 1.96596L0.425781 9.23796Z" fill="#323E25"/>
+            </svg></span></a>
+    </article>
+    <section class="hidden grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-[30px]">
+        {%- for block in section.blocks -%}
+            {%- case block.type -%}
+                {%- when 'image' -%}
+                    <article
+                        x-intersect="$el.classList.add('!opacity-100')"
+                        class="overflow-hidden transition-opacity duration-700 ease-in-out delay-200 opacity-0 group"
+                    >
+                        <img class="transition-transform duration-500 ease-in-out cursor-pointer group-hover:scale-105" src="{{ block.settings.image | image_url }}" alt="">
+                    </article>
+            {% endcase %}
+        {% endfor %}
+    </section>
+    <div class="w-full text-left" id="insta-feed"></div>
+</section>
+
+
+{% schema %}
+{
+    "name": "Feed",
+    "settings": [
+        {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading"
+        },
+        {
+            "type": "url",
+            "id": "link",
+            "label": "Link"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "image",
+            "name": "Image",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "image"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Feed"
+        }
+    ]
+}
+{% endschema %}

@@ -1,0 +1,79 @@
+<section class="flex flex-col border-t divide-y lg:divide-y-0 lg:divide-x lg:flex-row divide-green bg-cream border-green">
+    <article class="p-[20px] lg:p-[30px] flex w-full gap-y-[30px] lg:w-1/2 flex-col justify-between">
+        <header class="">
+            <h3 class="heading-3">{{ section.settings.heading }}</h3>
+        </header>
+        <footer class="flex flex-col gap-y-[20px] mb-auto">
+            <p>{{ section.settings.form-heading }}</p>
+
+            <div class="klaviyo-form-W93BQc"></div>
+            <span class="text-[16px] opacity-50">{{ section.settings.form-footer }}</span>
+        </footer>
+    </article>
+
+    <article class="p-[20px] lg:p-[30px] flex gap-y-[30px] lg:space-y-0 w-full lg:w-1/2 flex-col justify-between">
+        <header class="flex-1">
+            <h3 class="heading-3">{{ section.settings.certification_heading }}</h3>
+        </header>
+        <footer class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-[33px] md:gap-[18px] lg:gap-[26px] w-full lg:pb-[30px] lg:max-w-[700px]">
+            {%- for block in section.blocks -%}
+                <article x-intersect="$el.classList.add('!opacity-100')" class="transition-opacity duration-700 ease-in opacity-0 flex flex-col gap-y-[5px]">
+                    <img class="w-[80%] mx-auto lg:w-full" src="{{ block.settings.icon | image_url }}" alt="">
+                    <span class="text-center text-[12px] leading-[14px]">{{ block.settings.label | newline_to_br }}</span>
+                </article>
+            {% endfor %}
+        </footer>
+    </article>
+</section>
+
+
+{% schema %}
+{
+    "name": "Subscribe",
+    "settings": [
+        {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading"
+        },
+        {
+            "type": "text",
+            "id": "form-heading",
+            "label": "Form Heading"
+        },
+        {
+            "type": "richtext",
+            "id": "form-footer",
+            "label": "Form Footer"
+        },
+        {
+            "type": "text",
+            "id": "certification_heading",
+            "label": "Certification Heading"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "certification",
+            "name": "Certification",
+            "settings": [
+                {
+                    "type": "textarea",
+                    "id": "label",
+                    "label": "Label"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "icon",
+                    "label": "Icon"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Subscribe"
+        }
+    ]
+}
+{% endschema %}

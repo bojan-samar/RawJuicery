@@ -1,0 +1,69 @@
+<style>
+	{% comment %} .customerRegisterContainer {
+		margin-top: 30px;
+		margin-bottom: 30px;
+		padding: 0 20px;
+	}
+
+	.customerRegisterRoot input {
+		margin-bottom: 10px;
+	} {% endcomment %}
+</style>
+
+<div class="customerRegisterRoot customerRegisterContainer px-[30px] py-[30px] max-w-[650px] mx-auto">
+
+	<div class="flex flex-col gap-y-[19px]">
+		<h3 class="heading-3">Sign Up</h3>
+		{% form 'create_customer', class: 'flex flex-col gap-y-[19px]', action: "https://vital-forms-api.c1.humanpresence.app/api/form/vfob/abbad77b-2c87-4c15-8b0b-e18c2cb429ad$5dc9af5732541e00c78e15cf", data-vfib: "0" %}
+		
+			<div class="flex flex-col gap-y-[19px]">
+
+				{{ form.errors | default_errors }} 
+			
+				{% comment %} <label for="FirstName" class="label-hidden"> {{ 'customer.register.first_name' | t }} </label>  {% endcomment %}
+				<input type="text" 
+					name="customer[first_name]" 
+					id="FirstName" 
+					placeholder="{{ 'customer.register.first_name' | t }}"  
+					autofocus
+					{% if form.first_name %}value="{{ form.first_name }}"{% endif %}
+					class="w-full border border-green py-[18px] px-[20px] text-[18px]"
+				>
+
+				{% comment %} <label for="LastName" class="label-hidden"> {{ 'customer.register.last_name' | t }} </label>  {% endcomment %}
+				<input type="text" 
+					name="customer[last_name]" 
+					id="LastName"
+					placeholder="{{ 'customer.register.last_name' | t }}"
+					{% if form.last_name %}value="{{ form.last_name }}"{% endif %}
+					class="w-full border border-green py-[18px] px-[20px] text-[18px]"> 
+					
+				{% comment %} <label for="Email" class="label-hidden"> {{ 'customer.register.email' | t }} </label> {% endcomment %}
+
+				<input type="email" 
+					name="customer[email]" 
+					id="Email" 
+					class="w-full border border-green py-[18px] px-[20px] text-[18px] {% if form.errors contains 'email' %}input-error{% endif %}" 
+					placeholder="{{ 'customer.register.email' | t }}"
+					value="{% if form.email %}{{ form.email }}{% endif %}" 
+					spellcheck="false" 
+					autocomplete="off" 
+					autocapitalize="off"> 
+					
+				{% comment %} <label for="CreatePassword" class="label-hidden"> {{ 'customer.register.password' | t }} </label> {% endcomment %}
+
+				<input type="password" 
+					name="customer[password]" 
+					id="CreatePassword" 
+					class="w-full border border-green py-[18px] px-[20px] text-[18px] {% if form.errors contains 'password' %}input-error{% endif %}"
+					placeholder="{{ 'customer.register.password' | t }}"> 
+					
+				<input type="submit" value="{{ 'customer.register.submit' | t }}" class="bg-green text-white py-[18px] px-[20px] text-[18px] uppercase">
+				
+				<p>Already have an account? <a href="/account/login">Login</a></p> 
+				
+				{% comment %} <a href="{{ shop.url }}/products">{{ 'customer.register.cancel' | t }}</a>  {% endcomment %}
+		
+			</div>
+	{% endform %}
+</div>

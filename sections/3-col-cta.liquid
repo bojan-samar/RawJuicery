@@ -1,0 +1,57 @@
+ <section class="relative flex flex-col border-b divide-x lg:flex-row bg-green divide-green">
+    {%- for block in section.blocks -%}
+        {%- case block.type -%}
+            {%- when 'panel' -%}
+                <article class="relative group overflow-hidden {% if forloop.index == 2 %} justify-end {% endif %} h-[300px] lg:h-[600px] w-full lg:w-4/12 z-10 flex flex-col p-[30px]">
+                    <a href="{{ block.settings.link }}" class="absolute inset-0 z-20"></a>
+                    <header
+                        x-intersect="$el.classList.add('!translate-y-0', 'opacity-100')"
+                        class="z-10 transition-all duration-500 translate-y-[20px] delay-300 ease-in opacity-0"
+                    >
+                        <h2 class="text-white heading-2">{{ block.settings.heading }}</h2>
+                    </header>
+                    <figure
+                        x-intersect="$el.classList.add('!opacity-100')"
+                        class="absolute inset-0 transition-opacity duration-700 ease-in opacity-0"
+                    >
+                        <img class="object-cover w-full h-full transition-transform duration-700 ease-in-out group-hover:scale-105" src="{{ block.settings.image | image_url }}" alt="">
+                    </figure>
+                </article>
+        {% endcase %}
+    {% endfor %}
+</section>
+
+{% schema %}
+{
+    "name": "3 Col CTA",
+    "blocks": [
+        {
+            "type": "panel",
+            "name": "Panel",
+            "limit": 3,
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "heading",
+                    "label": "Heading"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Image"
+                },
+                {
+                    "type": "url",
+                    "id": "link",
+                    "label": "Link"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "3 Col CTA"
+        }
+    ]
+}
+{% endschema %}

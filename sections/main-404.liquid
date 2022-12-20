@@ -1,0 +1,115 @@
+{%- liquid
+
+  assign fof_image = section.settings.fof_page_image
+  assign title = section.settings.heading
+  assign content = section.settings.content
+  
+-%}
+
+<section class="p-[30px] border-green flex">
+  <h2 class="heading-1">404</h2>
+</section>
+
+
+<div class="grid grid-cols-1 border-t md:divide-x md:grid-cols-2 divide-green border-green">
+
+  <div class="fof--copy-wrapper p-[30px]">
+      {%- if title != blank -%}
+          <h2 class="@apply text-[28px] leading-[33px]  mb-[20px] uppercase text-left">{{ title }}</h2>
+      {%- endif -%}
+      {%- if content != blank -%}
+          <div class="fof--copy-content mb-[30px]">
+            {{ content }}
+          </div>
+      {%- endif -%}
+
+      <div class="fof--btns-wrapper">
+        <ul class="flex flex-col lg:flex-row gap-x-5 gap-y-5">
+          {%- for block in section.blocks -%}
+            {%- if block.settings.cta_link_text != blank -%}
+              <li>
+                <a href="{{ block.settings.cta_link | default: '#' }}" class="border bg-green text-cream border-green px-[35px] pointer-events-auto relative after:pointer-events-none after:h-[40px] after:w-full after:absolute after:bottom-0 after:left-0 after:translate-y-full after:bg-cream overflow-hidden hover:after:!translate-y-0 hover:text-green transition-colors after:transition-transform h-[40px] flex items-center justify-center cursor-pointer">
+                  <span class="text-[18px] uppercase z-10">
+                    {{ block.settings.cta_link_text }}
+                  </span>
+                </a>
+            </li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+      </div>
+
+  </div>
+
+
+
+  <div class="fof--image-wrapper p-[30px]">
+    {%- if fof_image != blank -%}
+
+    <div class="aspect--portrait">
+      
+      {%- capture sizes -%}(min-width: {{ settings.page_width }}px) {% if section.blocks.size == 1 %}calc({{ settings.page_width }}px - 100px){% else %}{{ settings.page_width | minus: 100 | times: 0.67 | round }}px{% endif %}, (min-width: 750px){% if section.blocks.size == 1 %} calc(100vw - 100px){% else %} 500px{% endif %}, calc(100vw - 30px)}{%- endcapture -%}
+
+        {{ fof_image | image_url: width: 600 | image_tag:
+        loading: 'lazy',
+        class: 'fof--image',
+        sizes: sizes,
+        widths: '550, 720, 990, 1100, 1500, 2200, 3000'
+        }}
+
+    </div>
+
+    {%- endif -%}
+
+
+  </div>
+</div>
+
+
+
+{% schema %}
+  {
+    "name": "404 Page",
+    "settings": [
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading"
+      }, {
+        "type": "richtext",
+        "id": "content",
+        "label": "Content"
+      },
+      {
+        "type": "image_picker",
+        "id": "fof_page_image",
+        "label": "404 Page Image"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "fof-cta-btn",
+        "name": "404 CTA Button",
+        "settings": [
+          {
+            "type": "text",
+            "id": "cta_link_text",
+            "label": "CTA Link Text",
+            "info": "Text to populate button"
+          }, {
+            "type": "url",
+            "id": "cta_link",
+            "label": "CTA Link",
+            "info": "link to go to once you've landed on 404"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "404 Page"
+      }
+    ]
+  }
+{% endschema %}
+<script id="esc-redirects-404-script" src="https://easyredirects.esc-apps-cdn.com/app.js"></script>

@@ -1,0 +1,227 @@
+<section
+    x-data="{
+        ingredientDetailPaneOpen: false,
+        ingredientDetailPaneImage: '',
+        ingredientDetailPaneTitle: '',
+        ingredientDetailPaneLocation: '',
+        ingredientDetailPaneDescription: '',
+        ingredientDetailPaneProducts: '',
+        ingredientDetailPaneMapLat: 0,
+        ingredientDetailPaneMapLng: 0,
+
+        init(){
+            loader
+                .load()
+                .then((google) => {
+                    const mapOptions = {
+                        center: {
+                            lat: 0,
+                            lng: 0
+                        },
+                        zoom: 6,
+                        styles: [{'featureType':'administrative','elementType':'all','stylers':[{'saturation':'-100'}]},{'featureType':'administrative.province','elementType':'all','stylers':[{'visibility':'off'}]},{'featureType':'landscape','elementType':'all','stylers':[{'saturation':-100},{'lightness':65},{'visibility':'on'}]},{'featureType':'poi','elementType':'all','stylers':[{'saturation':-100},{'lightness':'50'},{'visibility':'simplified'}]},{'featureType':'road','elementType':'all','stylers':[{'saturation':'-100'}]},{'featureType':'road.highway','elementType':'all','stylers':[{'visibility':'simplified'}]},{'featureType':'road.arterial','elementType':'all','stylers':[{'lightness':'30'}]},{'featureType':'road.local','elementType':'all','stylers':[{'lightness':'40'}]},{'featureType':'transit','elementType':'all','stylers':[{'saturation':-100},{'visibility':'simplified'}]},{'featureType':'water','elementType':'geometry','stylers':[{'hue':'#ffff00'},{'lightness':-25},{'saturation':-97}]},{'featureType':'water','elementType':'labels','stylers':[{'lightness':-25},{'saturation':-100}]}],
+                        gestureHandling: 'none',
+                        zoomControl: false,
+                        disableDefaultUI: true
+                    };
+                    window.ingredientsMap = new google.maps.Map(document.getElementById('map'),mapOptions);
+                });
+        },
+
+        drawMap(){
+            window.ingredientsMap.setCenter({lat: this.ingredientDetailPaneMapLat, lng: this.ingredientDetailPaneMapLng});
+        }
+    }"
+>
+    <div :class="ingredientDetailPaneOpen ? 'opacity-[1]' : 'opacity-0 pointer-events-none'" class="transition-opacity fixed top-0 left-0 w-screen h-screen z-[999]">
+        <div x-cloak :class="ingredientDetailPaneOpen ? 'translate-x-0' : 'translate-x-[100%]'" class="scrollbar-hide overflow-scroll transition-transform absolute flex flex-col top-0 right-0 pt-[120px] md:pt-[160px] lg:pt-[190px] pb-[30px] w-full h-full max-w-[580px] bg-white z-[1000]">
+            <button @click="ingredientDetailPaneOpen = false" class="absolute top-[85px] lg:top-[125px] left-[30px] lg:hidden rotate-[180deg]">
+                <svg class="h-[20px]" viewBox="0 0 31 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0.598389 11.2001V14.8001H23.4384L15.3184 22.9201L17.7584 25.4001L30.1984 12.9601L17.7584 0.600098L15.3184 3.0801L23.4784 11.2001H0.598389Z" fill="#323E25"></path>
+                </svg>
+            </button>
+            <div class="flex flex-col px-[30px] gap-y-[30px] pb-[30px]">
+                <div class="w-full h-0 pb-[100%] relative">
+                    <img class="absolute top-0 left-0 object-cover w-full h-full" :src=ingredientDetailPaneImage alt="">
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-[34px] leading-[40px] uppercase mb-[5px]" x-text="ingredientDetailPaneTitle"></span>
+                    <p x-text="ingredientDetailPaneLocation"></p>
+                </div>
+                <div x-show="ingredientDetailPaneMapLat != 0 && ingredientDetailPaneMapLng != 0" class="w-full h-[230px]">
+                    <div id="map" class="w-full h-full"></div>
+                </div>
+            </div>
+            <div class="flex flex-col gap-y-[10px] border-t border-green p-[30px]">
+                <span class="font-semibold uppercase">Description</span>
+                <p x-html="ingredientDetailPaneDescription"></p>
+            </div>
+            <div class="flex flex-col gap-y-[30px] border-t border-green p-[30px]">
+                <span class="font-semibold uppercase" @click="console.log(ingredientDetailPaneProducts)">Found In</span>
+                <div class="grid grid-cols-2 gap-[30px]">
+                    <template x-for="relatedProduct in ingredientDetailPaneProducts">
+                        <div class="flex flex-col gap-y-[20px] cursor-pointer" @click="window.location.href=relatedProduct.url">
+
+                            <div class="w-full h-0 pb-[100%] relative">
+                                <img class="absolute top-0 left-0 object-cover w-full h-full" :src="relatedProduct.image" alt="">
+                            </div>
+
+                            <div class="flex flex-col"  x-data="{ link: relatedProduct.url }">
+                                <span class="text-[22px] leading-[26px] uppercase mb-[5px]" x-text="relatedProduct.title"></span>
+                                <p x-text="relatedProduct.ingredients"></p>
+
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </div>
+        <div x-cloak @click="ingredientDetailPaneOpen = false" :class="ingredientDetailPaneOpen ? 'opacity-[0.3] lg:!pointer-events-auto' : 'opacity-0'" class="pointer-events-none fixed transition-opacity top-0 left-0 w-screen h-screen bg-black opacity-[0.3] z-[998]"></div>
+    </div>
+
+    <section class="flex flex-col flex-wrap border-t divide-x md:flex-row divide-green">
+        {%- for block in section.blocks -%}
+            {%- case block.type -%}
+                {%- when 'ingredient' -%}
+                    <article x-ref="{{ block.settings.ingredient }}" class="md:w-6/12 lg:w-3/12 p-[20px] lg:p-[30px] border-b last-of-type:border-b-0 last-of-type:!border-r">
+                        <div
+                            x-intersect="$el.classList.add('!opacity-100')"
+                            class="space-y-[20px] transition-opacity duration-700 ease-in opacity-0"
+                        >
+                            <figure class="pointer-events-auto" @click="
+                                        ingredientDetailPaneOpen = true;
+                                        ingredientDetailPaneImage = '{{ block.settings.image | image_url }}';
+                                        ingredientDetailPaneTitle = '{{ block.settings.ingredient }}';
+                                        ingredientDetailPaneLocation = '{{ block.settings.location }}';
+                                        ingredientDetailPaneProducts = [
+                                            {% for product in block.settings.product %}
+                                                {
+                                                    'title': '{{ product.title }}',
+                                                    'image': '{{ product.featured_image | image_url }}',
+                                                    'ingredients': '{{ product.metafields.custom.ingredients.value }}',
+                                                    'url': '{{ product.url }}'
+                                                },
+                                            {% endfor %}
+                                        ];
+                                        ingredientDetailPaneDescription = '{{ block.settings.description | replace: "'", "&rsquo;" }}';
+                                        ingredientDetailPaneMapLat = {{ block.settings.map_lat | default: 0 }};
+                                        ingredientDetailPaneMapLng = {{ block.settings.map_lng | default: 0 }};
+                                        drawMap();
+                                    ">
+                                <img src="{{ block.settings.image | image_url }}" alt="{{ block.settings.image.alt }}">
+                            </figure>
+                            <header class="space-y-[12px]">
+                                <h3 class="text-[28px] leading-none uppercase">{{ block.settings.ingredient }}</h3>
+                                <p class="text-[18px] leading-none">{{ block.settings.location }}</p>
+                            </header>
+
+
+                                {%- comment -%} <a href="{%- for product in block.settings.product limit: 1 -%}{{- product.url -}}{%- endfor -%}" 
+                                    class="border border-green px-[35px] pointer-events-auto relative after:pointer-events-none after:h-[40px] after:w-full after:absolute after:bottom-0 after:left-0 after:translate-y-full after:bg-green overflow-hidden hover:after:!translate-y-0 hover:text-cream transition-colors after:transition-transform h-[40px] flex items-center justify-center cursor-pointer w-[fit-content]">
+                                    <span class="text-[18px] uppercase z-10">Learn More {{ prod_link.title }}</span>
+                                </a> {%- endcomment -%}
+
+
+                            
+                                <button @click="
+                                            ingredientDetailPaneOpen = true;
+                                            ingredientDetailPaneImage = '{{ block.settings.image | image_url }}';
+                                            ingredientDetailPaneTitle = '{{ block.settings.ingredient }}';
+                                            ingredientDetailPaneLocation = '{{ block.settings.location }}';
+                                            ingredientDetailPaneProducts = [
+                                                {% for product in block.settings.product %}
+                                                    {
+                                                        'title': '{{ product.title }}',
+                                                        'image': '{{ product.featured_image | image_url }}',
+                                                        'ingredients': '{{ product.metafields.custom.ingredients.value }}',
+                                                        'url': '{{ product.url }}'
+                                                    },
+                                                {% endfor %}
+                                            ];
+                                            ingredientDetailPaneDescription = '{{ block.settings.description | replace: "'", "&rsquo;" }}';
+                                            drawMap();
+                                        "
+                                        class="border border-green px-[35px] pointer-events-auto relative after:pointer-events-none after:h-[40px] after:w-full after:absolute after:bottom-0 after:left-0 after:translate-y-full after:bg-green overflow-hidden hover:after:!translate-y-0 hover:text-cream transition-colors after:transition-transform h-[40px] flex items-center justify-center cursor-pointer">
+                                    <span class="text-[18px] uppercase z-10">Learn More</span>
+                                </button>
+
+
+
+
+                        </div>
+                    </article>
+            {% endcase %}
+        {% endfor %}
+<section>
+</section>
+
+{% schema %}
+{
+    "name": "Ingredients",
+    "blocks": [
+        {
+            "type": "ingredient",
+            "name": "Ingredient",
+            "limit": 50,
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Image"
+                },
+                {
+                    "type": "text",
+                    "id": "ingredient",
+                    "label": "Ingredient"
+                },
+                {
+                    "type": "text",
+                    "id": "location",
+                    "label": "Location"
+                },
+                {
+                    "type": "number",
+                    "id": "map_lat",
+                    "label": "Latitude"
+                },
+                {
+                    "type": "number",
+                    "id": "map_lng",
+                    "label": "Longitude"
+                },
+                {
+                    "type": "richtext",
+                    "id": "description",
+                    "label": "Description"
+                },
+                {
+                    "type": "product_list",
+                    "id": "product",
+                    "label": "Related Products"
+                },
+                {
+                    "type": "select",
+                    "id": "button_type",
+                    "options": [
+                        {
+                            "value": "drawer",
+                            "label": "Drawer Button"
+                        },
+                        {
+                            "value": "link",
+                            "label": "Link"
+                        }
+                    ],
+                    "default": "drawer",
+                    "label": "Button Type"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Ingredients"
+        }
+    ]
+}
+{% endschema %}

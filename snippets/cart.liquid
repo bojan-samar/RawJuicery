@@ -1,0 +1,42 @@
+<!--cart -->
+<div 
+    x-cloak
+    x-data="{ 
+      loading: false,
+      updateCart(){
+          // send fetch reqeust to update cart
+          fetch('/?view=cart')
+          .then(response => response.text())
+          .then(cartData => {
+              $refs.cart_content.innerHTML = cartData;
+
+              // This code is use to parse json object. for cart count
+              var el = document.createElement('div');
+              el.innerHTML = cartData;
+              var cartCount = JSON.parse(el.querySelector('[data-options]').innerHTML).item_count;
+              $dispatch('cart-count-updated', cartCount);
+
+              this.loading = false;
+
+          })
+      }
+    }"
+    x-ref="cart_content"
+    @cart-updated.window="updateCart;"
+    @toggle-cart.window="cartOpen = !cartOpen" 
+    :class="cartOpen ? 'translate-x-[100%]' : 'translate-x-[100%]'" 
+    class="hidden transition-transform fixed gap-y-[20px] flex-col top-0 right-0 pt-[120px] lg:pt-[180px] px-[30px] pb-[30px] w-full h-screen max-w-[580px] bg-white z-[999]">
+
+    {%- comment -%} Removed flex class to hide cart {%- endcomment -%}
+    
+    <button @click="$dispatch('toggle-cart');" class="lg:hidden">
+      <svg class="bundle-close-icon" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M6.432 4.84L4.84 6.433 10.409 12l-5.568 5.569 1.59 1.59L12 13.592l5.569 5.569 1.59-1.591L13.592 12l5.569-5.568-1.591-1.591L12 10.409 6.432 4.841z"></path>
+      </svg>
+    </button>
+
+    {% render 'cart-form' %}
+  </div>
+
+

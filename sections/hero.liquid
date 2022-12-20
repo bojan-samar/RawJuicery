@@ -1,0 +1,97 @@
+<section class="relative overflow-hidden text-white border-b bg-greyed border-green">
+  {%- for block in section.blocks -%}
+    {%- case block.type -%}
+      {%- when 'panel' -%}
+        {% if forloop.index == 1 %}
+          <article class="w-full group flex flex-col uppercase h-[calc(100vh-110px)] lg:h-[700px] relative">
+            <a href="{{ block.settings.link }}" class="absolute inset-0 z-40"></a>
+            <header x-intersect="$el.classList.add('!opacity-100')" class="relative z-10 flex-1 transition-opacity duration-700 ease-in opacity-0">
+              <h2 class="float-left translate-y-[85px] !text-white lg:translate-y-[175px] translate-x-[-40px] lg:-translate-x-[120px] -rotate-90 text-[32px] lg:heading-1">{{ block.settings.heading }}
+              </h2>
+            </header>
+            <footer class="flex z-10 w-full border-t border-white h-[50px] lg:h-[95px] items-center justify-end px-[20px] lg:px-[30px] ">
+              <a x-intersect="$el.classList.add('!opacity-100')" href="{{ block.settings.link }}" class="flex transition-opacity delay-200 duration-700 ease-in opacity-0 uppercase group space-x-[10px] text-[20px] leading-[20px] lg:text-[40px] lg:leading-[40px] space-x-[8px] items-center">
+                <span>{{ block.settings.link_label }}
+                </span>
+                <span>
+                  <svg class="group-hover:translate-x-[5px] transition-transform fill-current duartion-500 ease-in-out" width="31" height="26" viewBox="0 0 31 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0.598389 11.2001V14.8001H23.4384L15.3184 22.9201L17.7584 25.4001L30.1984 12.9601L17.7584 0.600098L15.3184 3.0801L23.4784 11.2001H0.598389Z"/>
+                  </svg>
+                </span>
+              </a>
+            </footer>
+            <figure class="absolute inset-0">
+              <img class="object-cover w-full h-full transition-transform duration-700 ease-in-out group-hover:scale-105" src="{{ block.settings.image | image_url }}" alt="">
+            </figure>
+          </article>
+        {% endif %}
+    {%- endcase -%}
+  {%- endfor -%}
+</section>
+<section class="flex flex-col divide-x md:flex-row divide-green">
+  {%- for block in section.blocks -%}
+    {%- case block.type -%}
+      {%- when 'panel' -%}
+        {% if forloop.index > 1 %}
+          <article class="relative group overflow-hidden flex flex-col text-white h-[294px] md:h-[326px] lg:h-[700px] w-full lg:w-1/2 bg-greyed">
+            <a href="{{ block.settings.link }}" class="absolute inset-0 z-40"></a>
+            <header x-intersect="$el.classList.add('!opacity-100')" class="relative z-10 flex-1 transition-opacity duration-700 ease-in opacity-0">
+              <h2 class="rotated-headings--hp !text-white text-[32px] lg:heading-1 uppercase">{{ block.settings.heading }}
+              </h2>
+            </header>
+            <footer class="flex z-10 w-full border-t border-white h-[50px] md:h-[55px] lg:h-[95px] items-center justify-end px-[20px] lg:px-[30px] ">
+              <a x-intersect="$el.classList.add('!opacity-100')" href="{{ block.settings.link }}" class="flex transition-opacity delay-200 duration-700 ease-in opacity-0 uppercase group space-x-[10px] text-[20px] leading-[20px] lg:text-[40px] lg:leading-[40px] space-x-[8px] items-center">
+                <span>{{ block.settings.link_label }}
+                </span>
+                <span>
+                  <svg class="group-hover:translate-x-[5px] transition-transform fill-current duartion-500 ease-in-out" width="31" height="26" viewBox="0 0 31 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0.598389 11.2001V14.8001H23.4384L15.3184 22.9201L17.7584 25.4001L30.1984 12.9601L17.7584 0.600098L15.3184 3.0801L23.4784 11.2001H0.598389Z"/>
+                  </svg>
+                </span>
+              </a>
+            </footer>
+            <figure class="absolute inset-0">
+              <img class="object-cover w-full h-full transition-transform duration-700 ease-in-out group-hover:scale-105" src="{{ block.settings.image | image_url }}" alt="">
+            </figure>
+          </article>
+        {% endif %}
+    {%- endcase -%}
+  {%- endfor -%}
+</section>
+
+{% schema %}
+  {
+    "name": "Hero",
+    "blocks": [
+      {
+        "type": "panel",
+        "name": "Panel",
+        "limit": 3,
+        "settings": [
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading"
+          }, {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          }, {
+            "type": "text",
+            "id": "link_label",
+            "label": "Link Label"
+          }, {
+            "type": "url",
+            "id": "link",
+            "label": "Link"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Hero"
+      }
+    ]
+  }
+{% endschema %}

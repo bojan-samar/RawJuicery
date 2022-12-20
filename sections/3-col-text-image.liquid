@@ -1,0 +1,88 @@
+<section class="grid lg:divide-x lg:border-t lg:grid-cols-3 border-green lg:divide-green">
+    {%- for block in section.blocks -%}
+        {%- case block.type -%}
+            {%- when 'panel' -%}
+                <article>
+                <div
+                    x-intersect="$el.classList.add('!opacity-100')"
+                    class="flex flex-col p-[20px] lg:px-[30px] lg:py-[30px] gap-y-[20px] transition-opacity duration-700 delay-200 ease-in opacity-0 h-full">
+                    <span class="lg:text-[40px] lg:leading-[40px] uppercase">{{ block.settings.heading }}</span>
+                    <div class="w-full h-0 pb-[37%] relative">
+                        <img class="absolute top-0 left-0 object-cover w-full h-full" src="{{ block.settings.image | image_url }}" alt="">
+                    </div>
+                    <div class="flex flex-col gap-y-[30px] h-full justify-between">
+
+                        <div class="block-content--wrapper">
+
+                        {% if block.settings.location %}
+                            <span class="block opacity-[0.5]">{{ block.settings.location }}</span>
+                        {% endif %}
+
+                            {{ block.settings.content }}
+                        </div>
+
+                        {%- if block.settings.button_text != blank -%}
+
+                            <div class="flex w-fit">
+    
+                                <a href="{{ block.settings.button_link }}" class="text-white bg-green px-[33px] hover:bg-white hover:text-green transition-all py-[10px] text-center border border-green uppercase">{{ block.settings.button_text }}</a>
+                            </div>
+    
+                        {%- endif -%}
+
+                    </div>
+                </div>
+                </article>
+      {% endcase %}
+    {% endfor %}
+</section>
+
+{% schema %}
+{
+    "name": "3 Col Text with Image",
+    "blocks": [
+        {
+            "type": "panel",
+            "name": "Panel",
+            "limit": 3,
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "heading",
+                    "label": "Heading"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Image"
+                },
+                {
+                    "type": "text",
+                    "id": "location",
+                    "label": "Location"
+                },
+                {
+                    "type": "richtext",
+                    "id": "content",
+                    "label": "Content"
+                },
+                {
+                    "type": "text",
+                    "id": "button_text",
+                    "label": "Button Text"
+                },
+                {
+                    "type": "url",
+                    "id": "button_link",
+                    "label": "Button Link"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "3 Col Text with Image"
+        }
+    ]
+}
+{% endschema %}

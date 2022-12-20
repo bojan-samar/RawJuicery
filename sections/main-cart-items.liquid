@@ -1,0 +1,138 @@
+<section class="p-[30px] border-green border-b border-solid flex">
+  <h2 class="heading-1">
+    {{ 'sections.cart.title' | t }}
+  </h2>
+</section>
+
+
+<section class="cart-items--main" @cart-updated.window="updateCart;" x-data="{
+                                            loading: false,
+                                            updateCart(){
+                                                // send fetch reqeust to update cart
+                                                fetch('/?view=cart-page')
+                                                .then(response => response.text())
+                                                .then(cartData => {
+                                                    $refs.cart_content.innerHTML = cartData;
+                                                    // This code is use to parse json object. for cart count
+                                                    var el = document.createElement('div');
+                                                    el.innerHTML = cartData;
+                                                    var cartCount = JSON.parse(el.querySelector('[data-options]').innerHTML).item_count;
+                                                    $dispatch('cart-count-updated', cartCount);
+                                                    this.loading = false;
+                                                })
+                                            }
+                                          }">{%- comment -%}
+    <div class="py-4 flex items-center justify-between">
+    <h1 class="title text-3xl">{{ 'sections.cart.title' | t }}</h1>
+    <a href="{{ routes.all_products_collection_url }}" class="underline py-2">{{ 'general.continue_shopping' | t }}</a>
+    </div>
+
+    <hr>
+  {%- endcomment -%}
+
+  {% render 'loader' %}
+
+  <div class="cart-items--content" x-ref="cart_content">
+    {% render 'cart-page-form', upsell: section.settings.cart_upsell %}
+  </div>
+
+</section>
+
+
+<script defer>
+
+
+  window.cart = {{ cart | json }}
+
+  const { items_subtotal_price } = window.cart
+  const subTotalDecimals = items_subtotal_price / 100.00
+
+
+  window.addEventListener('load', (event) => {
+    const prices = document.querySelectorAll('.total-counter')
+
+    var priceNums = []
+
+
+    prices.forEach((node) => {
+      priceNums.push(+node.dataset.bundle)
+    })
+
+
+
+
+
+    +(0.1 + 0.2).toFixed(12) 
+
+    const result = +(priceNums.reduce((a, b) => a + b, 0)).toFixed(12)
+
+    console.log(result)
+
+    const resultDecimals = result
+    const totalUpdate = document.querySelector('#cart-page-total')
+    
+    const totalUpdateDiscount = document.querySelector('#cart-page-total-discounts')
+
+    const dsicount = subTotalDecimals - resultDecimals
+
+    console.log(dsicount.toFixed(2))
+
+    totalUpdateDiscount.innerHTML = `$${dsicount.toFixed(2)}`
+    totalUpdate.innerHTML = `$${resultDecimals.toFixed(2)}`
+    
+  })
+
+
+  window.addEventListener('cart-updated', (event) => {
+
+    const prices = document.querySelectorAll('.total-counter')
+
+    var priceNums = []
+
+
+    prices.forEach((node) => {
+      priceNums.push(+node.dataset.bundle)
+    })
+
+
+    
+    console.log(priceNums)
+
+
+    +(0.1 + 0.2).toFixed(12) 
+
+    const result = +(priceNums.reduce((a, b) => a + b, 0)).toFixed(12)
+
+    console.log(result)
+
+    const resultDecimals = result
+    const totalUpdate = document.querySelector('#cart-page-total')
+    
+    const totalUpdateDiscount = document.querySelector('#cart-page-total-discounts')
+
+    const dsicount = subTotalDecimals - resultDecimals
+
+    console.log(dsicount.toFixed(2))
+
+    totalUpdateDiscount.innerHTML = `$${dsicount.toFixed(2)}`
+    totalUpdate.innerHTML = `$${resultDecimals.toFixed(2)}`
+    
+
+  })
+
+
+</script>
+
+
+{% schema %}
+  {
+    "name": "t:sections.main-cart-items.name",
+    "settings": [
+      {
+        "type": "product",
+        "id": "cart_upsell",
+        "label": "Cart Product to Upsell"
+      }
+    ]
+  }
+{% endschema %}

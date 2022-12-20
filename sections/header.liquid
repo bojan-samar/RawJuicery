@@ -1,0 +1,317 @@
+<header
+    :class="menuOpen ? 'bg-green text-white border-white' : 'border-green bg-white text-green'"
+    class="sticky z-[1000] top-0 text-[16px] tracking-normal border-b transition-colors duartion-500 ease-in-out pl-[20px] lg:pl-[30px] uppercase h-[70px] md:h-[75px] lg:h-[110px] flex items-center justify-between"
+>
+    <ul class="space-x-[15px] 2xl:space-x-[30px] hidden 2xl:flex overflow-hidden items-center">
+        <li
+            x-intersect="$el.classList.add('opacity-100')"
+            class="z-10 transition-opacity duration-500 ease-linear opacity-0"
+        >
+            <a href="/pages/cleanses">CLEANSES</a>
+        </li>
+         <li
+            x-intersect="$el.classList.add('opacity-100')"
+            class="z-10 transition-opacity duration-500 ease-linear opacity-0"
+        >
+            <a href="/tools/bundle-subscriptions/bundle/7636268974229?product=make-a-box&selling_plan=onetime">MAKE A BOX</a>
+        </li>
+        <li
+                x-intersect="$el.classList.add('opacity-100')"
+                class="z-10 transition-opacity duration-500 ease-linear opacity-0"
+        >
+            <a href="/tools/bundle-subscriptions/bundle/7692164694165?product=make-a-boost-box&selling_plan=onetime">BOOST BOX</a>
+        </li>
+         <li
+            x-intersect="$el.classList.add('opacity-100')"
+            class="z-10 transition-opacity duration-500 ease-linear opacity-0"
+        >
+            <a href="/pages/ingredients">INGREDIENTS</a>
+        </li>
+         <li
+            x-intersect="$el.classList.add('opacity-100')"
+            class="z-10 transition-opacity duration-500 ease-linear opacity-0"
+        >
+            <a href="/pages/our-story">OUR STORY</a>
+        </li>
+    </ul>
+
+    <div>
+        <a href="/">
+            <svg
+                :class="menuOpen ? 'fill-white' : 'fill-green'"
+                class="block transition-colors duration-500 ease-in-out w-[90px] md:w-[104px] lg:w-[156px]"
+                viewBox="0 0 132 49" fill="none"
+                version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <path d="M5.46646638,23.4203168 C4.44909277,21.6866145 3.18876426,19.2227748 2.52065702,17.8997561 L2.24733277,17.3674702 C1.89808511,16.683116 1.10847796,16.2573023 0.577016,16.2573023 L0,16.2573023 L0,38.3239847 C0,38.5977863 0.227770213,38.9172214 0.546646638,38.9172214 L0.652939404,38.9172214 C3.41653447,38.9172214 5.92200681,36.3166679 5.92200681,33.4574618 C5.92200681,30.1574427 5.92200681,27.9066221 5.92200681,24.6369008 C5.92200681,24.393584 5.51202043,23.4962481 5.46646638,23.4049809 L5.46646638,23.4203168 Z" id="Path"></path>
+                        <path d="M122.069294,0.608280763 C120.976034,0.608280763 119.457566,1.07972809 118.364119,3.31529885 L118.333787,3.3761187 C115.08434,9.64179733 112.882468,13.9456431 109.921549,19.7855267 C109.73937,20.1352595 109.663353,20.6980115 109.845532,21.0628931 C110.437753,22.2796641 111.060306,23.4506145 111.774043,24.8040992 C112.017072,25.2604351 112.259915,25.7317328 112.518111,26.2183664 L112.821804,26.7964542 L126.108306,0.608280763 L122.069294,0.608280763 Z" id="Path"></path>
+                        <path d="M47.0874894,12.3640092 L46.7837957,12.9419099 C42.5777702,21.1238626 33.2999489,38.9170344 33.2999489,38.9170344 L37.5213277,38.9170344 C39.6623489,38.9170344 41.2566468,36.5446489 41.5451745,35.9515992 C42.3650723,34.324313 43.1243064,32.8339275 43.8532085,31.4043244 C45.8727149,27.4502863 47.6038809,24.0285153 49.8358979,19.5117252 C49.9119149,19.3748244 50.2611064,18.6296878 50.0182638,18.1126256 C49.4260426,16.8655756 47.0874894,12.3488042 47.0874894,12.3488042 L47.0874894,12.3640092 Z" id="Path"></path>
+                        <path d="M94.8887149,30.8873931 C94.0536511,29.2752557 81.6325447,5.47487099 80.0534128,2.43328015 C79.810383,1.94662786 79.1423319,0.68436916 77.6086979,0.653953626 C77.6086979,0.653953626 74.8602894,0.593122557 73.3266553,0.593122557 C73.1899745,0.593122557 73.0684596,0.669162328 72.9924426,0.775617634 C72.9166128,0.897281641 72.9166128,1.03415248 72.9924426,1.15581649 L92.520017,39.3125878 L92.8995404,38.7954695 C92.8995404,38.7954695 92.9298723,38.7649847 92.9450383,38.7498359 C92.9450383,38.7498359 94.7217021,36.3166679 94.8887149,35.9972328 L94.9798979,35.8754809 C96.2250043,34.1266298 95.2227404,31.449958 94.9038809,30.8720573 L94.8887149,30.8873931 Z" id="Path"></path>
+                        <path d="M26.8918638,38.8867366 L18.3885736,22.5686145 C18.3885736,22.5686145 18.4341277,22.5686145 18.4493123,22.5686145 C18.6467132,22.5229809 18.8745021,22.4621985 19.0566809,22.3709313 C19.3755404,22.2340305 20.3017872,21.8081794 20.3017872,21.8081794 C22.7616681,20.6980115 24.5686638,18.7209924 25.7076085,15.9531469 C27.0590638,12.6226057 26.6793532,8.83582214 24.6750128,5.7942313 C22.6098213,2.64618702 19.0870128,0.729993397 15.2605294,0.669162328 C14.562034,0.669162328 5.23867745,0.608329389 1.16919609,0.593122557 C1.03253396,0.593122557 0.911056511,0.653953626 0.835133106,0.775617634 C0.759209702,0.897281641 0.759209702,1.03415248 0.819948426,1.15581649 L1.77657957,3.14806298 C3.18874553,6.08318168 5.57274043,6.44817557 7.9567166,6.41776565 C8.24522553,6.41776565 14.2887098,6.34172214 14.7594349,6.37215076 C16.0956868,6.43297061 17.1130604,6.50901412 18.1911728,7.1629584 C20.3169532,8.45562328 21.334383,11.0714004 20.6663319,13.5350905 C19.9829277,16.0748053 17.1889838,17.5499859 14.9112817,17.5043523 C13.4383677,17.4739424 11.4643779,17.4435324 11.0847609,17.4435324 C10.6747745,17.3978989 10.3407115,17.5347809 10.128126,17.8237313 C9.86998638,18.1887065 9.86998638,18.7209924 10.0218332,19.0099427 C10.6747745,20.3329427 18.935166,36.4838664 19.2691915,36.8945687 C19.5122213,37.2138168 19.8007489,37.5181031 20.1347745,37.8070534 C20.8181787,38.4001031 22.0176,38.8867366 22.9895319,38.8867366 L23.9006128,38.8867366 C24.3409872,38.8867366 24.6295149,38.8867366 25.4039149,38.8867366 C25.6012596,38.8867366 25.8291234,38.8867366 26.1022979,38.8867366 C26.147983,38.8867366 26.2086468,38.8867366 26.2541447,38.8562519 L26.8766979,38.8562519 L26.8918638,38.8867366 Z" id="Path"></path>
+                        <path d="M66.311183,23.6331489 L63.4414468,18.0366195 C59.235234,9.65703969 54.4368,0 54.4368,0 L52.888,2.14431107 L52.6148255,2.50930496 C52.5236426,2.63098206 52.4476255,2.75264046 52.3566298,2.87429885 L51.9617532,3.42178969 C50.7166468,5.15549198 51.6883915,7.84729389 52.0074383,8.42519466 C52.0377702,8.50123817 52.0832681,8.56207672 52.1136,8.63812023 C52.2502809,8.94227557 52.4021277,9.23122595 52.5539745,9.52017634 C52.6754894,9.74828817 52.7970043,9.9764187 52.9183319,10.2197355 C53.4043915,11.1778351 53.8750979,12.0903198 54.3306383,12.972376 C55.9249362,16.0900103 57.3524085,18.8881908 59.0378894,22.1122786 C59.9641362,23.9677328 60.814366,25.6709504 61.664783,27.3590191 C62.9098894,29.8531565 64.2158468,32.4234122 65.627966,35.1760153 C65.7646468,35.4344809 65.9013277,35.7082824 66.0380085,35.982084 C66.1138383,36.1341336 66.2656851,36.3925992 66.4935489,36.6966985 C66.8730723,37.2594504 67.3589447,37.8222023 68.027183,38.2327176 C68.6194043,38.6434198 69.3026213,38.9475191 70.0618553,38.9475191 L74.283234,38.9475191 C74.283234,38.9475191 70.2592,31.2522748 66.3265362,23.6636336 L66.311183,23.6331489 Z" id="Path"></path>
+                        <path d="M108.311898,30.8873931 C107.476834,29.2752557 95.0557277,5.47487099 93.4765957,2.43328015 C93.233566,1.94662786 92.5655149,0.68436916 91.0318809,0.653953626 C91.0318809,0.653953626 88.2834723,0.593122557 86.7498383,0.593122557 C86.6131574,0.593122557 86.4916426,0.669162328 86.4156255,0.775617634 C86.3397957,0.897281641 86.3397957,1.03415248 86.4156255,1.15581649 L105.9432,39.3125878 L106.322723,38.7954695 C106.322723,38.7954695 106.353055,38.7649847 106.368409,38.7498359 C106.368409,38.7498359 108.144885,36.3166679 108.311898,35.9972328 L108.403081,35.8754809 C109.648187,34.1266298 108.645923,31.449958 108.327064,30.8720573 L108.311898,30.8873931 Z" id="Path"></path>
+                        <path d="M131.407779,4.07573397 C131.012902,4.47115649 130.52703,4.6688584 129.96514,4.6688584 C129.403438,4.6688584 128.917566,4.47115649 128.522689,4.07573397 C128.127813,3.68033015 127.930468,3.19367786 127.930468,2.63098206 C127.930468,2.06828626 128.127813,1.59684641 128.522689,1.18623202 C128.917566,0.790824466 129.403438,0.593122557 129.96514,0.593122557 C130.52703,0.593122557 131.012902,0.790824466 131.407779,1.18623202 C131.802655,1.58163771 132,2.06828626 132,2.63098206 C132,3.19367786 131.802655,3.68033015 131.407779,4.07573397 Z M128.720034,1.3839358 C128.386009,1.73371725 128.20383,2.14432977 128.20383,2.63098206 C128.20383,3.11763435 128.370843,3.54346679 128.704868,3.87803206 C129.038894,4.22782099 129.464102,4.39511298 129.949974,4.39511298 C130.436034,4.39511298 130.845889,4.22782099 131.195268,3.87803206 C131.529294,3.52826183 131.711472,3.11763435 131.711472,2.63098206 C131.711472,2.14432977 131.54446,1.73371725 131.195268,1.3839358 C130.845889,1.03415248 130.436034,0.866864237 129.949974,0.866864237 C129.464102,0.866864237 129.054247,1.03415248 128.704868,1.3839358 L128.720034,1.3839358 Z M129.919643,1.50559794 C130.193004,1.50559794 130.405515,1.53601534 130.52703,1.58163771 C130.754894,1.67288618 130.876409,1.87058435 130.876409,2.14432977 C130.876409,2.34203168 130.800391,2.4941187 130.663711,2.58536718 C130.587881,2.63098206 130.481532,2.67661565 130.344851,2.69182061 C130.52703,2.72223053 130.648545,2.79827405 130.724374,2.90472748 C130.800391,3.02638588 130.845889,3.13285802 130.845889,3.25451641 L130.845889,3.4218084 C130.845889,3.4218084 130.845889,3.52826183 130.845889,3.58908168 C130.845889,3.64992023 130.845889,3.68033015 130.861055,3.71075878 L130.861055,3.7411687 L130.511864,3.7411687 C130.511864,3.7411687 130.511864,3.7411687 130.511864,3.72596374 C130.511864,3.71075878 130.511864,3.71075878 130.511864,3.69553511 L130.511864,3.61951031 L130.511864,3.43701336 C130.511864,3.1784729 130.436034,3.01118092 130.299353,2.91993244 C130.223336,2.87431756 130.071489,2.84388893 129.858979,2.84388893 L129.555285,2.84388893 L129.555285,3.72596374 L129.160409,3.72596374 L129.160409,1.49039111 L129.949974,1.49039111 L129.919643,1.50559794 Z M130.344851,1.85538126 C130.238502,1.79455019 130.086655,1.77934149 129.874145,1.77934149 L129.540119,1.77934149 L129.540119,2.58536718 L129.889311,2.58536718 C130.056323,2.58536718 130.177838,2.57016221 130.269021,2.53973359 C130.420868,2.47891374 130.496698,2.35723664 130.496698,2.18996336 C130.496698,2.02267137 130.4512,1.91621794 130.344851,1.85538126 Z" id="Shape"></path>
+                        <path d="M78.7171234,48.9240687 L78.7171234,48.3461679 L79.4460255,48.3461679 C79.8864,48.3461679 80.0534128,48.1331489 80.0534128,47.677 L80.0534128,44.148813 L80.6608,44.148813 L80.6608,47.7072977 C80.6608,48.5287023 80.2810894,48.9240687 79.5066894,48.9240687 L78.7171234,48.9240687 Z" id="Path"></path>
+                        <path d="M84.9276766,47.2206641 L84.9276766,44.148813 L85.5350638,44.148813 L85.5350638,47.1447328 C85.5350638,47.9508015 85.9297532,48.4220992 86.6738213,48.4220992 L86.7344851,48.4220992 C87.4785532,48.4220992 87.8734298,47.9508015 87.8734298,47.1447328 L87.8734298,44.148813 L88.480817,44.148813 L88.480817,47.2206641 C88.480817,48.2851985 87.8734298,49 86.7041532,49 C85.4893787,49 84.9125106,48.2851985 84.9125106,47.2206641 L84.9276766,47.2206641 Z" id="Path"></path>
+                        <polygon id="Path" points="92.7628596 48.9240687 92.7628596 44.148813 93.3702468 44.148813 93.3702468 48.9240687"></polygon>
+                        <path d="M97.4246128,46.5363473 C97.4246128,45.137229 98.2748426,44.0726947 99.6566298,44.0726947 C100.689226,44.0726947 101.478791,44.6808931 101.539643,45.6238626 L100.932255,45.6238626 C100.871404,45.0459618 100.415864,44.6201107 99.7023149,44.6201107 L99.6414638,44.6201107 C98.6242213,44.6201107 98.0623319,45.471813 98.0623319,46.5211985 C98.0623319,47.5703969 98.6242213,48.4220992 99.6414638,48.4220992 L99.7023149,48.4220992 C100.415864,48.4220992 100.871404,47.9962481 100.932255,47.4183473 L101.539643,47.4183473 C101.478791,48.3613168 100.689226,48.9697023 99.6566298,48.9697023 C98.2748426,48.9697023 97.4246128,47.9049809 97.4246128,46.5058626 L97.4246128,46.5363473 Z" id="Path"></path>
+                        <polygon id="Path" points="105.548323 48.9240687 105.548323 44.148813 108.980136 44.148813 108.980136 44.7113779 106.170877 44.7113779 106.170877 46.1866145 108.570094 46.1866145 108.570094 46.7493664 106.170877 46.7493664 106.170877 48.3613168 109.055966 48.3613168 109.055966 48.9240687 105.563489 48.9240687"></polygon>
+                        <path d="M113.034315,48.9240687 L113.034315,44.148813 L115.054009,44.148813 C115.919404,44.148813 116.541957,44.696229 116.541957,45.4413282 C116.541957,46.0345649 116.207932,46.4755649 115.782723,46.6276145 C116.299115,46.6276145 116.481294,46.8101489 116.481294,47.2967824 L116.481294,48.9392176 L115.873906,48.9392176 L115.873906,47.4183473 C115.873906,47.0990992 115.767557,46.9926832 115.448698,46.9926832 L113.656868,46.9926832 L113.656868,48.9392176 L113.049481,48.9392176 L113.034315,48.9240687 Z M113.641702,46.4147824 L114.94766,46.4147824 C115.524715,46.4147824 115.919404,46.0345649 115.919404,45.5174466 C115.919404,44.9851794 115.555047,44.696229 114.94766,44.696229 L113.641702,44.696229 L113.641702,46.4147824 Z" id="Shape"></path>
+                        <polygon id="Path" points="121.719915 48.9240687 121.719915 46.9470496 120.004102 44.148813 120.717838 44.148813 122.038962 46.3386641 123.359898 44.148813 124.043302 44.148813 122.327302 46.9470496 122.327302 48.9240687"></polygon>
+            </svg>
+        </a>
+    </div>
+
+    <div class="hidden 2xl:flex flex-row items-center space-x-[15px] 2xl:space-x-[30px]">
+        <ul class="flex space-x-[15px] 2xl:space-x-[30px] items-center lg:h-[26px]">
+            <li
+            x-intersect="$el.classList.add('opacity-100')"
+            class="z-10 transition-opacity duration-500 ease-linear opacity-0"
+        >
+            <a class="cursor-pointer" href="/?loyal">Rewards</a>
+        </li>
+         <li
+            x-intersect="$el.classList.add('opacity-100')"
+            class="z-10 transition-opacity duration-500 ease-linear opacity-0"
+        >
+            <a href="/pages/support">Support</a>
+        </li>
+         <li
+            x-intersect="$el.classList.add('opacity-100')"
+            class="z-10 transition-opacity duration-500 ease-linear opacity-0"
+        >
+            {% if customer %}
+              <a class="cursor-pointer" href="/account">Account</a>
+            {% else %}
+              <a class="cursor-pointer" href="/account">Account</a>
+            {% endif %}
+          </li>
+        <li>
+            <a
+              x-data="{ cart_count: {{ cart.item_count }} }"
+              @cart-count-updated.window="cart_count = $event.detail"
+              class="flex space-x-[10px] uppercase items-center"
+              href="/cart"
+            >
+                <span>
+                    My cart
+                </span>
+                <span x-text="cart_count" class="bg-green text-[14px] leading-none flex inline-flex rounded-full items-center justify-center text-white h-[26px] w-[26px] translate-y-[-2px]">
+                    0
+                </span>
+              </a>
+        </li>
+        </ul>
+        <a href="https://wholesale.rawjuicery.com/" class="h-[110px] group px-[15px] 2xl:pr-[30px] hover:bg-green hover:text-white transition-colours ease-in-out duration-300 uppercase pl-[15px] 2xl:pl-[30px] flex items-center border-l space-x-[4px] border-green">
+            <span>Wholesale</span>
+            <svg class="duration-300 ease-in-out fill-green group-hover:fill-white transition-colours" width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0.304199 9.23796L1.4562 10.39L8.7282 3.11796V8.28396L10.2942 8.30196V0.381958L2.3922 0.417957L2.41019 1.98396L7.5942 1.96596L0.304199 9.23796Z"/>
+            </svg>
+        </a>
+    </div>
+
+    <button
+        @click="menuOpen = !menuOpen"
+        class="relative h-full w-[70px] uppercase flex 2xl:hidden justify-end items-center border-l border-green"
+    >
+        <span aria-hidden="true" :class="{'opacity-0': menuOpen}" class="absolute block left-[20px] top-[26px] lg:top-[46px] w-[28px] transition duration-500 ease-in-out transform bg-black h-px"></span>
+        <span aria-hidden="true" :class="{'-rotate-45 !bg-white': menuOpen}" class="absolute block w-[28px] transition duration-500 ease-in-out transform bg-black h-px top-[34px] lg:top-[54px] left-[20px]"></span>
+        <span aria-hidden="true" :class="{'rotate-45 !bg-white': menuOpen}" class="absolute block w-[28px] transition duration-500 ease-in-out transform bg-black h-px top-[34px] lg:top-[54px] left-[20px]"></span>
+        <span aria-hidden="true" :class="{'opacity-0': menuOpen}" class="absolute block w-[28px] transition top-[42px] lg:top-[62px] duration-500 ease-in-out transform bg-black left-[20px] h-px"></span>
+    </button>
+</header>
+
+<nav :class="menuOpen ? '!translate-y-0' : ''" class="z-[999] flex flex-col text-[24px] leading-[38px] pt-[110px] transition-all 2xl:hidden fixed left-0 top-0 w-full overflow-hidden h-screen translate-y-[-100%] bg-green">
+    <ul class="pt-[40px] pb-[20px] border-b border-white px-[20px]">
+        <li>
+            <a href="/pages/cleanses" class="text-white uppercase">Cleanses</a>
+        </li>
+        <li>
+            <a href="/tools/bundle-subscriptions/bundle/7636268974229?product=make-a-box&selling_plan=onetime" class="text-white uppercase">MAKE A BOX</a>
+        </li>
+        <li>
+            <a href="/tools/bundle-subscriptions/bundle/7692164694165?product=make-a-boost-box&selling_plan=onetime" class="text-white uppercase">Boost Box</a>
+        </li>
+        <li>
+          <a href="/products/gift-card" class="text-white uppercase">Gift Card</a>
+      </li>
+        <li>
+            <a href="/pages/ingredients" class="text-white uppercase">Ingredients</a>
+        </li>
+        <li>
+            <a href="/pages/about" class="text-white uppercase">Our Story</a>
+        </li>
+        <li>
+            <a class="text-white uppercase" href="/?loyal">Rewards</a>
+        </li>
+        <li>
+            <a class="text-white uppercase cursor-pointer" href="/account">Account</a>
+        </li>
+        <li>
+
+          {%- comment -%} @click="$dispatch('toggle-cart'); menuOpen = !menuOpen;" {%- endcomment -%}
+
+            <a
+              href="/cart"
+              x-data="{ cart_count: {{ cart.item_count }} }"
+              @cart-count-updated.window="cart_count = $event.detail"
+              class="flex space-x-[10px] uppercase items-center">
+                <span class="text-white">
+                    My cart
+                </span>
+                <span x-text="cart_count" class="bg-white text-[14px] leading-none flex inline-flex rounded-full items-center justify-center text-green h-[24px] w-[24px]">
+                    0
+                </span>
+            </a>
+
+
+        </li>
+    </ul>
+
+    <ul class="p-[20px]">
+        <li>
+            <a href="https://wholesale.rawjuicery.com/" class="text-white uppercase">WHOLESALE ↗</a>
+        </li>
+    </ul>
+
+    <ul class="px-[20px] text-[18px] leading-[28px] mt-auto mb-[40px]">
+        <li>
+            <a href="/pages/legal" class="text-white uppercase">Legal</a>
+        </li>
+        {% comment %} <li>
+            <a href="/pages/terms-of-use" class="text-white uppercase">Terms of use</a>
+        </li> {% endcomment %}
+        <li>
+            <a href="/pages/ccpa-compliance" class="text-white uppercase">CCPA</a>
+        </li>
+    </ul>
+
+    <ul class="px-[20px] text-[18px] leading-[28px] mb-[40px]">
+        <li>
+            <a href="mailto:support@rawjuicery,com" class="text-white underline uppercase">Support@rawjuicery.com</a>
+        </li>
+        <li>
+            <a href="tel:2132216081" class="text-white uppercase">Text: (213) 221-6081</a>
+        </li>
+    </ul>
+
+    <span class="px-[20px] text-white/50 uppercase text-[18px]">&copy; 2022 Raw Juicery, Inc.</span>
+</nav>
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "Organization",
+    "name": {{ shop.name | json }},
+    {% if section.settings.logo %}
+      {% assign image_size = section.settings.logo.width %}
+      "logo": {{ section.settings.logo | image_url: width: image_size | prepend: "https:" | json }},
+    {% endif %}
+    "sameAs": [
+      {{ settings.social_twitter_link | json }},
+      {{ settings.social_facebook_link | json }},
+      {{ settings.social_pinterest_link | json }},
+      {{ settings.social_instagram_link | json }},
+      {{ settings.social_tiktok_link | json }},
+      {{ settings.social_tumblr_link | json }},
+      {{ settings.social_snapchat_link | json }},
+      {{ settings.social_youtube_link | json }},
+      {{ settings.social_vimeo_link | json }}
+    ],
+    "url": {{ shop.url | append: page.url | json }}
+  }
+</script>
+
+{%- if request.page_type == 'index' -%}
+  {% assign potential_action_target = shop.url | append: routes.search_url | append: "?q={search_term_string}" %}
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "WebSite",
+      "name": {{ shop.name | json }},
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {{ potential_action_target | json }},
+        "query-input": "required name=search_term_string"
+      },
+      "url": {{ shop.url | append: page.url | json }}
+    }
+  </script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:sections.header.name",
+  "class": "section-header sticky top-0 z-1000",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "t:sections.header.settings.logo.label"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 50,
+      "max": 250,
+      "step": 10,
+      "default": 100,
+      "unit": "t:sections.header.settings.logo_width.unit",
+      "label": "t:sections.header.settings.logo_width.label"
+    },
+    {
+      "type": "select",
+      "id": "logo_position",
+      "options": [
+        {
+          "value": "middle-left",
+          "label": "t:sections.header.settings.logo_position.options__1.label"
+        },
+        {
+          "value": "top-left",
+          "label": "t:sections.header.settings.logo_position.options__2.label"
+        },
+        {
+          "value": "top-center",
+          "label": "t:sections.header.settings.logo_position.options__3.label"
+        }
+      ],
+      "default": "middle-left",
+      "label": "t:sections.header.settings.logo_position.label",
+      "info": "t:sections.header.settings.logo_position.info"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "default": "main-menu",
+      "label": "t:sections.header.settings.menu.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_line_separator",
+      "default": true,
+      "label": "t:sections.header.settings.show_line_separator.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sticky_header",
+      "default": true,
+      "label": "t:sections.header.settings.enable_sticky_header.label",
+      "info": "t:sections.header.settings.enable_sticky_header.info"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.spacing"
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.header.settings.margin_bottom.label",
+      "default": 0
+    }
+  ]
+}
+{% endschema %}

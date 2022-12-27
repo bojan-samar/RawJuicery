@@ -24,7 +24,7 @@
                         "image": "shopify:\/\/shop_images\/Product-Celery.png",
                         "time": "8:00AM",
                         "product_name": "Celery Juice",
-                        "effect": "Celery, Lemon"
+                        "effect": "celery-juice"
                     }
                 },
                 "ea5ce891-a274-4db2-b780-88e0d5b208dd": {
@@ -33,7 +33,7 @@
                         "image": "shopify:\/\/shop_images\/Product-Master_59c24dcb-805b-481c-afd9-db90e68c03a1.png",
                         "time": "10:00AM",
                         "product_name": "Master Cleanse",
-                        "effect": "Pineapple, Extra Turmeric, Lemon, Dandelion, Cayenne, Maitake Mushroom"
+                        "effect": "master-cleanse"
                     }
                 },
                 "9eaee5aa-7a57-4e25-8480-ae9d2b63c327": {
@@ -42,7 +42,7 @@
                         "image": "shopify:\/\/shop_images\/Product-G3_a779de5f-b3fa-4530-b1d6-13c81b727d04.png",
                         "time": "12:00PM",
                         "product_name": "G3 Live",
-                        "effect": "Cucumber, Celery, Kale, Spinach, Romaine, Lemon, Liquid Spirulina"
+                        "effect": "g3-live"
                     }
                 },
                 "c139c7e2-7a82-47eb-a373-41e2183295e4": {
@@ -51,7 +51,7 @@
                         "image": "shopify:\/\/shop_images\/Product-Elixir_b959a86e-04f0-4e6a-8672-c768f3245635.png",
                         "time": "2:00PM",
                         "product_name": "After Math",
-                        "effect": "Grapefruit, Ginger, Aloe, Burdock Root, Basil Oil, Milk Thistle"
+                        "effect": "aftermath"
                     }
                 },
                 "a55098ec-7dea-4e26-b7bf-62841f1ca30b": {
@@ -60,7 +60,7 @@
                         "image": "shopify:\/\/shop_images\/Product-Tropic_d716e3a4-1320-4334-9291-d3b6b7e0b578.png",
                         "time": "4:00PM",
                         "product_name": "Tropic Thunder",
-                        "effect": "Pineapple, Kale, Romaine, Apple, Lemon, Mint"
+                        "effect": "tropic-thunder"
                     }
                 },
                 "91cfe0b7-8a57-4e7a-b5cd-d465f691613f": {
@@ -69,7 +69,7 @@
                         "image": "shopify:\/\/shop_images\/Product-Red_Cure_ffd89236-fc1d-4a24-8dc8-937f1c11c58c.png",
                         "time": "6:00PM",
                         "product_name": "Red Cure",
-                        "effect": "Cucumber, Apple, Beet, Extra Ginger, Lemon, Cilantro"
+                        "effect": "red-cure"
                     }
                 },
                 "e46d352f-3345-42c6-9117-e399d263a611": {
@@ -78,7 +78,7 @@
                         "image": "shopify:\/\/shop_images\/Chill_v23_TRANS.png",
                         "time": "8:00PM",
                         "product_name": "Chill Pill",
-                        "effect": "Pineapple, Lemon, Butterfly Pea Flower, Chamomile, Schisandra, Ashwagandha, Vanilla, Coconut Nectar, Vegan Probiotic"
+                        "effect": "chill-pill"
                     }
                 },
                 "02e81dab-a0f6-4e5f-bf92-7f2f9249c4b7": {
@@ -87,7 +87,7 @@
                         "image": "shopify:\/\/shop_images\/Celery_v21_Trans.png",
                         "time": "8:00AM",
                         "product_name": "Celery Juice",
-                        "effect": "Celery, Lemon"
+                        "effect": "celery-juice"
                     }
                 },
                 "5586e121-7dd2-4c45-9f91-032558b09aa4": {
@@ -96,7 +96,7 @@
                         "image": "shopify:\/\/shop_images\/Master_v21_Trans.png",
                         "time": "10:00AM",
                         "product_name": "Master Cleanse",
-                        "effect": "Pineapple, Extra Turmeric, Lemon, Dandelion, Cayenne, Maitake Mushroom"
+                        "effect": "master-cleanse"
                     }
                 },
                 "714fdbb8-b9cc-4382-94c6-ab8b6c4ddf33": {
@@ -105,7 +105,7 @@
                         "image": "shopify:\/\/shop_images\/G3_v21_Trans.png",
                         "time": "12:00PM",
                         "product_name": "G3 Live",
-                        "effect": "Cucumber, Celery, Kale, Spinach, Romaine, Lemon, Liquid Spirulina"
+                        "effect": "g3-live"
                     }
                 },
                 "a8e51eef-52ca-42f6-a69c-f52b6cc8914f": {
@@ -114,7 +114,7 @@
                         "image": "shopify:\/\/shop_images\/Product-Elixir_b959a86e-04f0-4e6a-8672-c768f3245635.webp",
                         "time": "2:00PM",
                         "product_name": "After Math",
-                        "effect": "Grapefruit, Ginger, Aloe, Burdock Root, Basil Oil, Milk Thistle"
+                        "effect": "aftermath"
                     }
                 },
                 "05f77a25-c9e7-42b2-b11a-94c3ece9838c": {
@@ -123,7 +123,7 @@
                         "image": "shopify:\/\/shop_images\/Green_Fiend_v21_Trans.png",
                         "time": "4:00PM",
                         "product_name": "Green Fiend",
-                        "effect": ""
+                        "effect": "green-fiend"
                     }
                 },
                 "30a23523-54dc-4b51-89e4-fee4341899d4": {
@@ -132,7 +132,7 @@
                         "image": "shopify:\/\/shop_images\/G3_v21_Trans_4fa3ce4c-fc7e-4f4f-9989-7a46db4e4f52.png",
                         "time": "6:00PM",
                         "product_name": "G3 Live",
-                        "effect": "Cucumber, Celery, Kale, Spinach, Romaine, Lemon, Liquid Spirulina"
+                        "effect": "g3-live"
                     }
                 },
                 "792589af-cd21-47c8-aab0-a44f6c0e28f9": {
@@ -141,7 +141,7 @@
                         "image": "shopify:\/\/shop_images\/Chill_v23_TRANS.png",
                         "time": "9:00PM",
                         "product_name": "Chill Pill",
-                        "effect": "Pineapple, Lemon, Butterfly Pea Flower, Chamomile, Schisandra, Ashwagandha, Vanilla, Coconut Nectar, Vegan Probiotic"
+                        "effect": "chill-pill"
                     }
                 }
             },
@@ -153,15 +153,13 @@
                 "a55098ec-7dea-4e26-b7bf-62841f1ca30b",
                 "91cfe0b7-8a57-4e7a-b5cd-d465f691613f",
                 "e46d352f-3345-42c6-9117-e399d263a611",
-                "3f47abdc-f997-4f17-8429-923df738dd46",
                 "02e81dab-a0f6-4e5f-bf92-7f2f9249c4b7",
                 "5586e121-7dd2-4c45-9f91-032558b09aa4",
                 "714fdbb8-b9cc-4382-94c6-ab8b6c4ddf33",
                 "a8e51eef-52ca-42f6-a69c-f52b6cc8914f",
                 "05f77a25-c9e7-42b2-b11a-94c3ece9838c",
                 "30a23523-54dc-4b51-89e4-fee4341899d4",
-                "792589af-cd21-47c8-aab0-a44f6c0e28f9",
-                "920c9759-8c6e-4266-9902-ba7a5d60ce9f"
+                "792589af-cd21-47c8-aab0-a44f6c0e28f9"
             ],
             "settings": {
                 "heading": "Signature Cleanse [15% OFF]",

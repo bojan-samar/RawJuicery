@@ -1,11 +1,7 @@
-<div class="flex z-10 w-full lg:border-green lg:h-[95px] items-center lg:py-0 py-[20px] px-[20px] lg:px-[30px]">
-    <span
-        x-intersect="$el.classList.add('!opacity-100')"
-        class="text-[28px] leading-[28px] lg:text-[40px] lg:leading-[40px] transition-opacity duration-700 ease-in opacity-0 uppercase"
-    >
-        {{ section.settings.heading }}
-    </span>
-</div>
+<section class="hidden lg:block py-[20px] px-[20px] lg:px-[30px] text-[28px] leading-[28px] lg:text-[40px] lg:leading-[40px] uppercase">
+    {{ section.settings.heading }}
+</section>
+
 
 <section x-data="includedSlider" class="hidden lg:block px-[30px] pt-[30px] pb-[60px] overflow-hidden">
     <div x-data="initSlider($el)" class="w-full overflow-hidden">

@@ -270,9 +270,15 @@
 
             showBottle(product_slug) {
                 self = this;
-                jQuery.getJSON(window.Shopify.routes.root + `products/${product_slug}.js`, function (product) {
-                    self.selectedBottle = product
+
+                fetch(window.Shopify.routes.root + `products/${product_slug}.js`).then(function (response) {
+                    return response.json();
+                }).then(function (data) {
+                    self.selectedBottle = data
                     self.modelOpen = true;
+                    console.log(data);
+                }).catch(function (err) {
+                    console.log('Fetch Error :-S', err);
                 });
             },
 

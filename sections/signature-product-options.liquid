@@ -149,7 +149,7 @@
                     {%- when 'schedule' -%}
                         {{ block.settings.product_slug }}
                         <div @click="showBottle('{{ block.settings.effect }}')" x-show="scheduleType == 'signature'"
-                             class="flex flex-col py-[20px] transition-colors bg-cream hover:bg-green hover:text-cream group cursor-pointer">
+                             class="flex flex-col py-[20px] transition-colors bg-cream hover:bg-green hover:text-cream group cursor-pointer text-center">
                             <span class="px-[20px] font-bold">{{ block.settings.time }}</span>
                             {% if block.settings.image %}
 
@@ -187,8 +187,8 @@
                         </div>
                     {%- when 'green_schedule' -%}
                         <div @click="showBottle('{{ block.settings.effect }}')" x-show="scheduleType == 'green'"
-                             class="flex flex-col py-[20px] transition-colors bg-cream hover:bg-green duration-300 hover:text-cream group cursor-pointer">
-                            <span class="px-[20px]">{{ block.settings.time }}</span>
+                             class="flex flex-col py-[20px] transition-colors bg-cream hover:bg-green duration-300 hover:text-cream group cursor-pointer text-center">
+                            <span class="px-[20px] font-bold">{{ block.settings.time }}</span>
                             {% if block.settings.image %}
                                 <img class="object-cover w-[400px] mx-auto mt-[15px] mb-[25px] md:group-hover:animate-float"
                                      src="{{ block.settings.image | image_url }}" alt="">

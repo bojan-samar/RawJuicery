@@ -1,3 +1,9 @@
+.footer-socials .icon{
+  color: #fff;
+  height:2rem;
+  width:2rem;
+}
+
 .slide-panel-header {
   padding-left: 0 !important;
 }

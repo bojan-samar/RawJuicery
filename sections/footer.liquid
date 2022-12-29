@@ -1,464 +1,378 @@
-
-{% comment %} <footer class="pt-8 mt-8 footer">
-  {% if section.settings.show_newsletter %}
-    <div class="footer__newsletter page-width">
-      {% if section.settings.newsletter_title != blank %}
-        <h2 class="text-3xl text-center font-default">{{ section.settings.newsletter_title }}</h2>
-      {% endif %}
-      {% if section.settings.newsletter_subtitle != blank %}
-        <div class="py-2 text-base font-medium">
-          {{ section.settings.newsletter_subtitle }}
-        </div>
-      {% endif %}
-
-      {% if section.settings.newsletter_html != blank %}
-        <div class="footer__newsletter--html">
-          {{ section.settings.newsletter_html }}
-        </div>
-      {% endif %}
-
-    </div>
-  {% endif %}
-
-  {%- if section.blocks.size > 0 -%}
-    <div class="pt-8 footer__content-top page-width">
-      {%- if section.blocks.size > 0 -%}
-        <div class="grid grid-cols-1 gap-4 footer__blocks-wrapper md:grid-cols-4">
-          {%- for block in section.blocks -%}
-            <div class="footer-block bg-white grid__item{% if block.type == 'link_list' and block.settings.heading != blank %} footer-block--menu{% endif %}" {{ block.shopify_attributes }}>
-              {%- if block.settings.heading != blank -%}
-                <h3 class="mb-2 text-lg font-medium uppercase footer-block__heading">{{- block.settings.heading | escape -}}</h3>
-              {%- endif -%}
-
-              {%- case block.type -%}
-
-                {%- when 'social_links' -%}
-                  {%- if block.settings.show_icons -%}
-                    {% render 'social_links' %}
-                  {%- endif -%}
-                {%- when 'text' -%}
-                  <div class="footer-block__details-content rte">
-                    {{ block.settings.subtext }}
-                  </div>
-                {%- when 'link_list' -%}
-                  {%- if block.settings.menu != blank and block.settings.heading != blank -%}
-                    <ul class="font-medium footer-block__details-content list-unstyled">
-                      {%- for link in block.settings.menu.links -%}
-                        <li>
-                          <a href="{{ link.url }}" {% if link.url contains '#' %} title="Link" {%- endif -%} class="link link--text list-menu__item list-menu__item--link{% if link.active %} list-menu__item--active{% endif %}">
-                            {{ link.title }}
-                          </a>
-                        </li>
-                      {%- endfor -%}
-                    </ul>
-                  {%- endif -%}
-
-                {%- when 'image' -%}
-
-                  <div class="footer-block__details-content footer-block-image {{ block.settings.alignment }}">
-                    {%- if block.settings.image != blank -%}
-                      {%- assign image_size = block.settings.image_width -%}
-                      <img
-                        srcset= "{{ block.settings.image | image_url: width: image_size }}, {{ block.settings.image | image_url: width: image_size, scale: 2 }} 2x"
-                        src="{{ block.settings.image | image_url: width: 400 }}"
-                        alt="{{ block.settings.image.alt | escape }}"
-                        loading="lazy"
-                        width="{{ block.settings.image.width }}"
-                        height="{{ block.settings.image.height }}"
-                        style="max-width: min(100%, {{ block.settings.image_width }}px);"
-                      >
-                    {%- else -%}
-                      {{ 'image' | placeholder_svg_tag: 'placeholder-svg placeholder' }}
-                    {%- endif -%}
-                  </div>
-                {%- endcase -%}
-            </div>
-          {%- endfor -%}
-        </div>
-      {%- endif -%}
-
-    </div>
-  {%- endif -%}
-
-  <div class="pt-4 pb-6 footer__content-bottom">
-    <div class="page-width">
-
-      <div class="flex flex-wrap items-center justify-center footer__column footer__column--info md:justify-between">
-        <div class="footer__copyright">
-          <small class="flex items-center copyright__content">
-            &copy; {{ 'now' | date: "%Y" }},
-            {% if section.settings.copyright_text != blank %}
-              {{ section.settings.copyright_text }}
-            {% else %}
-              {{ shop.name | link_to: routes.root_url }}
-            {% endif %}
-          </small>
-        </div>
-
-        {%- if section.settings.payment_enable -%}
-          <div class="mt-2 footer__payment">
-            <span class="sr-only">{{ 'sections.footer.payment' | t }}</span>
-            <ul class="flex space-x-2 list" role="list">
-              {%- for type in shop.enabled_payment_types -%}
-                <li class="list-payment__item">
-                  {{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}
-                </li>
-              {%- endfor -%}
-            </ul>
-          </div>
-        {%- endif -%}
-
-      </div>
-    </div>
-
-  </div>
-</footer> {% endcomment %}
+{%- assign menu_array = section.blocks | where: "type", "link_list" -%}
 
 <footer class="flex flex-col py-[30px] md:py-0 gap-y-[20px] md:flex-row text-[16px] lg:text-[18px] leading-[25.2px] uppercase text-white md:divide-x divide-white bg-green lg:h-[365px]">
     <section class="px-[23px] mb-[10px] md:mb-0 md:p-[20px] lg:p-[30px] md:pb-[40px] flex-1 md:w-4/12 lg:w-3/12">
         <article class="flex flex-col md:gap-y-[30px] justify-between flex-1 h-full">
-            <svg x-intersect="$el.classList.add('!scale-100')" class="mr-auto transition-transform duration-700 ease-in-out scale-0 h-[50px] md:h-[60px] lg:h-[69px]" viewBox="0 0 69 69" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M34.5 -0.00134277C15.4437 -0.00134277 0 15.4465 0 34.5C0 53.5536 15.4437 69 34.5 69C53.5563 69 69 53.5536 69 34.5C69 15.4465 53.5536 -0.00134277 34.5 -0.00134277ZM15.7017 48.9352H15.6198C15.5084 48.926 15.4045 48.8753 15.3287 48.7931C15.2529 48.711 15.2107 48.6034 15.2104 48.4916V31.8414L15.6484 31.8319C16.0483 31.8319 16.6447 32.1526 16.9109 32.6712L17.1142 33.0684C17.6246 34.0674 18.5745 35.9262 19.3429 37.2337C19.3797 37.2964 19.6868 37.9761 19.6868 38.1631C19.6868 40.6196 19.6868 42.3283 19.6868 44.819C19.6854 46.9699 17.787 48.9352 15.7017 48.9352ZM35.0814 48.9093C35.0462 48.9254 35.0082 48.9342 34.9695 48.9352H34.4359C33.8436 48.9352 33.632 48.9352 33.2936 48.9188H32.603C31.8137 48.8862 31.0563 48.599 30.4439 48.0999C30.1981 47.8992 29.9768 47.6702 29.7847 47.4176C29.535 47.1078 23.2898 34.9054 22.7916 33.9063C22.7297 33.7616 22.7048 33.6036 22.7193 33.4468C22.7339 33.2899 22.7873 33.1392 22.8749 33.0083C22.9565 32.897 23.0676 32.8106 23.1956 32.759C23.3237 32.7074 23.4636 32.6926 23.5996 32.7163C23.8917 32.7163 25.382 32.7326 26.4956 32.7572C28.2221 32.7968 30.3293 31.6831 30.8493 29.7547C31.0965 28.8569 31.0473 27.9033 30.7089 27.0358C30.3705 26.1683 29.7611 25.4331 28.9713 24.9398C28.1607 24.4471 27.3841 24.3803 26.3783 24.3393C26.0248 24.3257 21.4555 24.3734 21.2385 24.3775C19.4398 24.4035 17.6301 24.1264 16.5669 21.9073L15.8395 20.4061C15.8181 20.3612 15.8084 20.3117 15.8113 20.2621C15.8141 20.2125 15.8295 20.1644 15.8559 20.1224C15.8823 20.0803 15.919 20.0456 15.9624 20.0215C16.0058 19.9973 16.0546 19.9846 16.1043 19.9843C19.1791 19.9843 26.2268 20.0321 26.7577 20.0403C28.1691 20.0555 29.5554 20.4153 30.7961 21.0884C32.0367 21.7615 33.0942 22.7276 33.8763 23.9026C34.6217 25.0211 35.0824 26.3049 35.2182 27.6422C35.3541 28.9795 35.1609 30.3297 34.6556 31.5753C33.7999 33.6661 32.4256 35.1524 30.5695 35.9931C30.5695 35.9931 29.8734 36.3097 29.6332 36.4162C29.482 36.4741 29.3264 36.5198 29.1679 36.5526L29.1228 36.5649L35.5495 48.8847L35.0814 48.9093ZM53.7392 40.4886C53.7237 41.9 53.3638 43.2863 52.6907 44.5269C52.0176 45.7675 51.0517 46.8249 49.8769 47.6073C47.5813 49.1222 44.5693 49.2941 42.0731 48.6349C41.2561 48.4086 40.4924 48.0217 39.8267 47.4967C39.4896 47.2592 38.8714 46.3121 38.8468 46.2684C38.7745 46.1238 37.235 43.2345 36.6018 41.968C35.6369 40.0383 36.7287 37.366 38.5943 36.4339C38.5943 36.4339 42.1236 43.2277 42.5098 43.8036C42.8961 44.3796 43.4802 44.6443 44.0206 44.7904C45.8808 45.2926 47.8597 44.3182 48.8369 42.7118C49.3282 41.9012 49.3951 41.1232 49.436 40.1188C49.451 39.7667 49.4019 25.715 49.3992 25.498C49.3733 23.6992 49.6503 21.8909 51.8681 20.8278L53.3693 20.1003C53.4141 20.0786 53.4637 20.0686 53.5135 20.0712C53.5632 20.0739 53.6114 20.0892 53.6536 20.1157C53.6958 20.1422 53.7306 20.179 53.7546 20.2226C53.7786 20.2663 53.7912 20.3153 53.791 20.3651C53.7938 23.429 53.7446 39.9577 53.7364 40.4886H53.7392Z" fill="white"/>
-             </svg>
-            <p
-                x-intersect="$el.classList.add('!opacity-50')"
-                class="hidden transition-opacity duration-700 opacity-0 lg:block ease-e"
-            >
-                &copy; 2022 RAW JUICERY, INC.
-            </p>
-            <ul class="hidden md:block lg:hidden" x-data="{ listHoverId : null }">
-                <li :class="{ '!opacity-100': listHoverId != null && listHoverId === 1 || listHoverId === null, 'opacity-50': listHoverId != null}" class="transition-opacity duration-300 ease-e">
-                    <a @mouseover="listHoverId = 1" @mouseleave="listHoverId = null" href="/pages/cleanses">
-                        Cleanses</a>
-                </li>
-                <li :class="{ '!opacity-100': listHoverId != null && listHoverId === 2 || listHoverId === null, 'opacity-50': listHoverId != null}" class="transition-opacity duration-300 ease-e">
-                    <a @mouseover="listHoverId = 2" @mouseleave="listHoverId = null" href="/tools/bundle-subscriptions/bundle/7722364862613?product=make-a-box&selling_plan=onetime">
-                        Make a Box</a>
-                </li>
-                <li :class="{ '!opacity-100': listHoverId != null && listHoverId === 2 || listHoverId === null, 'opacity-50': listHoverId != null}" class="transition-opacity duration-300 ease-e">
-                    <a @mouseover="listHoverId = 2" @mouseleave="listHoverId = null" href="https://rawjuicery.com/tools/bundle-subscriptions/bundle/7692164694165?product=make-a-boost-box&selling_plan=onetime">
-                        Boost Box</a>
-                </li>
-                <li :class="{ '!opacity-100': listHoverId != null && listHoverId === 3 || listHoverId === null, 'opacity-50': listHoverId != null}" class="transition-opacity duration-300 ease-e">
-                    <a @mouseover="listHoverId = 3" @mouseleave="listHoverId = null" href="https://wholesale.rawjuicery.com/">
-                        Wholesale</a>
-                </li>
-                <li :class="{ '!opacity-100': listHoverId != null && listHoverId === 4 || listHoverId === null, 'opacity-50': listHoverId != null}" class="transition-opacity duration-300 ease-e">
-                  <a @mouseover="listHoverId = 4" @mouseleave="listHoverId = null" href="/products/gift-card">
-                      Gift Card</a>
-              </li>
-            </ul>
+            <svg x-intersect="$el.classList.add('!scale-100')"
+                 class="mr-auto transition-transform duration-700 ease-in-out scale-0 h-[50px] md:h-[60px] lg:h-[69px]"
+                 viewBox="0 0 69 69" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M34.5 -0.00134277C15.4437 -0.00134277 0 15.4465 0 34.5C0 53.5536 15.4437 69 34.5 69C53.5563 69 69 53.5536 69 34.5C69 15.4465 53.5536 -0.00134277 34.5 -0.00134277ZM15.7017 48.9352H15.6198C15.5084 48.926 15.4045 48.8753 15.3287 48.7931C15.2529 48.711 15.2107 48.6034 15.2104 48.4916V31.8414L15.6484 31.8319C16.0483 31.8319 16.6447 32.1526 16.9109 32.6712L17.1142 33.0684C17.6246 34.0674 18.5745 35.9262 19.3429 37.2337C19.3797 37.2964 19.6868 37.9761 19.6868 38.1631C19.6868 40.6196 19.6868 42.3283 19.6868 44.819C19.6854 46.9699 17.787 48.9352 15.7017 48.9352ZM35.0814 48.9093C35.0462 48.9254 35.0082 48.9342 34.9695 48.9352H34.4359C33.8436 48.9352 33.632 48.9352 33.2936 48.9188H32.603C31.8137 48.8862 31.0563 48.599 30.4439 48.0999C30.1981 47.8992 29.9768 47.6702 29.7847 47.4176C29.535 47.1078 23.2898 34.9054 22.7916 33.9063C22.7297 33.7616 22.7048 33.6036 22.7193 33.4468C22.7339 33.2899 22.7873 33.1392 22.8749 33.0083C22.9565 32.897 23.0676 32.8106 23.1956 32.759C23.3237 32.7074 23.4636 32.6926 23.5996 32.7163C23.8917 32.7163 25.382 32.7326 26.4956 32.7572C28.2221 32.7968 30.3293 31.6831 30.8493 29.7547C31.0965 28.8569 31.0473 27.9033 30.7089 27.0358C30.3705 26.1683 29.7611 25.4331 28.9713 24.9398C28.1607 24.4471 27.3841 24.3803 26.3783 24.3393C26.0248 24.3257 21.4555 24.3734 21.2385 24.3775C19.4398 24.4035 17.6301 24.1264 16.5669 21.9073L15.8395 20.4061C15.8181 20.3612 15.8084 20.3117 15.8113 20.2621C15.8141 20.2125 15.8295 20.1644 15.8559 20.1224C15.8823 20.0803 15.919 20.0456 15.9624 20.0215C16.0058 19.9973 16.0546 19.9846 16.1043 19.9843C19.1791 19.9843 26.2268 20.0321 26.7577 20.0403C28.1691 20.0555 29.5554 20.4153 30.7961 21.0884C32.0367 21.7615 33.0942 22.7276 33.8763 23.9026C34.6217 25.0211 35.0824 26.3049 35.2182 27.6422C35.3541 28.9795 35.1609 30.3297 34.6556 31.5753C33.7999 33.6661 32.4256 35.1524 30.5695 35.9931C30.5695 35.9931 29.8734 36.3097 29.6332 36.4162C29.482 36.4741 29.3264 36.5198 29.1679 36.5526L29.1228 36.5649L35.5495 48.8847L35.0814 48.9093ZM53.7392 40.4886C53.7237 41.9 53.3638 43.2863 52.6907 44.5269C52.0176 45.7675 51.0517 46.8249 49.8769 47.6073C47.5813 49.1222 44.5693 49.2941 42.0731 48.6349C41.2561 48.4086 40.4924 48.0217 39.8267 47.4967C39.4896 47.2592 38.8714 46.3121 38.8468 46.2684C38.7745 46.1238 37.235 43.2345 36.6018 41.968C35.6369 40.0383 36.7287 37.366 38.5943 36.4339C38.5943 36.4339 42.1236 43.2277 42.5098 43.8036C42.8961 44.3796 43.4802 44.6443 44.0206 44.7904C45.8808 45.2926 47.8597 44.3182 48.8369 42.7118C49.3282 41.9012 49.3951 41.1232 49.436 40.1188C49.451 39.7667 49.4019 25.715 49.3992 25.498C49.3733 23.6992 49.6503 21.8909 51.8681 20.8278L53.3693 20.1003C53.4141 20.0786 53.4637 20.0686 53.5135 20.0712C53.5632 20.0739 53.6114 20.0892 53.6536 20.1157C53.6958 20.1422 53.7306 20.179 53.7546 20.2226C53.7786 20.2663 53.7912 20.3153 53.791 20.3651C53.7938 23.429 53.7446 39.9577 53.7364 40.4886H53.7392Z"
+                      fill="white"/>
+            </svg>
 
-            <ul class="hidden md:block lg:hidden" x-data="{ listHoverId : null }">
-                <li :class="{ '!opacity-100': listHoverId != null && listHoverId === 1 || listHoverId === null, 'opacity-50': listHoverId != null}" class="transition-opacity duration-300 ease-e">
-                    <a @mouseover="listHoverId = 1" @mouseleave="listHoverId = null" href="/pages/ingredients">
-                        Our Ingredients</a>
-                </li>
-                <li :class="{ '!opacity-100': listHoverId != null && listHoverId === 2 || listHoverId === null, 'opacity-50': listHoverId != null}" class="transition-opacity duration-300 ease-e">
-                    <a @mouseover="listHoverId = 2" @mouseleave="listHoverId = null" href="/pages/our-story">
-                        Our Story</a>
-                </li>
-                <li :class="{ '!opacity-100': listHoverId != null && listHoverId === 3 || listHoverId === null, 'opacity-50': listHoverId != null}" class="transition-opacity duration-300 ease-e">
-                    <a class="cursor-pointer" @mouseover="listHoverId = 3" @mouseleave="listHoverId = null" href="/?loyal">
-                        Rewards</a>
-                </li>
-            </ul>
+            <p x-intersect="$el.classList.add('!opacity-50')"
+               class="hidden transition-opacity duration-700 opacity-0 lg:block ease-e">
+                &copy; {{ 'now' | date: '%Y'  }} RAW JUICERY, INC.
+            </p>
+
+            {%- for menu_block in menu_array -%}
+
+                {%- if forloop.index0 == 0 -%}
+
+                    <ul class="hidden md:block lg:hidden" x-data="{ listHoverId : null }">
+
+                        {% for link in menu_block.settings.menu.links -%}
+
+                            <li :class="{ '!opacity-100': listHoverId != null && listHoverId === {{ forloop.index }} || listHoverId === null, 'opacity-50': listHoverId != null}"
+                                class="transition-opacity duration-300 ease-e">
+                                <a @mouseover="listHoverId = {{ forloop.index }}" @mouseleave="listHoverId = null"
+                                   href=" {{ link.url }}">
+                                    {{ link.title }}
+                                </a>
+                            </li>
+
+                        {%- endfor -%}
+
+                    </ul>
+
+                {%- endif -%}
+
+
+                {%- if forloop.index0 == 1 -%}
+
+                    <ul class="hidden md:block lg:hidden" x-data="{ listHoverId : null }">
+
+                        {% for link in menu_block.settings.menu.links -%}
+
+                            <li :class="{ '!opacity-100': listHoverId != null && listHoverId === {{ forloop.index }} || listHoverId === null, 'opacity-50': listHoverId != null}"
+                                class="transition-opacity duration-300 ease-e">
+                                <a @mouseover="listHoverId = {{ forloop.index }}" @mouseleave="listHoverId = null"
+                                   href=" {{ link.url }}">
+                                    {{ link.title }}
+                                </a>
+                            </li>
+
+                        {%- endfor -%}
+
+                    </ul>
+
+                {%- endif -%}
+
+            {%- endfor -%}
+
+
         </article>
     </section>
+
+
     <section class="px-[23px] md:p-[20px] lg:p-[30px] flex-1 md:hidden lg:block lg:w-3/12">
         <article
-            x-intersect="$el.classList.add('!opacity-100')"
-            class="flex flex-col justify-between flex-1 h-full transition-opacity duration-700 ease-in-out delay-200 opacity-0"
+                x-intersect="$el.classList.add('!opacity-100')"
+                class="flex flex-col justify-between flex-1 h-full transition-opacity duration-700 ease-in-out delay-200 opacity-0"
         >
-           <ul
-               x-data="{ listHoverId : null }"
-           >
-               <li
-                    :class="{ '!opacity-100': listHoverId != null && listHoverId === 1 || listHoverId === null, 'opacity-50': listHoverId != null}"
-                    class="transition-opacity duration-300 ease-e"
-               >
-                   <a
-                        @mouseover="listHoverId = 1"
-                        @mouseleave="listHoverId = null"
-                        href="/pages/cleanses"
-                   >
-                       Cleanses</a></li>
-               <li
-                    :class="{ '!opacity-100': listHoverId != null && listHoverId === 2 || listHoverId === null, 'opacity-50': listHoverId != null}"
-                    class="transition-opacity duration-300 ease-e"
-               >
-                   <a
-                        @mouseover="listHoverId = 2"
-                        @mouseleave="listHoverId = null"
-                        href="/tools/bundle-subscriptions/bundle/7722364862613?product=make-a-box&selling_plan=onetime"
-                   >
-                       Make a Box</a></li>
-               <li
-                    :class="{ '!opacity-100': listHoverId != null && listHoverId === 3 || listHoverId === null, 'opacity-50': listHoverId != null}"
-                    class="transition-opacity duration-300 ease-e"
-               >
-                   <a
-                        @mouseover="listHoverId = 3"
-                        @mouseleave="listHoverId = null"
-                        href="https://wholesale.rawjuicery.com/"
-                   >
-                       Wholesale</a>
-                  </li>
-                  <li :class="{ '!opacity-100': listHoverId != null && listHoverId === 4 || listHoverId === null, 'opacity-50': listHoverId != null}" class="transition-opacity duration-300 ease-e">
-                    <a @mouseover="listHoverId = 4" @mouseleave="listHoverId = null" href="/products/gift-card">
-                        Gift Card</a>
-                </li>
-           </ul>
-           <ul
-                x-data="{ listHoverId : null }"
-                class="hidden md:block"
-           >
-                 <li
-                    :class="{ '!opacity-100': listHoverId != null && listHoverId === 1 || listHoverId === null, 'opacity-50': listHoverId != null}"
-                    class="transition-opacity duration-300 ease-e"
-               >
-                    <a
-                        href="#"
-                        class="underline"
-                        @mouseover="listHoverId = 1"
-                        @mouseleave="listHoverId = null"
-                    >
-                        SUPPORT@RAWJUICERY.COM
-                    </a>
-                </li>
-                 <li
-                    :class="{ '!opacity-100': listHoverId != null && listHoverId === 2 || listHoverId === null, 'opacity-50': listHoverId != null}"
-                    class="transition-opacity duration-300 ease-e"
-               >
-                    <a
-                        href="#"
-                        @mouseover="listHoverId = 2"
-                        @mouseleave="listHoverId = null"
-                    >
-                    TEXT: (213) 221-6081
-                    </a>
-                </li>
-            </ul>
+
+            {%- for menu_block in menu_array -%}
+
+
+                {%- if forloop.index0 == 0 -%}
+
+                    <ul
+                            x-data="{ listHoverId : null }">
+
+                        {% for link in menu_block.settings.menu.links -%}
+
+                            <li :class="{ '!opacity-100': listHoverId != null && listHoverId === {{ forloop.index }} || listHoverId === null, 'opacity-50': listHoverId != null}"
+                                class="transition-opacity duration-300 ease-e">
+                                <a
+                                        @mouseover="listHoverId = {{ forloop.index }}"
+                                        @mouseleave="listHoverId = null"
+                                        href=" {{ link.url }}">
+                                    {{ link.title }}
+                                </a>
+                            </li>
+
+                        {%- endfor -%}
+
+                    </ul>
+
+
+                {%- endif -%}
+
+                {%- if menu_block.settings.menu.handle == "footer-contact" -%}
+                    <ul class="footer-contact-desktop hidden md:block"
+                        x-data="{ listHoverId : null }">
+                        {% for link in menu_block.settings.menu.links -%}
+                            <li :class="{ '!opacity-100': listHoverId != null && listHoverId === {{ forloop.index }} || listHoverId === null, 'opacity-50': listHoverId != null}"
+                                class="transition-opacity duration-300 ease-e">
+                                <a
+                                        @mouseover="listHoverId = {{ forloop.index }}"
+                                        @mouseleave="listHoverId = null"
+                                        href=" {{ link.url }}"
+                                        class="break-words ">
+                                    {{ link.title }}
+                                </a>
+                            </li>
+                        {%- endfor -%}
+                    </ul>
+                {%- endif -%}
+
+
+            {%- endfor -%}
+
         </article>
     </section>
+
     <section class="px-[23px] md:p-[20px] md:pb-[40px] lg:p-[30px] flex-1 md:w-3/12">
         <article
-            x-intersect="$el.classList.add('!opacity-100')"
-            class="flex flex-col lg:justify-between delay-[400ms] flex-1 h-full transition-opacity duration-700 ease-in-out delay-200 opacity-0"
+                x-intersect="$el.classList.add('!opacity-100')"
+                class="flex flex-col lg:justify-between delay-[400ms] flex-1 h-full transition-opacity duration-700 ease-in-out delay-200 opacity-0"
         >
+
+            {%- for menu_block in menu_array -%}
+
+
+                {%- if forloop.index0 == 2 -%}
+
+                    <ul
+                            x-data="{ listHoverId : null }">
+
+                        {% for link in menu_block.settings.menu.links -%}
+
+                            <li :class="{ '!opacity-100': listHoverId != null && listHoverId === {{ forloop.index }} || listHoverId === null, 'opacity-50': listHoverId != null}"
+                                class="transition-opacity duration-300 ease-e">
+                                <a
+                                        @mouseover="listHoverId = {{ forloop.index }}"
+                                        @mouseleave="listHoverId = null"
+                                        href=" {{ link.url }}"
+                                        class="break-words ">
+                                    {{ link.title }}
+                                </a>
+                            </li>
+
+                        {%- endfor -%}
+
+                    </ul>
+
+                {%- endif -%}
+
+                {%- if forloop.index0 == 4 -%}
+
+                    <ul
+                            class="mt-[20px] md:mt-[90px] lg:mt-0"
+                            x-data="{ listHoverId : null }">
+
+                        {% for link in menu_block.settings.menu.links -%}
+
+                            <li :class="{ '!opacity-100': listHoverId != null && listHoverId === {{ forloop.index }} || listHoverId === null, 'opacity-50': listHoverId != null}"
+                                class="transition-opacity duration-300 ease-e">
+                                <a
+                                        @mouseover="listHoverId = {{ forloop.index }}"
+                                        @mouseleave="listHoverId = null"
+                                        href=" {{ link.url }}"
+                                        class="break-words ">
+                                    {{ link.title }}
+                                </a>
+                            </li>
+
+                        {%- endfor -%}
+
+                    </ul>
+
+                {%- endif -%}
+
+
+
+                {%- if forloop.index0 == 1 -%}
+
+                    <ul
+                            class="md:hidden lg:block"
+                            x-data="{ listHoverId : null }">
+
+
+                        {% for link in menu_block.settings.menu.links -%}
+
+                            <li :class="{ '!opacity-100': listHoverId != null && listHoverId === {{ forloop.index }} || listHoverId === null, 'opacity-50': listHoverId != null}"
+                                class="transition-opacity duration-300 ease-e">
+                                <a
+                                        @mouseover="listHoverId = {{ forloop.index }}"
+                                        @mouseleave="listHoverId = null"
+                                        href=" {{ link.url }}"
+                                        class="break-words ">
+                                    {{ link.title }}
+                                </a>
+                            </li>
+
+                        {%- endfor -%}
+
+                    </ul>
+
+                {%- endif -%}
+
+            {%- endfor -%}
+
+        </article>
+    </section>
+
+    <section class="px-[23px] md:p-[20px] md:pb-[40px] lg:p-[30px] flex-1 md:w-3/12">
+        <article
+                x-intersect="$el.classList.add('!opacity-100')"
+                class="flex flex-col delay-[600ms] justify-between flex-1 h-full transition-opacity duration-700 ease-in-out delay-200 opacity-0">
+
+
             <ul
-            class="block md:hidden lg:block"
-                x-data="{ listHoverId : null }"
+                    class="block md:hidden lg:block"
+                    x-data="{ listHoverId : null }"
             >
                 <li
-                    :class="{ '!opacity-100': listHoverId != null && listHoverId === 1 || listHoverId === null, 'opacity-50': listHoverId != null}"
-                    class="transition-opacity duration-300 ease-e"
+                        :class="{ '!opacity-100': listHoverId != null && listHoverId === 1 || listHoverId === null, 'opacity-50': listHoverId != null}"
+                        class="transition-opacity duration-300 ease-e"
                 >
                     <a
-                        @mouseover="listHoverId = 1"
-                        @mouseleave="listHoverId = null"
-                        href="/pages/ingredients"
-                    >
-                        Our Ingredients</a></li>
-                <li
-                    :class="{ '!opacity-100': listHoverId != null && listHoverId === 2 || listHoverId === null, 'opacity-50': listHoverId != null}"
-                    class="transition-opacity duration-300 ease-e"
-                >
-                    <a
-                        @mouseover="listHoverId = 2"
-                        @mouseleave="listHoverId = null"
-                        href="/pages/our-story"
-                    >
-                        Our Story</a></li>
-                <li
-                    :class="{ '!opacity-100': listHoverId != null && listHoverId === 3 || listHoverId === null, 'opacity-50': listHoverId != null}"
-                    class="transition-opacity duration-300 ease-e"
-                >
-                    <a
-                        class="cursor-pointer"
-                        @mouseover="listHoverId = 3"
-                        @mouseleave="listHoverId = null"
-                        href="/?loyal"
-                    >
-                        Rewards</a></li>
-            </ul>
-            <ul
-                class="mt-[20px] md:mt-[90px] lg:mt-0"
-                x-data="{ listHoverId : null }"
-            >
-                <li
-                    :class="{ '!opacity-100': listHoverId != null && listHoverId === 1 || listHoverId === null, 'opacity-50': listHoverId != null}"
-                    class="transition-opacity duration-300 ease-e"
-                >
-                    <a
-                        @mouseover="listHoverId = 1"
-                        @mouseleave="listHoverId = null"
-                        href="/pages/support"
+                            @mouseover="listHoverId = 1"
+                            @mouseleave="listHoverId = null"
+                            href="/pages/support"
                     >
                         Support</a></li>
                 <li
-                    :class="{ '!opacity-100': listHoverId != null && listHoverId === 2 || listHoverId === null, 'opacity-50': listHoverId != null}"
-                    class="transition-opacity duration-300 ease-e"
+                        :class="{ '!opacity-100': listHoverId != null && listHoverId === 2 || listHoverId === null, 'opacity-50': listHoverId != null}"
+                        class="transition-opacity duration-300 ease-e"
                 >
-                    <a
-                        @mouseover="listHoverId = 2"
-                        @mouseleave="listHoverId = null"
-                        href="/pages/legal"
-                    >
-                        Legal</a></li>
-                {% comment %} <li
-                    :class="{ '!opacity-100': listHoverId != null && listHoverId === 2 || listHoverId === null, 'opacity-50': listHoverId != null}"
-                    class="transition-opacity duration-300 ease-e"
-                >
-                    <a
-                        @mouseover="listHoverId = 2"
-                        @mouseleave="listHoverId = null"
-                        href="/pages/terms-of-use"
-                    >
-                        Terms Of Use</a></li>{% endcomment %}
-                {% comment %} <li
-                    :class="{ '!opacity-100': listHoverId != null && listHoverId === 3 || listHoverId === null, 'opacity-50': listHoverId != null}"
-                    class="transition-opacity duration-300 ease-e"
-                >
-                    <a
-                        @mouseover="listHoverId = 3"
-                        @mouseleave="listHoverId = null"
-                        href="/pages/ccpa-compliance"
-                    >
-                        CCPA</a></li> {% endcomment %}
-            </ul>
-            <ul class="hidden md:block lg:hidden mt-[30px]" x-data="{ listHoverId : null }">
-                <li :class="{ '!opacity-100': listHoverId != null && listHoverId === 1 || listHoverId === null, 'opacity-50': listHoverId != null}" class="transition-opacity duration-300 ease-e">
-                    <a @mouseover="listHoverId = 1" @mouseleave="listHoverId = null" href="/pages/support">
-                        Support</a>
-                </li>
-                <li :class="{ '!opacity-100': listHoverId != null && listHoverId === 2 || listHoverId === null, 'opacity-50': listHoverId != null}" class="transition-opacity duration-300 ease-e">
                     {% if customer %}
-                        <a @mouseover="listHoverId = 2" @mouseleave="listHoverId = null" class="cursor-pointer" href="/account">Account</a>
+                        <a @mouseover="listHoverId = 2" @mouseleave="listHoverId = null" class="cursor-pointer"
+                           href="/account">Account</a>
                     {% else %}
                         <a @mouseover="listHoverId = 2" @mouseleave="listHoverId = null" class="cursor-pointer"
                            href="/account">Account</a>
                     {% endif %}
                 </li>
-                <li :class="{ '!opacity-100': listHoverId != null && listHoverId === 3 || listHoverId === null, 'opacity-50': listHoverId != null}" class="transition-opacity duration-300 ease-e">
-                    <a @mouseover="listHoverId = 3" @click="$dispatch('toggle-cart')" class="cursor-pointer" @mouseleave="listHoverId = null">
+                <li
+                        :class="{ '!opacity-100': listHoverId != null && listHoverId === 3 || listHoverId === null, 'opacity-50': listHoverId != null}"
+                        class="transition-opacity duration-300 ease-e"
+                >
+                    <a
+                            href="/cart"
+                            class="cursor-pointer"
+                            @mouseover="listHoverId = 3"
+                            @mouseleave="listHoverId = null"
+                    >
                         My Cart</a>
                 </li>
-            </ul>
-        </article>
-    </section>
-    <section class="px-[23px] md:p-[20px] md:pb-[40px] lg:p-[30px] flex-1 md:w-3/12">
-        <article
-            x-intersect="$el.classList.add('!opacity-100')"
-            class="flex flex-col delay-[600ms] justify-between flex-1 h-full transition-opacity duration-700 ease-in-out delay-200 opacity-0"
-        >
-            <ul
-                class="block md:hidden lg:block"
-               x-data="{ listHoverId : null }"
-           >
-               <li
-                    :class="{ '!opacity-100': listHoverId != null && listHoverId === 1 || listHoverId === null, 'opacity-50': listHoverId != null}"
-                    class="transition-opacity duration-300 ease-e"
-               >
-                   <a
-                        @mouseover="listHoverId = 1"
-                        @mouseleave="listHoverId = null"
-                        href="/pages/support"
-                   >
-                       Support</a></li>
-               <li
-                    :class="{ '!opacity-100': listHoverId != null && listHoverId === 2 || listHoverId === null, 'opacity-50': listHoverId != null}"
-                    class="transition-opacity duration-300 ease-e"
-               >
-                   {% if customer %}
-                       <a @mouseover="listHoverId = 2" @mouseleave="listHoverId = null" class="cursor-pointer" href="/account">Account</a>
-                   {% else %}
-                       <a @mouseover="listHoverId = 2" @mouseleave="listHoverId = null" class="cursor-pointer" href="/account">Account</a>
-                   {% endif %}
-               </li>
-               <li
-                    :class="{ '!opacity-100': listHoverId != null && listHoverId === 3 || listHoverId === null, 'opacity-50': listHoverId != null}"
-                    class="transition-opacity duration-300 ease-e"
-               >
-                <a
-                  href="/cart"
-                        class="cursor-pointer"
-                        @mouseover="listHoverId = 3"
-                        @mouseleave="listHoverId = null"
-                   >
-                       My Cart</a></li>
-           </ul>
-            <ul x-data="{ listHoverId : null }" class="border-t border-white md:border-none lg:hidden w-[calc(100%+46px)] ml-[-23px] md:ml-0 md:w-full px-[23px] md:px-0 mt-[30px] md:mt-[90px] pb-[20px] pt-[30px] md:pt-0">
-                <li :class="{ '!opacity-100': listHoverId != null && listHoverId === 1 || listHoverId === null, 'opacity-50': listHoverId != null}" class="transition-opacity duration-300 ease-e">
-                    <a href="mailto:support@rawjuicery.com" class="underline" @mouseover="listHoverId = 1" @mouseleave="listHoverId = null">
-                        SUPPORT@RAWJUICERY.COM
-                    </a>
-                </li>
-                <li :class="{ '!opacity-100': listHoverId != null && listHoverId === 2 || listHoverId === null, 'opacity-50': listHoverId != null}" class="transition-opacity duration-300 ease-e">
-                    <a href="tel:2132216081" @mouseover="listHoverId = 2" @mouseleave="listHoverId = null">
-                        TEXT: (213) 221-6081
-                    </a>
-                </li>
-                <li class="mt-[20px]">
-                    <span class="text-white/50">&copy; 2022 Raw Juicery Inc</span>
+
+                <li
+                        :class="{ '!opacity-100': listHoverId != null && listHoverId === 3 || listHoverId === null, 'opacity-50': listHoverId != null}"
+                        class="transition-opacity duration-300 ease-e"
+                >
+                    <a target="_blank"
+                       href="https://claims.shipaid.com/"
+                       class="cursor-pointer"
+                       @mouseover="listHoverId = 3"
+                       @mouseleave="listHoverId = null"
+                    >
+                        File a Claim</a>
                 </li>
             </ul>
-            <ul
-                x-data="{ listHoverId : null }"
-                class="flex flex-row items-center space-x-[20px]"
-            >
-                <li
-                    :class="{ '!opacity-100': listHoverId != null && listHoverId === 1 || listHoverId === null, 'opacity-50': listHoverId != null}"
-                    class="transition-opacity duration-300 ease-e"
-                >
-                    <a
-                        @mouseover="listHoverId = 1"
-                        @mouseleave="listHoverId = null"
-                        href="https://www.facebook.com/rawjuicery/"
-                        target="_blank"
-                    >
-                        <svg width="24" height="23" viewBox="0 0 24 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M11.5013 0C17.8533 0 23.0026 5.14929 23.0026 11.5013C23.0026 17.2419 18.7967 22 13.2984 22.8628V14.8259L15.9781 14.8259L15.9782 14.8259L16.4882 11.5013H13.2984V9.34382C13.2984 8.48402 13.6965 7.64475 14.947 7.55553C15.0193 7.55037 15.0944 7.54772 15.1725 7.54772H16.6228L16.6229 7.54771V4.71732C16.6229 4.71732 15.3067 4.49269 14.0484 4.49269C14.0279 4.49269 14.0074 4.49278 13.987 4.49298C13.8594 4.49419 13.734 4.4992 13.6108 4.50796C11.2321 4.67718 9.70403 6.24814 9.70403 8.96741V11.5013L6.78396 11.5013L6.78379 11.5013V14.8259H9.70403V22.8627C4.20576 21.9999 0 17.2418 0 11.5013C0 5.14929 5.14929 0 11.5013 0Z" fill="white"/>
-                       </svg>
-                    </a>
-                </li>
-                <li
-                    :class="{ '!opacity-100': listHoverId != null && listHoverId === 2 || listHoverId === null, 'opacity-50': listHoverId != null}"
-                    class="transition-opacity duration-300 ease-e"
-                >
-                    <a
-                        @mouseover="listHoverId = 2"
-                        @mouseleave="listHoverId = null"
-                        href="https://www.instagram.com/rawjuicery/"
-                        target="_blank"
-                    >
-                        <svg width="24" height="23" viewBox="0 0 24 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M12.0523 0C8.92976 0 8.53817 0.0132356 7.31187 0.0691902C6.08803 0.125008 5.25227 0.319389 4.52089 0.603634C3.76487 0.897419 3.12363 1.29056 2.48444 1.92975C1.8452 2.56898 1.45211 3.21018 1.15828 3.96621C0.87403 4.69759 0.679695 5.53335 0.623832 6.75718C0.567877 7.98353 0.554688 8.37503 0.554688 11.4976C0.554688 14.6202 0.567877 15.0118 0.623832 16.2381C0.679695 17.4619 0.87403 18.2977 1.15828 19.029C1.45211 19.7851 1.8452 20.4263 2.48444 21.0655C3.12363 21.7047 3.76487 22.0978 4.52089 22.3917C5.25227 22.6759 6.08803 22.8703 7.31187 22.9262C8.53817 22.9821 8.92976 22.9953 12.0523 22.9953C15.1749 22.9953 15.5664 22.9821 16.7928 22.9262C18.0166 22.8703 18.8524 22.6759 19.5837 22.3917C20.3398 22.0978 20.981 21.7047 21.6202 21.0655C22.2594 20.4263 22.6525 19.7851 22.9464 19.029C23.2306 18.2977 23.425 17.4619 23.4808 16.2381C23.5367 15.0118 23.55 14.6202 23.55 11.4976C23.55 8.37507 23.5367 7.98353 23.4808 6.75718C23.425 5.53335 23.2306 4.69759 22.9464 3.96621C22.6525 3.21018 22.2594 2.56898 21.6202 1.92975C20.981 1.29056 20.3398 0.897419 19.5837 0.603634C18.8524 0.319389 18.0166 0.125008 16.7928 0.0691902C15.5664 0.0132356 15.1749 0 12.0523 0ZM12.0524 2.07162C15.1225 2.07162 15.4861 2.08331 16.6985 2.13862C17.8195 2.18979 18.4283 2.37709 18.8334 2.53455C19.3701 2.74313 19.7531 2.99227 20.1555 3.39459C20.5578 3.79695 20.8069 4.17996 21.0155 4.71664C21.173 5.12179 21.3603 5.73058 21.4114 6.85159C21.4667 8.06397 21.4784 8.42763 21.4784 11.4976C21.4784 14.5676 21.4667 14.9313 21.4114 16.1436C21.3603 17.2647 21.173 17.8735 21.0155 18.2786C20.8069 18.8152 20.5578 19.1983 20.1555 19.6006C19.7531 20.003 19.3701 20.2521 18.8334 20.4607C18.4283 20.6181 17.8195 20.8055 16.6985 20.8566C15.4863 20.9119 15.1227 20.9236 12.0524 20.9236C8.9822 20.9236 8.61863 20.9119 7.40643 20.8566C6.28542 20.8055 5.67659 20.6181 5.27144 20.4607C4.7348 20.2521 4.35175 20.003 3.94943 19.6006C3.54711 19.1983 3.29792 18.8152 3.08935 18.2786C2.93193 17.8735 2.74463 17.2647 2.69346 16.1437C2.63815 14.9313 2.62646 14.5676 2.62646 11.4976C2.62646 8.42763 2.63815 8.06397 2.69346 6.85159C2.74463 5.73058 2.93193 5.12179 3.08935 4.71664C3.29792 4.17996 3.54711 3.79695 3.94943 3.39464C4.35175 2.99227 4.7348 2.74313 5.27144 2.53455C5.67659 2.37709 6.28542 2.18979 7.40639 2.13862C8.61881 2.08331 8.98243 2.07162 12.0524 2.07162Z" fill="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M12.0522 15.3302C9.93557 15.3302 8.21965 13.6143 8.21965 11.4977C8.21965 9.38101 9.93557 7.66513 12.0522 7.66513C14.1689 7.66513 15.8848 9.38101 15.8848 11.4977C15.8848 13.6143 14.1689 15.3302 12.0522 15.3302ZM12.0522 5.59351C8.79137 5.59351 6.14795 8.23688 6.14795 11.4977C6.14795 14.7585 8.79137 17.4019 12.0522 17.4019C15.313 17.4019 17.9563 14.7585 17.9563 11.4977C17.9563 8.23688 15.313 5.59351 12.0522 5.59351Z" fill="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M19.569 5.36004C19.569 6.12205 18.9513 6.73974 18.1893 6.73974C17.4273 6.73974 16.8096 6.12205 16.8096 5.36004C16.8096 4.59804 17.4273 3.98035 18.1893 3.98035C18.9513 3.98035 19.569 4.59804 19.569 5.36004Z" fill="white"/>
-                        </svg>
-                    </a>
-                </li>
-                <li
-                    :class="{ '!opacity-100': listHoverId != null && listHoverId === 3 || listHoverId === null, 'opacity-50': listHoverId != null}"
-                    class="hidden transition-opacity duration-300 ease-e"
-                >
-                    <a
-                        @mouseover="listHoverId = 3"
-                        @mouseleave="listHoverId = null"
-                        href=""
-                    >
-                        <svg width="28" height="23" viewBox="0 0 28 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <mask id="mask0_239_2271" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="28" height="23">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M0.108887 0H27.7119V22.4333H0.108887V0Z" fill="white"/>
-                            </mask>
-                            <g mask="url(#mask0_239_2271)">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.78994 22.4333C19.2066 22.4333 24.903 13.8034 24.903 6.32022C24.903 6.07499 24.898 5.83087 24.8868 5.58807C25.9925 4.7888 26.9536 3.79145 27.712 2.65586C26.6973 3.10656 25.6052 3.41041 24.4598 3.54744C25.6289 2.84643 26.5267 1.73701 26.95 0.414708C25.8555 1.06338 24.644 1.53528 23.3541 1.78923C22.3206 0.688531 20.8488 0 19.2203 0C16.0925 0 13.5562 2.53628 13.5562 5.66282C13.5562 6.10734 13.606 6.53939 13.7032 6.95409C8.99663 6.71748 4.82294 4.46386 2.03017 1.03721C1.54336 1.87392 1.26314 2.84643 1.26314 3.88364C1.26314 5.84843 2.26303 7.58289 3.7833 8.59758C2.8544 8.56898 1.98159 8.31371 1.21831 7.88907C1.21709 7.91269 1.21709 7.93643 1.21709 7.96128C1.21709 10.7044 3.1694 12.9941 5.76056 13.5134C5.2849 13.6428 4.7844 13.7127 4.26767 13.7127C3.90276 13.7127 3.5479 13.6764 3.20308 13.6104C3.92396 15.8604 6.01451 17.4977 8.49359 17.5438C6.55486 19.0629 4.11321 19.9681 1.45989 19.9681C1.00289 19.9681 0.552192 19.9419 0.108887 19.8896C2.61536 21.4958 5.59119 22.4333 8.78994 22.4333Z" fill="white"/>
-                            </g>
-                        </svg>
-                    </a>
-                </li>
+
+            {%- for menu_block in menu_array -%}
+
+                {%- if menu_block.settings.menu.handle == "footer-contact" -%}
+                    <ul class="footer-contact-mobile md:hidden mb-2"
+                        x-data="{ listHoverId : null }">
+                        {% for link in menu_block.settings.menu.links -%}
+                            <li :class="{ '!opacity-100': listHoverId != null && listHoverId === {{ forloop.index }} || listHoverId === null, 'opacity-50': listHoverId != null}"
+                                class="transition-opacity duration-300 ease-e">
+                                <a
+                                        @mouseover="listHoverId = {{ forloop.index }}"
+                                        @mouseleave="listHoverId = null"
+                                        href=" {{ link.url }}"
+                                        class="break-words ">
+                                    {{ link.title }}
+                                </a>
+                            </li>
+                        {%- endfor -%}
+                        <li class="mt-[20px]">
+                            <span class="text-white/50">&copy; {{ 'now' | date: '%Y'  }} Raw Juicery Inc</span>
+                        </li>
+                    </ul>
+                {%- endif -%}
+
+            {%- endfor -%}
+
+
+            <ul class="footer-socials flex flex-wrap items-center space-x-4">
+                {%- if settings.social_twitter_link != blank -%}
+                    <li class="list-social__item">
+                        <a href="{{ settings.social_twitter_link }}" class="flex items-center h-8 w-8">
+                            {%- render 'icon-twitter' -%}
+                            <span class="hidden">{{ 'general.social.links.twitter' | t }}</span>
+                        </a>
+                    </li>
+                {%- endif -%}
+                {%- if settings.social_facebook_link != blank -%}
+                    <li class="list-social__item">
+                        <a href="{{ settings.social_facebook_link }}" class="flex items-center h-8 w-8">
+                            {%- render 'icon-facebook' -%}
+                            <span class="hidden">{{ 'general.social.links.facebook' | t }}</span>
+                        </a>
+                    </li>
+                {%- endif -%}
+                {%- if settings.social_pinterest_link != blank -%}
+                    <li class="list-social__item">
+                        <a href="{{ settings.social_pinterest_link }}" class="flex items-center h-8 w-8">
+                            {%- render 'icon-pinterest' -%}
+                            <span class="hidden">{{ 'general.social.links.pinterest' | t }}</span>
+                        </a>
+                    </li>
+                {%- endif -%}
+                {%- if settings.social_instagram_link != blank -%}
+                    <li class="list-social__item">
+                        <a href="{{ settings.social_instagram_link }}" class="flex items-center h-8 w-8">
+                            {%- render 'icon-instagram' -%}
+                            <span class="hidden">{{ 'general.social.links.instagram' | t }}</span>
+                        </a>
+                    </li>
+                {%- endif -%}
+                {%- if settings.social_tiktok_link != blank -%}
+                    <li class="list-social__item">
+                        <a href="{{ settings.social_tiktok_link }}" class="flex items-center h-8 w-8">
+                            {%- render 'icon-tiktok' -%}
+                            <span class="hidden">{{ 'general.social.links.tiktok' | t }}</span>
+                        </a>
+                    </li>
+                {%- endif -%}
+                {%- if settings.social_tumblr_link != blank -%}
+                    <li class="list-social__item">
+                        <a href="{{ settings.social_tumblr_link }}" class="flex items-center h-8 w-8">
+                            {%- render 'icon-tumblr' -%}
+                            <span class="hidden">{{ 'general.social.links.tumblr' | t }}</span>
+                        </a>
+                    </li>
+                {%- endif -%}
+                {%- if settings.social_snapchat_link != blank -%}
+                    <li class="list-social__item">
+                        <a href="{{ settings.social_snapchat_link }}" class="flex items-center h-8 w-8">
+                            {%- render 'icon-snapchat' -%}
+                            <span class="hidden">{{ 'general.social.links.snapchat' | t }}</span>
+                        </a>
+                    </li>
+                {%- endif -%}
+                {%- if settings.social_youtube_link != blank -%}
+                    <li class="list-social__item">
+                        <a href="{{ settings.social_youtube_link }}" class="flex items-center h-8 w-8">
+                            {%- render 'icon-youtube' -%}
+                            <span class="hidden">{{ 'general.social.links.youtube' | t }}</span>
+                        </a>
+                    </li>
+                {%- endif -%}
+                {%- if settings.social_vimeo_link != blank -%}
+                    <li class="list-social__item">
+                        <a href="{{ settings.social_vimeo_link }}" class="flex items-center h-8 w-8">
+                            {%- render 'icon-vimeo' -%}
+                            <span class="hidden">{{ 'general.social.links.vimeo' | t }}</span>
+                        </a>
+                    </li>
+                {%- endif -%}
             </ul>
+
         </article>
     </section>
 </footer>

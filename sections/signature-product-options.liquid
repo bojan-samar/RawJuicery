@@ -147,15 +147,13 @@
             {%- for block in section.blocks -%}
                 {%- case block.type -%}
                     {%- when 'schedule' -%}
-                        {{ block.settings.product_slug }}
                         <div @click="showBottle('{{ block.settings.effect }}')" x-show="scheduleType == 'signature'"
-                             class="flex flex-col py-[20px] transition-colors bg-cream hover:bg-green hover:text-cream group cursor-pointer text-center">
-                            <span class="px-[20px] font-bold">{{ block.settings.time }}</span>
+                             class="py-[20px] transition-colors bg-cream hover:bg-green hover:text-cream group cursor-pointer text-center">
+
+                            <div class="px-[20px] font-bold">{{ block.settings.time }}</div>
+
                             {% if block.settings.image %}
-
-
                                 <div>
-
                                     {%- capture sizes -%}(min-width: {{ settings.page_width }}px) {% if section.blocks.size == 1 %}calc({{ settings.page_width }}px - 100px){% else %}{{ settings.page_width | minus: 100 | times: 0.67 | round }}px{% endif %}, (min-width: 750px){% if section.blocks.size == 1 %} calc(100vw - 100px){% else %} 500px{% endif %}, calc(100vw - 30px)}{%- endcapture -%}
 
                                     {{ block.settings.image | image_url: width: 400 | image_tag:
@@ -185,6 +183,8 @@
                             </div>
 
                         </div>
+
+
                     {%- when 'green_schedule' -%}
                         <div @click="showBottle('{{ block.settings.effect }}')" x-show="scheduleType == 'green'"
                              class="flex flex-col py-[20px] transition-colors bg-cream hover:bg-green duration-300 hover:text-cream group cursor-pointer text-center">

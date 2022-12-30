@@ -1,379 +1,185 @@
 {%- assign menu_array = section.blocks | where: "type", "link_list" -%}
 
 <footer class="flex flex-col py-[30px] md:py-0 gap-y-[20px] md:flex-row text-[16px] lg:text-[18px] leading-[25.2px] uppercase text-white md:divide-x divide-white bg-green lg:h-[365px]">
-    <section class="px-[23px] mb-[10px] md:mb-0 md:p-[20px] lg:p-[30px] md:pb-[40px] flex-1 md:w-4/12 lg:w-3/12">
-        <article class="flex flex-col md:gap-y-[30px] justify-between flex-1 h-full">
-            <svg x-intersect="$el.classList.add('!scale-100')"
-                 class="mr-auto transition-transform duration-700 ease-in-out scale-0 h-[50px] md:h-[60px] lg:h-[69px]"
-                 viewBox="0 0 69 69" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M34.5 -0.00134277C15.4437 -0.00134277 0 15.4465 0 34.5C0 53.5536 15.4437 69 34.5 69C53.5563 69 69 53.5536 69 34.5C69 15.4465 53.5536 -0.00134277 34.5 -0.00134277ZM15.7017 48.9352H15.6198C15.5084 48.926 15.4045 48.8753 15.3287 48.7931C15.2529 48.711 15.2107 48.6034 15.2104 48.4916V31.8414L15.6484 31.8319C16.0483 31.8319 16.6447 32.1526 16.9109 32.6712L17.1142 33.0684C17.6246 34.0674 18.5745 35.9262 19.3429 37.2337C19.3797 37.2964 19.6868 37.9761 19.6868 38.1631C19.6868 40.6196 19.6868 42.3283 19.6868 44.819C19.6854 46.9699 17.787 48.9352 15.7017 48.9352ZM35.0814 48.9093C35.0462 48.9254 35.0082 48.9342 34.9695 48.9352H34.4359C33.8436 48.9352 33.632 48.9352 33.2936 48.9188H32.603C31.8137 48.8862 31.0563 48.599 30.4439 48.0999C30.1981 47.8992 29.9768 47.6702 29.7847 47.4176C29.535 47.1078 23.2898 34.9054 22.7916 33.9063C22.7297 33.7616 22.7048 33.6036 22.7193 33.4468C22.7339 33.2899 22.7873 33.1392 22.8749 33.0083C22.9565 32.897 23.0676 32.8106 23.1956 32.759C23.3237 32.7074 23.4636 32.6926 23.5996 32.7163C23.8917 32.7163 25.382 32.7326 26.4956 32.7572C28.2221 32.7968 30.3293 31.6831 30.8493 29.7547C31.0965 28.8569 31.0473 27.9033 30.7089 27.0358C30.3705 26.1683 29.7611 25.4331 28.9713 24.9398C28.1607 24.4471 27.3841 24.3803 26.3783 24.3393C26.0248 24.3257 21.4555 24.3734 21.2385 24.3775C19.4398 24.4035 17.6301 24.1264 16.5669 21.9073L15.8395 20.4061C15.8181 20.3612 15.8084 20.3117 15.8113 20.2621C15.8141 20.2125 15.8295 20.1644 15.8559 20.1224C15.8823 20.0803 15.919 20.0456 15.9624 20.0215C16.0058 19.9973 16.0546 19.9846 16.1043 19.9843C19.1791 19.9843 26.2268 20.0321 26.7577 20.0403C28.1691 20.0555 29.5554 20.4153 30.7961 21.0884C32.0367 21.7615 33.0942 22.7276 33.8763 23.9026C34.6217 25.0211 35.0824 26.3049 35.2182 27.6422C35.3541 28.9795 35.1609 30.3297 34.6556 31.5753C33.7999 33.6661 32.4256 35.1524 30.5695 35.9931C30.5695 35.9931 29.8734 36.3097 29.6332 36.4162C29.482 36.4741 29.3264 36.5198 29.1679 36.5526L29.1228 36.5649L35.5495 48.8847L35.0814 48.9093ZM53.7392 40.4886C53.7237 41.9 53.3638 43.2863 52.6907 44.5269C52.0176 45.7675 51.0517 46.8249 49.8769 47.6073C47.5813 49.1222 44.5693 49.2941 42.0731 48.6349C41.2561 48.4086 40.4924 48.0217 39.8267 47.4967C39.4896 47.2592 38.8714 46.3121 38.8468 46.2684C38.7745 46.1238 37.235 43.2345 36.6018 41.968C35.6369 40.0383 36.7287 37.366 38.5943 36.4339C38.5943 36.4339 42.1236 43.2277 42.5098 43.8036C42.8961 44.3796 43.4802 44.6443 44.0206 44.7904C45.8808 45.2926 47.8597 44.3182 48.8369 42.7118C49.3282 41.9012 49.3951 41.1232 49.436 40.1188C49.451 39.7667 49.4019 25.715 49.3992 25.498C49.3733 23.6992 49.6503 21.8909 51.8681 20.8278L53.3693 20.1003C53.4141 20.0786 53.4637 20.0686 53.5135 20.0712C53.5632 20.0739 53.6114 20.0892 53.6536 20.1157C53.6958 20.1422 53.7306 20.179 53.7546 20.2226C53.7786 20.2663 53.7912 20.3153 53.791 20.3651C53.7938 23.429 53.7446 39.9577 53.7364 40.4886H53.7392Z"
-                      fill="white"/>
-            </svg>
 
-            <p x-intersect="$el.classList.add('!opacity-50')"
-               class="hidden transition-opacity duration-700 opacity-0 lg:block ease-e">
-                &copy; {{ 'now' | date: '%Y'  }} RAW JUICERY, INC.
-            </p>
-
-            {%- for menu_block in menu_array -%}
-
-                {%- if forloop.index0 == 0 -%}
-
-                    <ul class="hidden md:block lg:hidden" x-data="{ listHoverId : null }">
-
-                        {% for link in menu_block.settings.menu.links -%}
-
-                            <li :class="{ '!opacity-100': listHoverId != null && listHoverId === {{ forloop.index }} || listHoverId === null, 'opacity-50': listHoverId != null}"
-                                class="transition-opacity duration-300 ease-e">
-                                <a @mouseover="listHoverId = {{ forloop.index }}" @mouseleave="listHoverId = null"
-                                   href=" {{ link.url }}">
-                                    {{ link.title }}
-                                </a>
-                            </li>
-
-                        {%- endfor -%}
-
-                    </ul>
-
-                {%- endif -%}
-
-
-                {%- if forloop.index0 == 1 -%}
-
-                    <ul class="hidden md:block lg:hidden" x-data="{ listHoverId : null }">
-
-                        {% for link in menu_block.settings.menu.links -%}
-
-                            <li :class="{ '!opacity-100': listHoverId != null && listHoverId === {{ forloop.index }} || listHoverId === null, 'opacity-50': listHoverId != null}"
-                                class="transition-opacity duration-300 ease-e">
-                                <a @mouseover="listHoverId = {{ forloop.index }}" @mouseleave="listHoverId = null"
-                                   href=" {{ link.url }}">
-                                    {{ link.title }}
-                                </a>
-                            </li>
-
-                        {%- endfor -%}
-
-                    </ul>
-
-                {%- endif -%}
-
-            {%- endfor -%}
-
-
-        </article>
-    </section>
-
-
-    <section class="px-[23px] md:p-[20px] lg:p-[30px] flex-1 md:hidden lg:block lg:w-3/12">
-        <article
-                x-intersect="$el.classList.add('!opacity-100')"
-                class="flex flex-col justify-between flex-1 h-full transition-opacity duration-700 ease-in-out delay-200 opacity-0"
-        >
-
-            {%- for menu_block in menu_array -%}
-
-
-                {%- if forloop.index0 == 0 -%}
-
-                    <ul
-                            x-data="{ listHoverId : null }">
-
-                        {% for link in menu_block.settings.menu.links -%}
-
-                            <li :class="{ '!opacity-100': listHoverId != null && listHoverId === {{ forloop.index }} || listHoverId === null, 'opacity-50': listHoverId != null}"
-                                class="transition-opacity duration-300 ease-e">
-                                <a
-                                        @mouseover="listHoverId = {{ forloop.index }}"
-                                        @mouseleave="listHoverId = null"
-                                        href=" {{ link.url }}">
-                                    {{ link.title }}
-                                </a>
-                            </li>
-
-                        {%- endfor -%}
-
-                    </ul>
-
-
-                {%- endif -%}
-
-                {%- if menu_block.settings.menu.handle == "footer-contact" -%}
-                    <ul class="footer-contact-desktop hidden md:block"
-                        x-data="{ listHoverId : null }">
-                        {% for link in menu_block.settings.menu.links -%}
-                            <li :class="{ '!opacity-100': listHoverId != null && listHoverId === {{ forloop.index }} || listHoverId === null, 'opacity-50': listHoverId != null}"
-                                class="transition-opacity duration-300 ease-e">
-                                <a
-                                        @mouseover="listHoverId = {{ forloop.index }}"
-                                        @mouseleave="listHoverId = null"
-                                        href=" {{ link.url }}"
-                                        class="break-words ">
-                                    {{ link.title }}
-                                </a>
-                            </li>
-                        {%- endfor -%}
-                    </ul>
-                {%- endif -%}
-
-
-            {%- endfor -%}
-
-        </article>
-    </section>
-
-    <section class="px-[23px] md:p-[20px] md:pb-[40px] lg:p-[30px] flex-1 md:w-3/12">
-        <article
-                x-intersect="$el.classList.add('!opacity-100')"
-                class="flex flex-col lg:justify-between delay-[400ms] flex-1 h-full transition-opacity duration-700 ease-in-out delay-200 opacity-0"
-        >
-
-            {%- for menu_block in menu_array -%}
-
-
-                {%- if forloop.index0 == 2 -%}
-
-                    <ul
-                            x-data="{ listHoverId : null }">
-
-                        {% for link in menu_block.settings.menu.links -%}
-
-                            <li :class="{ '!opacity-100': listHoverId != null && listHoverId === {{ forloop.index }} || listHoverId === null, 'opacity-50': listHoverId != null}"
-                                class="transition-opacity duration-300 ease-e">
-                                <a
-                                        @mouseover="listHoverId = {{ forloop.index }}"
-                                        @mouseleave="listHoverId = null"
-                                        href=" {{ link.url }}"
-                                        class="break-words ">
-                                    {{ link.title }}
-                                </a>
-                            </li>
-
-                        {%- endfor -%}
-
-                    </ul>
-
-                {%- endif -%}
-
-                {%- if forloop.index0 == 4 -%}
-
-                    <ul
-                            class="mt-[20px] md:mt-[90px] lg:mt-0"
-                            x-data="{ listHoverId : null }">
-
-                        {% for link in menu_block.settings.menu.links -%}
-
-                            <li :class="{ '!opacity-100': listHoverId != null && listHoverId === {{ forloop.index }} || listHoverId === null, 'opacity-50': listHoverId != null}"
-                                class="transition-opacity duration-300 ease-e">
-                                <a
-                                        @mouseover="listHoverId = {{ forloop.index }}"
-                                        @mouseleave="listHoverId = null"
-                                        href=" {{ link.url }}"
-                                        class="break-words ">
-                                    {{ link.title }}
-                                </a>
-                            </li>
-
-                        {%- endfor -%}
-
-                    </ul>
-
-                {%- endif -%}
-
-
-
-                {%- if forloop.index0 == 1 -%}
-
-                    <ul
-                            class="md:hidden lg:block"
-                            x-data="{ listHoverId : null }">
-
-
-                        {% for link in menu_block.settings.menu.links -%}
-
-                            <li :class="{ '!opacity-100': listHoverId != null && listHoverId === {{ forloop.index }} || listHoverId === null, 'opacity-50': listHoverId != null}"
-                                class="transition-opacity duration-300 ease-e">
-                                <a
-                                        @mouseover="listHoverId = {{ forloop.index }}"
-                                        @mouseleave="listHoverId = null"
-                                        href=" {{ link.url }}"
-                                        class="break-words ">
-                                    {{ link.title }}
-                                </a>
-                            </li>
-
-                        {%- endfor -%}
-
-                    </ul>
-
-                {%- endif -%}
-
-            {%- endfor -%}
-
-        </article>
-    </section>
-
-    <section class="px-[23px] md:p-[20px] md:pb-[40px] lg:p-[30px] flex-1 md:w-3/12">
-        <article
-                x-intersect="$el.classList.add('!opacity-100')"
-                class="flex flex-col delay-[600ms] justify-between flex-1 h-full transition-opacity duration-700 ease-in-out delay-200 opacity-0">
-
-
-            <ul
-                    class="block md:hidden lg:block"
-                    x-data="{ listHoverId : null }"
-            >
-                <li
-                        :class="{ '!opacity-100': listHoverId != null && listHoverId === 1 || listHoverId === null, 'opacity-50': listHoverId != null}"
-                        class="transition-opacity duration-300 ease-e"
-                >
-                    <a
-                            @mouseover="listHoverId = 1"
-                            @mouseleave="listHoverId = null"
-                            href="/pages/support"
-                    >
-                        Support</a></li>
-                <li
-                        :class="{ '!opacity-100': listHoverId != null && listHoverId === 2 || listHoverId === null, 'opacity-50': listHoverId != null}"
-                        class="transition-opacity duration-300 ease-e"
-                >
-                    {% if customer %}
-                        <a @mouseover="listHoverId = 2" @mouseleave="listHoverId = null" class="cursor-pointer"
-                           href="/account">Account</a>
-                    {% else %}
-                        <a @mouseover="listHoverId = 2" @mouseleave="listHoverId = null" class="cursor-pointer"
-                           href="/account">Account</a>
-                    {% endif %}
-                </li>
-                <li
-                        :class="{ '!opacity-100': listHoverId != null && listHoverId === 3 || listHoverId === null, 'opacity-50': listHoverId != null}"
-                        class="transition-opacity duration-300 ease-e"
-                >
-                    <a
-                            href="/cart"
-                            class="cursor-pointer"
-                            @mouseover="listHoverId = 3"
-                            @mouseleave="listHoverId = null"
-                    >
-                        My Cart</a>
-                </li>
-
-                <li
-                        :class="{ '!opacity-100': listHoverId != null && listHoverId === 3 || listHoverId === null, 'opacity-50': listHoverId != null}"
-                        class="transition-opacity duration-300 ease-e"
-                >
-                    <a target="_blank"
-                       href="https://claims.shipaid.com/"
-                       class="cursor-pointer"
-                       @mouseover="listHoverId = 3"
-                       @mouseleave="listHoverId = null"
-                    >
-                        File a Claim</a>
-                </li>
-            </ul>
-
-            {%- for menu_block in menu_array -%}
-
-                {%- if menu_block.settings.menu.handle == "footer-contact" -%}
-                    <ul class="footer-contact-mobile md:hidden mb-2"
-                        x-data="{ listHoverId : null }">
-                        {% for link in menu_block.settings.menu.links -%}
-                            <li :class="{ '!opacity-100': listHoverId != null && listHoverId === {{ forloop.index }} || listHoverId === null, 'opacity-50': listHoverId != null}"
-                                class="transition-opacity duration-300 ease-e">
-                                <a
-                                        @mouseover="listHoverId = {{ forloop.index }}"
-                                        @mouseleave="listHoverId = null"
-                                        href=" {{ link.url }}"
-                                        class="break-words ">
-                                    {{ link.title }}
-                                </a>
-                            </li>
-                        {%- endfor -%}
-                        <li class="mt-[20px]">
-                            <span class="text-white/50">&copy; {{ 'now' | date: '%Y'  }} Raw Juicery Inc</span>
+    <section id="footer-section-1" class="px-[23px] mb-[10px] md:p-[20px] lg:p-[30px] md:pb-[40px] md:w-3/12 flex flex-col justify-between">
+        <svg class="mr-auto transition-transform duration-700 ease-in-out h-[50px] md:h-[60px] lg:h-[69px]"
+             viewBox="0 0 69 69" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M34.5 -0.00134277C15.4437 -0.00134277 0 15.4465 0 34.5C0 53.5536 15.4437 69 34.5 69C53.5563 69 69 53.5536 69 34.5C69 15.4465 53.5536 -0.00134277 34.5 -0.00134277ZM15.7017 48.9352H15.6198C15.5084 48.926 15.4045 48.8753 15.3287 48.7931C15.2529 48.711 15.2107 48.6034 15.2104 48.4916V31.8414L15.6484 31.8319C16.0483 31.8319 16.6447 32.1526 16.9109 32.6712L17.1142 33.0684C17.6246 34.0674 18.5745 35.9262 19.3429 37.2337C19.3797 37.2964 19.6868 37.9761 19.6868 38.1631C19.6868 40.6196 19.6868 42.3283 19.6868 44.819C19.6854 46.9699 17.787 48.9352 15.7017 48.9352ZM35.0814 48.9093C35.0462 48.9254 35.0082 48.9342 34.9695 48.9352H34.4359C33.8436 48.9352 33.632 48.9352 33.2936 48.9188H32.603C31.8137 48.8862 31.0563 48.599 30.4439 48.0999C30.1981 47.8992 29.9768 47.6702 29.7847 47.4176C29.535 47.1078 23.2898 34.9054 22.7916 33.9063C22.7297 33.7616 22.7048 33.6036 22.7193 33.4468C22.7339 33.2899 22.7873 33.1392 22.8749 33.0083C22.9565 32.897 23.0676 32.8106 23.1956 32.759C23.3237 32.7074 23.4636 32.6926 23.5996 32.7163C23.8917 32.7163 25.382 32.7326 26.4956 32.7572C28.2221 32.7968 30.3293 31.6831 30.8493 29.7547C31.0965 28.8569 31.0473 27.9033 30.7089 27.0358C30.3705 26.1683 29.7611 25.4331 28.9713 24.9398C28.1607 24.4471 27.3841 24.3803 26.3783 24.3393C26.0248 24.3257 21.4555 24.3734 21.2385 24.3775C19.4398 24.4035 17.6301 24.1264 16.5669 21.9073L15.8395 20.4061C15.8181 20.3612 15.8084 20.3117 15.8113 20.2621C15.8141 20.2125 15.8295 20.1644 15.8559 20.1224C15.8823 20.0803 15.919 20.0456 15.9624 20.0215C16.0058 19.9973 16.0546 19.9846 16.1043 19.9843C19.1791 19.9843 26.2268 20.0321 26.7577 20.0403C28.1691 20.0555 29.5554 20.4153 30.7961 21.0884C32.0367 21.7615 33.0942 22.7276 33.8763 23.9026C34.6217 25.0211 35.0824 26.3049 35.2182 27.6422C35.3541 28.9795 35.1609 30.3297 34.6556 31.5753C33.7999 33.6661 32.4256 35.1524 30.5695 35.9931C30.5695 35.9931 29.8734 36.3097 29.6332 36.4162C29.482 36.4741 29.3264 36.5198 29.1679 36.5526L29.1228 36.5649L35.5495 48.8847L35.0814 48.9093ZM53.7392 40.4886C53.7237 41.9 53.3638 43.2863 52.6907 44.5269C52.0176 45.7675 51.0517 46.8249 49.8769 47.6073C47.5813 49.1222 44.5693 49.2941 42.0731 48.6349C41.2561 48.4086 40.4924 48.0217 39.8267 47.4967C39.4896 47.2592 38.8714 46.3121 38.8468 46.2684C38.7745 46.1238 37.235 43.2345 36.6018 41.968C35.6369 40.0383 36.7287 37.366 38.5943 36.4339C38.5943 36.4339 42.1236 43.2277 42.5098 43.8036C42.8961 44.3796 43.4802 44.6443 44.0206 44.7904C45.8808 45.2926 47.8597 44.3182 48.8369 42.7118C49.3282 41.9012 49.3951 41.1232 49.436 40.1188C49.451 39.7667 49.4019 25.715 49.3992 25.498C49.3733 23.6992 49.6503 21.8909 51.8681 20.8278L53.3693 20.1003C53.4141 20.0786 53.4637 20.0686 53.5135 20.0712C53.5632 20.0739 53.6114 20.0892 53.6536 20.1157C53.6958 20.1422 53.7306 20.179 53.7546 20.2226C53.7786 20.2663 53.7912 20.3153 53.791 20.3651C53.7938 23.429 53.7446 39.9577 53.7364 40.4886H53.7392Z"
+                  fill="white"/>
+        </svg>
+
+        {%- for menu_block in menu_array -%}
+
+            {%- if menu_block.settings.menu.handle == "footer-contact" -%}
+                <ul class="footer-contact-desktop hidden md:block mb-2">
+                    {% for link in menu_block.settings.menu.links -%}
+                        <li>
+                            <a href=" {{ link.url }}" class="break-words transition-colors duration-300 hover:text-gray-300">
+                                {{ link.title }}
+                            </a>
                         </li>
-                    </ul>
-                {%- endif -%}
+                    {%- endfor -%}
 
-            {%- endfor -%}
+                    <li class="mt-[20px]">
+                        <span class="text-white/50">&copy; {{ 'now' | date: '%Y'  }} Raw Juicery Inc</span>
+                    </li>
+                </ul>
+            {%- endif -%}
+
+        {%- endfor -%}
+
+    </section>
 
 
-            <ul class="footer-socials flex flex-wrap items-center space-x-4">
-                {%- if settings.social_twitter_link != blank -%}
-                    <li class="list-social__item">
-                        <a href="{{ settings.social_twitter_link }}" class="flex items-center">
-                            {%- render 'icon-twitter' -%}
-                            <span class="hidden">{{ 'general.social.links.twitter' | t }}</span>
-                        </a>
-                    </li>
-                {%- endif -%}
-                {%- if settings.social_facebook_link != blank -%}
-                    <li class="list-social__item">
-                        <a href="{{ settings.social_facebook_link }}" class="flex items-center">
-                            {%- render 'icon-facebook' -%}
-                            <span class="hidden">{{ 'general.social.links.facebook' | t }}</span>
-                        </a>
-                    </li>
-                {%- endif -%}
-                {%- if settings.social_pinterest_link != blank -%}
-                    <li class="list-social__item">
-                        <a href="{{ settings.social_pinterest_link }}" class="flex items-center">
-                            {%- render 'icon-pinterest' -%}
-                            <span class="hidden">{{ 'general.social.links.pinterest' | t }}</span>
-                        </a>
-                    </li>
-                {%- endif -%}
-                {%- if settings.social_instagram_link != blank -%}
-                    <li class="list-social__item">
-                        <a href="{{ settings.social_instagram_link }}" class="flex items-center">
-                            {%- render 'icon-instagram' -%}
-                            <span class="hidden">{{ 'general.social.links.instagram' | t }}</span>
-                        </a>
-                    </li>
-                {%- endif -%}
-                {%- if settings.social_tiktok_link != blank -%}
-                    <li class="list-social__item">
-                        <a href="{{ settings.social_tiktok_link }}" class="flex items-center">
-                            {%- render 'icon-tiktok' -%}
-                            <span class="hidden">{{ 'general.social.links.tiktok' | t }}</span>
-                        </a>
-                    </li>
-                {%- endif -%}
-                {%- if settings.social_tumblr_link != blank -%}
-                    <li class="list-social__item">
-                        <a href="{{ settings.social_tumblr_link }}" class="flex items-center">
-                            {%- render 'icon-tumblr' -%}
-                            <span class="hidden">{{ 'general.social.links.tumblr' | t }}</span>
-                        </a>
-                    </li>
-                {%- endif -%}
-                {%- if settings.social_snapchat_link != blank -%}
-                    <li class="list-social__item">
-                        <a href="{{ settings.social_snapchat_link }}" class="flex items-center">
-                            {%- render 'icon-snapchat' -%}
-                            <span class="hidden">{{ 'general.social.links.snapchat' | t }}</span>
-                        </a>
-                    </li>
-                {%- endif -%}
-                {%- if settings.social_youtube_link != blank -%}
-                    <li class="list-social__item">
-                        <a href="{{ settings.social_youtube_link }}" class="flex items-center">
-                            {%- render 'icon-youtube' -%}
-                            <span class="hidden">{{ 'general.social.links.youtube' | t }}</span>
-                        </a>
-                    </li>
-                {%- endif -%}
-                {%- if settings.social_vimeo_link != blank -%}
-                    <li class="list-social__item">
-                        <a href="{{ settings.social_vimeo_link }}" class="flex items-center">
-                            {%- render 'icon-vimeo' -%}
-                            <span class="hidden">{{ 'general.social.links.vimeo' | t }}</span>
-                        </a>
-                    </li>
-                {%- endif -%}
-            </ul>
+    <section id="footer-section-2" class="px-[23px] md:p-[20px] lg:p-[30px] md:w-3/12">
+        {%- for menu_block in menu_array -%}
 
-        </article>
+            {%- if menu_block.settings.menu.handle == "footer-menu-1" -%}
+                <ul class="footer-menu-1 mb-2">
+                    {% for link in menu_block.settings.menu.links -%}
+                        <li>
+                            <a href=" {{ link.url }}" class="break-words transition-colors duration-300 hover:text-gray-300">
+                                {{ link.title }}
+                            </a>
+                        </li>
+                    {%- endfor -%}
+                </ul>
+            {%- endif -%}
+
+        {%- endfor -%}
+    </section>
+
+
+    <section id="footer-section-3" class="px-[23px] md:p-[20px] md:pb-[40px] lg:p-[30px] flex-1 md:w-3/12">
+        {%- for menu_block in menu_array -%}
+
+            {%- if menu_block.settings.menu.handle == "footer-menu-2" -%}
+                <ul class="footer-menu-2 mb-2">
+                    {% for link in menu_block.settings.menu.links -%}
+                        <li>
+                            <a href=" {{ link.url }}" class="break-words transition-colors duration-300 hover:text-gray-300">
+                                {{ link.title }}
+                            </a>
+                        </li>
+                    {%- endfor -%}
+                </ul>
+            {%- endif -%}
+
+        {%- endfor -%}
+    </section>
+
+
+    <section id="footer-section-4" class="px-[23px] md:p-[20px] md:pb-[40px] lg:p-[30px] md:w-3/12 flex flex-col justify-between">
+        {%- for menu_block in menu_array -%}
+
+            {%- if menu_block.settings.menu.handle == "footer-menu-3" -%}
+                <ul class="footer-menu-3 mb-2">
+                    {% for link in menu_block.settings.menu.links -%}
+                        <li>
+                            <a href=" {{ link.url }}" class="break-words transition-colors duration-300 hover:text-gray-300">
+                                {{ link.title }}
+                            </a>
+                        </li>
+                    {%- endfor -%}
+                </ul>
+            {%- endif -%}
+
+
+
+            {%- if menu_block.settings.menu.handle == "footer-contact" -%}
+                <ul class="footer-contact-mobile md:hidden mb-2">
+                    {% for link in menu_block.settings.menu.links -%}
+                        <li>
+                            <a href=" {{ link.url }}" class="break-words transition-colors duration-300 hover:text-gray-300 ">
+                                {{ link.title }}
+                            </a>
+                        </li>
+                    {%- endfor -%}
+
+                    <li class="mt-[20px]">
+                        <span class="text-white/50">&copy; {{ 'now' | date: '%Y'  }} Raw Juicery Inc</span>
+                    </li>
+                </ul>
+            {%- endif -%}
+
+        {%- endfor -%}
+
+
+        <ul class="footer-socials flex flex-wrap items-center space-x-4">
+            {%- if settings.social_twitter_link != blank -%}
+                <li class="list-social__item">
+                    <a href="{{ settings.social_twitter_link }}" class="flex items-center">
+                        {%- render 'icon-twitter' -%}
+                        <span class="hidden">{{ 'general.social.links.twitter' | t }}</span>
+                    </a>
+                </li>
+            {%- endif -%}
+            {%- if settings.social_facebook_link != blank -%}
+                <li class="list-social__item">
+                    <a href="{{ settings.social_facebook_link }}" class="flex items-center">
+                        {%- render 'icon-facebook' -%}
+                        <span class="hidden">{{ 'general.social.links.facebook' | t }}</span>
+                    </a>
+                </li>
+            {%- endif -%}
+            {%- if settings.social_pinterest_link != blank -%}
+                <li class="list-social__item">
+                    <a href="{{ settings.social_pinterest_link }}" class="flex items-center">
+                        {%- render 'icon-pinterest' -%}
+                        <span class="hidden">{{ 'general.social.links.pinterest' | t }}</span>
+                    </a>
+                </li>
+            {%- endif -%}
+            {%- if settings.social_instagram_link != blank -%}
+                <li class="list-social__item">
+                    <a href="{{ settings.social_instagram_link }}" class="flex items-center">
+                        {%- render 'icon-instagram' -%}
+                        <span class="hidden">{{ 'general.social.links.instagram' | t }}</span>
+                    </a>
+                </li>
+            {%- endif -%}
+            {%- if settings.social_tiktok_link != blank -%}
+                <li class="list-social__item">
+                    <a href="{{ settings.social_tiktok_link }}" class="flex items-center">
+                        {%- render 'icon-tiktok' -%}
+                        <span class="hidden">{{ 'general.social.links.tiktok' | t }}</span>
+                    </a>
+                </li>
+            {%- endif -%}
+            {%- if settings.social_tumblr_link != blank -%}
+                <li class="list-social__item">
+                    <a href="{{ settings.social_tumblr_link }}" class="flex items-center">
+                        {%- render 'icon-tumblr' -%}
+                        <span class="hidden">{{ 'general.social.links.tumblr' | t }}</span>
+                    </a>
+                </li>
+            {%- endif -%}
+            {%- if settings.social_snapchat_link != blank -%}
+                <li class="list-social__item">
+                    <a href="{{ settings.social_snapchat_link }}" class="flex items-center">
+                        {%- render 'icon-snapchat' -%}
+                        <span class="hidden">{{ 'general.social.links.snapchat' | t }}</span>
+                    </a>
+                </li>
+            {%- endif -%}
+            {%- if settings.social_youtube_link != blank -%}
+                <li class="list-social__item">
+                    <a href="{{ settings.social_youtube_link }}" class="flex items-center">
+                        {%- render 'icon-youtube' -%}
+                        <span class="hidden">{{ 'general.social.links.youtube' | t }}</span>
+                    </a>
+                </li>
+            {%- endif -%}
+            {%- if settings.social_vimeo_link != blank -%}
+                <li class="list-social__item">
+                    <a href="{{ settings.social_vimeo_link }}" class="flex items-center">
+                        {%- render 'icon-vimeo' -%}
+                        <span class="hidden">{{ 'general.social.links.vimeo' | t }}</span>
+                    </a>
+                </li>
+            {%- endif -%}
+        </ul>
     </section>
 </footer>
 

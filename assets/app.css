@@ -1,3 +1,8 @@
+.hover\:text-gray-300:hover {
+  --tw-text-opacity: 1;
+  color: rgb(209 213 219 / var(--tw-text-opacity))
+}
+
 .footer-socials .icon{
   color: #fff;
   height:2rem;

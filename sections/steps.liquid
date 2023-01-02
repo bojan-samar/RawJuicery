@@ -1,60 +1,61 @@
- <!-- steps -->
- <section
- x-data="{ hoverId : null }"
- class="grid grid-cols-1 bg-white md:grid-cols-2 lg:grid-cols-4 gap-[1px]"
->
+<section class="grid grid-cols-1 bg-green md:grid-cols-2 lg:grid-cols-4 gap-[1px]">
     {%- for block in section.blocks -%}
-    {%- case block.type -%}
-        {%- when 'step' -%}
-            <article
-                mouseover="hoverId = {{ forloop.index }}"
-                @mouseleave="hoverId = null"
-                class="bg-green flex flex-col justify-between w-full text-white py-[20px] px-[20px] lg:px-[30px] lg:py-[30px]"
-            >
-                <header
-                    x-intersect="$el.classList.add('!opacity-100')"
-                    class="transition-opacity duration-700 ease-in opacity-0 text-[30px] lg:text-[60px] leading-none pb-[20px] lg:pb-[60px]"
-                >
-                    {{ forloop.index }}.
-                </header>
-                <footer
-                    x-intersect="$el.classList.add('!opacity-100')"
-                    class="flex flex-col space-y-[15px] transition-opacity duration-700 ease-in opacity-0"
-                >
-                    <h4 class="heading-4">{{ block.settings.heading }}</h4>
-                    <p class="w-3/4 lg:w-full">{{ block.settings.blurb }}</p> 
-                </footer>
-            </article>
+        {%- case block.type -%}
+            {%- when 'step' -%}
+
+                <article
+                        mouseover="hoverId = {{ forloop.index }}"
+                        @mouseleave="hoverId = null"
+                        class="w-full text-green bg-white py-[20px] px-[20px] lg:px-[30px] lg:py-[30px] py-7">
+
+                    <div
+                            x-intersect="$el.classList.add('!opacity-100')"
+                            class="transition-opacity duration-700 ease-in opacity-0 text-[30px] lg:text-[60px] leading-none pb-[20px] lg:pb-[60px]">
+                        {{ forloop.index }}.
+                    </div>
+
+                    <div
+                            x-intersect="$el.classList.add('!opacity-100')"
+                            class="flex flex-col space-y-[15px] transition-opacity duration-700 ease-in opacity-0">
+
+                        <h4 class="text-[34px] uppercase">{{ block.settings.heading }}</h4>
+
+                        <p class="w-3/4 lg:w-full">{{ block.settings.blurb }}</p>
+                    </div>
+
+                </article>
+
         {% endcase %}
     {% endfor %}
 </section>
 
+
 {% schema %}
 {
-    "name": "Steps",
-    "blocks": [
+  "name": "Steps",
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "limit": 4,
+      "settings": [
         {
-            "type": "step",
-            "name": "Step",
-            "limit": 4,
-            "settings": [
-                {
-                    "type": "text",
-                    "id": "heading",
-                    "label": "Heading"
-                },
-                {
-                    "type": "text",
-                    "id": "blurb",
-                    "label": "Blurb"
-                }
-            ]
-        }
-    ],
-    "presets": [
+          "type": "text",
+          "id": "heading",
+          "label": "Heading"
+        },
         {
-            "name": "Steps"
+          "type": "text",
+          "id": "blurb",
+          "label": "Blurb"
         }
-    ]
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Steps"
+    }
+  ]
 }
 {% endschema %}

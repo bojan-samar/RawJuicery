@@ -1,3 +1,7 @@
+.auto-rows-min {
+  grid-auto-rows: min-content
+}
+
 .header-icon{
   color: #363e28;
 }
@@ -44,6 +48,10 @@
   .md\:mx-auto {
     margin-left: auto;
     margin-right: auto
+  }
+
+  .md\:flex-none {
+    flex: none
   }
 
   .slide-panel-container {

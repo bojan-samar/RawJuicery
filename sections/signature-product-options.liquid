@@ -256,6 +256,7 @@
                         <input type="hidden" name="form_type" value="product" />
                         <input type="hidden" name="utf8" value="✓" />
                         <input type="hidden" name="id" value="37388616794261">
+                        <input hidden x-model="cleanseIdAddedToCart" type="text" name="properties[_bundleUid]">
 
                         <button type="submit"
                                 name="add"
@@ -276,6 +277,7 @@
                         <input type="hidden" name="form_type" value="product" />
                         <input type="hidden" name="utf8" value="✓" />
                         <input type="hidden" name="id" value="37388618367125">
+                        <input hidden x-model="cleanseIdAddedToCart" type="text" name="properties[_bundleUid]">
 
                         <button type="submit"
                                 name="add"
@@ -297,6 +299,7 @@
                         <input type="hidden" name="form_type" value="product" />
                         <input type="hidden" name="utf8" value="✓" />
                         <input type="hidden" name="id" value="41518380449941">
+                        <input hidden x-model="cleanseIdAddedToCart" type="text" name="properties[_bundleUid]">
 
                         <button type="submit"
                                 name="add"
@@ -332,6 +335,7 @@
         Alpine.data('cleanseAlpine', () => ({
             modelOpen: false,
             showUpsell: false,
+            cleanseIdAddedToCart: null,
             qty: 1,
             scheduleType: 'signature',
             selectedBottle: {
@@ -376,6 +380,7 @@
             addToCart(){
                 this.hideNonUpsellSections()
                 let formData = new FormData(document.querySelector('.shopify-product-form'));
+                this.cleanseIdAddedToCart = formData.get('id');
                 let standardId = parseInt(Math.floor(Math.random() * 10000) + '' + Date.now());
                 formData.append('properties[standardId]', standardId);
 

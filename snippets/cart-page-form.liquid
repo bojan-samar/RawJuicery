@@ -1,359 +1,411 @@
 {%- liquid
-
-assign bundles_displayed = '' | split:','
-assign bundle_discount = 0
-assign discount_product_type = '' 
-
-
+    assign bundles_displayed = '' | split: ','
+    assign bundle_discount = 0
+    assign discount_product_type = ''
 -%}
 
 
-
-
 {% for item in cart.items %}
-  {% if item.properties['_bundleLabel'] contains '%' %} 
-  {%- assign bundleHandle_discount = item.properties['_bundleHandle'] -%}
-  {%- assign bundle_variant_discount = item.properties['_variantId'] -%}
-  {%- assign bundle_product = all_products[bundleHandle_discount] -%}
-  {%- assign bundle_variant_id = bundle_variant_discount | remove: 'gid://shopify/ProductVariant/' | strip -%}
-  {%- assign bundle_variant_id = bundle_variant_id | times: 1 -%}
+    {% if item.properties['_bundleLabel'] contains '%' %}
+        {%- assign bundleHandle_discount = item.properties['_bundleHandle'] -%}
+        {%- assign bundle_variant_discount = item.properties['_variantId'] -%}
+        {%- assign bundle_product = all_products[bundleHandle_discount] -%}
+        {%- assign bundle_variant_id = bundle_variant_discount | remove: 'gid://shopify/ProductVariant/' | strip -%}
+        {%- assign bundle_variant_id = bundle_variant_id | times: 1 -%}
 
-  {%- for variant in bundle_product.variants -%}
-    {%- if variant.id == bundle_variant_id -%}
-  
-      {%- assign discount = variant.metafields.custom.percentage_discount -%}
-      {%- assign discount = discount | divided_by: 100.00 -%}
-      
-      {%- break -%}
-    {%- endif -%}
-  {%- endfor -%}
-  
+        {%- for variant in bundle_product.variants -%}
+            {%- if variant.id == bundle_variant_id -%}
 
-    {%- comment -%} {%- assign discount = discount_number | divided_by: 100.00  -%} {%- endcomment -%}
-    {%- assign discount_product_type = item.product.type -%}
+                {%- assign discount = variant.metafields.custom.percentage_discount -%}
+                {%- assign discount = discount | divided_by: 100.00 -%}
 
-    {% break %}
-  {% endif %}
+                {%- break -%}
+            {%- endif -%}
+        {%- endfor -%}
+
+
+        {%- comment -%} {%- assign discount = discount_number | divided_by: 100.00  -%} {%- endcomment -%}
+        {%- assign discount_product_type = item.product.type -%}
+
+        {% break %}
+    {% endif %}
 {% endfor %}
 
+Discount {{ discount }}
 
 
+<form action="{{ routes.cart_url }}" method="post" class="h-full relative flex flex-col lg:flex-row" id="cart"
+      x-data="cartAlpine">
 
-<form action="{{ routes.cart_url }}" method="post" class="h-full relative flex flex-col lg:flex-row" id="cart"  x-data="{ total: 0.00 }">
-  <div class="relative flex-1 h-full flex justify-center">
-    {% if cart.item_count > 0 %}
-      <div class="relative md:grid grid-cols-10 gap-x-[60px] gap-y-[30px]">
-        {% assign total_savings = 0 %}
-        <div class="md:col-span-10 2xl:col-span-7">
+    <div class="relative flex-1 h-full flex justify-center">
+        {% if cart.item_count > 0 %}
+            <div class="relative md:grid grid-cols-10 gap-x-[60px] gap-y-[30px]">
+                {% assign total_savings = 0 %}
+                <div class="md:col-span-10 2xl:col-span-7">
 
-          <div class="cart-items--headings">
-            <span class="cart-items--title item-title--product">Product</span>
-            <span class="cart-items--title item-title--price">Price</span>
-            <span class="cart-items--title item-title--quantity">Quantity</span>
-            <span class="cart-items--title item-title--subtotal">Subtotal</span>
-          </div>
-
-          <div class="cart-items--inner flex flex-col gap-y-[30px]">
-
-            {% for item in cart.items %}
-
-
-              {%- if item.properties['_bundleUid'] -%}
-                {%- unless bundles_displayed contains item.properties['_bundleUid'] -%}
-                  {%- assign bundles_displayed = item.properties['_bundleUid'] | concat: bundles_displayed -%}
-                  {%- render 'awtomic-bundle-cart-page', item: item, cart: cart, current_bundleUid: item.properties['_bundleUid'], bundleHandle: item.properties['_bundleHandle'], discount_product_type: discount_product_type, discount: discount, bundle_discount: bundle_discount, bundle_variant: item.properties['_variantId'] -%}
-                {%- endunless -%}
-              {% else %}
-
-              {%- unless item.properties['_bundleUid'] -%}
-
-
-                
-                <div class="cart-item">
-                  <div class="cart-item--inner">
-
-                    <div class="col-span-4 flex gap-x-5">
-
-                      <div class="w-1/2 lg:w-1/3">
-                        {% if item.image %}
-                          <div class="aspect--portrait">
-                            {{ item.image | image_url: width: 400 | image_tag: loading: 'lazy' }}
-                          </div>
-                        {% else %}
-                          {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
-                        {% endif %}
-                      </div>
-
-                      <div class="w-1/2 lg:w-2/3 flex flex-col">
-
-                        <h3 class="text-[20px] font-bold">
-                          <a href="{{ item.url }}" title="{{ item.product.title }}" class="">{{ item.product.title }}</a>
-                        </h3>
-
-
-                        {% if item.selling_plan_allocation.price > 0 %}
-                          <div class="cart_subscription text-sm">
-                            <p class="cart_subscription--messsage">
-                              Delivery: {{ item.selling_plan_allocation.selling_plan.name }}
-                            </p>
-                            <span class="cart_subscription--discount font-semibold text-green-700">
-                              You saved extra {{ item.selling_plan_allocation.selling_plan.price_adjustments[0].value }}{% if item.selling_plan_allocation.selling_plan.price_adjustments[0].value_type == 'percentage' %}%
-                              {% endif %}
-                            </span>
-                          </div>
-                        {% endif %}
-
-                        {% if item.variant.title != 'Default Title' and item.variant.title != 'No Color / OS' and item.variant.title != 'NC / OS' %}
-                          <div class="w-full flex-none text-lg font-medium text-gray-500">{{ item.variant.title }}</div>
-                        {% endif %}
-
-
-                        <button type="button" title="remove {{ item.product.title }}" @click="loading = true; Sunrise.updateQuantity({{ forloop.index }}, 0)" class="cursor-pointer text-left">
-                          <span class="uppercase underline text-[0.875rem]">Remove</span>
-                        </button>
-
-
-                      </div>
-
+                    <div class="cart-items--headings">
+                        <span class="cart-items--title item-title--product">Product</span>
+                        <span class="cart-items--title item-title--price">Price</span>
+                        <span class="cart-items--title item-title--quantity">Quantity</span>
+                        <span class="cart-items--title item-title--subtotal">Subtotal</span>
                     </div>
 
-                    <div class="cart-item--price-wrapper">
-                      {% if item.line_level_discount_allocations.size > 0 %}
-                        {% assign item_discount = item.original_price | minus: item.price %}
+                    <div class="cart-items--inner flex flex-col gap-y-[30px]">
 
-                        <div class="font-medium text-gray-500 mt-2">
+                        {% for item in cart.items %}
+
+
+                            {%- if item.properties['_bundleUid'] -%}
+                                {%- unless bundles_displayed contains item.properties['_bundleUid'] -%}
+                                    {%- assign bundles_displayed = item.properties['_bundleUid'] | concat: bundles_displayed -%}
+                                    {%- render 'awtomic-bundle-cart-page', item: item, cart: cart, current_bundleUid: item.properties['_bundleUid'], bundleHandle: item.properties['_bundleHandle'], discount_product_type: discount_product_type, discount: discount, bundle_discount: bundle_discount, bundle_variant: item.properties['_variantId'] -%}
+                                {%- endunless -%}
+                            {% else %}
+
+                                {%- unless item.properties['_bundleUid'] -%}
+
+
+
+                                    <div class="cart-item">
+                                        <div class="cart-item--inner">
+
+                                            <div class="col-span-4 flex gap-x-5">
+
+                                                <div class="w-1/2 lg:w-1/3">
+                                                    {% if item.image %}
+                                                        <div class="aspect--portrait">
+                                                            {{ item.image | image_url: width: 400 | image_tag: loading: 'lazy' }}
+                                                        </div>
+                                                    {% else %}
+                                                        {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                                                    {% endif %}
+                                                </div>
+
+                                                <div class="w-1/2 lg:w-2/3 flex flex-col">
+
+                                                    <h3 class="text-[20px] font-bold">
+                                                        <a href="{{ item.url }}" title="{{ item.product.title }}"
+                                                           class="">{{ item.product.title }}</a>
+                                                    </h3>
+
+
+                                                    {% if item.selling_plan_allocation.price > 0 %}
+                                                        <div class="cart_subscription text-sm">
+                                                            <p class="cart_subscription--messsage">
+                                                                Delivery: {{ item.selling_plan_allocation.selling_plan.name }}
+                                                            </p>
+                                                            <span class="cart_subscription--discount font-semibold text-green-700">
+                              You saved extra {{ item.selling_plan_allocation.selling_plan.price_adjustments[0].value }}{% if item.selling_plan_allocation.selling_plan.price_adjustments[0].value_type == 'percentage' %}%
+                                                                {% endif %}
+                            </span>
+                                                        </div>
+                                                    {% endif %}
+
+                                                    {% if item.variant.title != 'Default Title' and item.variant.title != 'No Color / OS' and item.variant.title != 'NC / OS' %}
+                                                        <div class="w-full flex-none text-lg font-medium text-gray-500">{{ item.variant.title }}</div>
+                                                    {% endif %}
+
+
+                                                    <button type="button" title="remove {{ item.product.title }}"
+                                                            @click="loading = true; Sunrise.updateQuantity({{ forloop.index }}, 0)"
+                                                            class="cursor-pointer text-left">
+                                                        <span class="uppercase underline text-[0.875rem]">Remove</span>
+                                                    </button>
+
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="cart-item--price-wrapper">
+                                                {% if item.line_level_discount_allocations.size > 0 %}
+                                                    {% assign item_discount = item.original_price | minus: item.price %}
+
+                                                    <div class="font-medium text-gray-500 mt-2">
                           <span class="money text-red-700">
                             {{ item.price | money_with_currency }}
                           </span>
-                          <s class="text-gray-500">
-                            {{ item.original_price | money_with_currency }}
-                          </s>
-                        </div>
+                                                        <s class="text-gray-500">
+                                                            {{ item.original_price | money_with_currency }}
+                                                        </s>
+                                                    </div>
 
-                        {% for discount_allocation in item.line_level_discount_allocations %}
-                          <div class="text-xs font-bold text-green-700 mt-2">
-                            <i>{{ discount_allocation.discount_application.title }}</i>
-                          </div>
-                        {% endfor %}
-                      {% else %}
+                                                    {% for discount_allocation in item.line_level_discount_allocations %}
+                                                        <div class="text-xs font-bold text-green-700 mt-2">
+                                                            <i>{{ discount_allocation.discount_application.title }}</i>
+                                                        </div>
+                                                    {% endfor %}
+                                                {% else %}
 
-                        <div class="">
+                                                    <div class="">
                           <span class="money {% if item.product.compare_at_price > item.price %} text-red-700{% endif %}">
                             {{ item.price | money }}
                           </span>
-                          {% if item.product.compare_at_price > item.price %}
-                            {% assign item_saving = item.product.compare_at_price | minus: item.price %}
-                            {% assign total_savings = total_savings | plus: item_saving %}
-                            <s class="text-gray-500">
-                              {{ item.product.compare_at_price | money }}
-                            </s>
+                                                        {% if item.product.compare_at_price > item.price %}
+                                                            {% assign item_saving = item.product.compare_at_price | minus: item.price %}
+                                                            {% assign total_savings = total_savings | plus: item_saving %}
+                                                            <s class="text-gray-500">
+                                                                {{ item.product.compare_at_price | money }}
+                                                            </s>
+                                                        {% endif %}
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+
+                                            <div class="cart-item--qty-wrapper" x-data="{ qty: {{ item.quantity }}}">
+
+                                                {% assign downcase_product_type = item.product.type | downcase %}
+
+                                                {% comment %}Disable boost upsell quanity increase{% endcomment %}
+                                                {% if downcase_product_type == 'boost' %}
+                                                    <div class="text-center max-w-[200px]">
+                                                        {{ item.quantity }}
+                                                    </div>
+                                                {% else %}
+                                                    <div class="flex w-full max-w-[200px]"
+                                                         x-data="{ qty: {{ item.quantity }}}">
+
+                                                        <div class="border flex">
+                                                            <div @click.debounce="loading = true; Sunrise.updateQuantity({{ forloop.index }}, --qty);"
+                                                                 class="py-2 text-center w-10 cursor-pointer">
+                                                                -
+                                                            </div>
+
+                                                            <div class="py-2 px-1" x-text="qty"></div>
+
+                                                            <div @click.debounce="loading = true; Sunrise.updateQuantity({{ forloop.index }}, ++qty)"
+                                                                 class="py-2 text-center w-10 cursor-pointer">
+                                                                +
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+
+                                                <div class="p-3" type="button" @click="updateQuantity({{ forloop.index }}, --qty)">Cart</div>
+
+
+                                            </div>
+
+                                            {%- comment -%} data-bundle=""" {%- endcomment -%}
+
+                                            <div class="cart-item--sub-total-wrapper">
+                      <span class="text-lg font-bold total-counter" data-total
+                            data-bundle="{{ item.final_line_price | divided_by: 100.00 | round: 2 }}">
+
+                          {% if discount %}
+                              {% assign downcase_product_type = item.product.type | downcase %}
+                              {% if downcase_product_type == 'cleanse' %}
+                                  {{ item.final_line_price | money }}
+                              {% else %}
+                                  <div>{{ 1 | minus: discount | times: item.final_line_price | money }}</div>
+                                  <div>{{ discount | times: 100.00 | round: 0 }}% off</div>
+                              {% endif %}
+                          {% else %}
+                              {{ item.final_line_price | money }}
                           {% endif %}
-                        </div>
-                      {% endif %}
-                    </div>
 
-                    <div class="cart-item--qty-wrapper">
-                      <div class="flex w-full max-w-[200px]" x-data="{ qty: {{ item.quantity }}}">
-
-                        {%- comment -%}
-                          hide buttons to match figma
-                        {%- endcomment -%}
-
-                        <button type="button" title="decrease quantity" @click.debounce="loading = true; Sunrise.updateQuantity({{ forloop.index }}, --qty);" class="text-center cursor-pointer p-1 border border-gray-600 w-3/12 hidden">
-                          &minus;
-                        </button>
-
-                        {%- comment -%}
-                          hide buttons to match figma
-                        {%- endcomment -%}
-
-
-
-                        <input class="text-center bg-white border border-gray-600 w-full" type="number" min="1" size="2" value="{{ item.quantity }}" name="quantity"
-                          x-on:change.debounce="loading = true;  Sunrise.updateQuantity({{ forloop.index }}, $event.target.value);">
-
-                          {%- comment -%}  x-on:change.debounce="loading = true; Sunrise.updateQuantity({{ forloop.index }}, .target.value);" {%- endcomment -%}
- 
-                        {%- comment -%}
-                          hide buttons to match figma
-                        {%- endcomment -%}
-
-                        <button type="button" title="increase quantity" @click.debounce="loading = true; Sunrise.updateQuantity({{ forloop.index }}, ++qty)" class="text-center cursor-pointer  p-1 border border-gray-600 w-3/12 hidden">
-                          &plus;
-                        </button>
-
-
-
-                      </div>
-
-                    </div>
-
-                      {%- comment -%} data-bundle=""" {%- endcomment -%}
-
-                    <div class="cart-item--sub-total-wrapper">
-                      <span class="text-lg font-bold total-counter" data-total data-bundle="{{ item.final_line_price | divided_by: 100.00 | round: 2 }}">
-                        {{ item.final_line_price | money }}
                       </span>
-                    </div>
+                                            </div>
 
 
-                  </div>
-                </div>
+                                        </div>
+                                    </div>
 
-              {%- endunless -%}
-              {% endif %}
-            {% endfor %}
+                                {%- endunless -%}
+                            {% endif %}
+                        {% endfor %}
 
 
+                        <div class="continue-shopping-wrapper flex flex-col">
 
-            <div class="continue-shopping-wrapper flex flex-col">
+                            <h2 class="text-base lg:text-[22px] leading-tight font-bold mb-[15px]">Continue
+                                Shopping</h2>
 
-              <h2 class="text-base lg:text-[22px] leading-tight font-bold mb-[15px]">Continue Shopping</h2>
-
-              <ul class="flex flex-col lg:grid lg:grid-cols-3 gap-[20px] justify-between mb-[30px] 2xl:mb-0">
-                <li>
-                  <a href="/pages/cleanses" class="border bg-white text-green border-green  py-[15px] px-[30px] 3xl:px-[40px] pointer-events-auto relative after:pointer-events-none after:h-[50px] after:w-full after:absolute after:bottom-0 after:left-0 after:translate-y-full after:bg-green overflow-hidden  h-[50px] flex items-center justify-center cursor-pointer">
+                            <ul class="flex flex-col lg:grid lg:grid-cols-3 gap-[20px] justify-between mb-[30px] 2xl:mb-0">
+                                <li>
+                                    <a href="/pages/cleanses"
+                                       class="border bg-white text-green border-green  py-[15px] px-[30px] 3xl:px-[40px] pointer-events-auto relative after:pointer-events-none after:h-[50px] after:w-full after:absolute after:bottom-0 after:left-0 after:translate-y-full after:bg-green overflow-hidden  h-[50px] flex items-center justify-center cursor-pointer">
                     <span class="text-[18px] uppercase z-10">
                       Cleanses
                     </span>
-                  </a>
-                </li>
-                <li>
-                  <a href="/tools/bundle-subscriptions/bundle/7636268974229?product=make-a-box&selling_plan=onetime" class="border bg-white text-green border-green  py-[15px] px-[30px] 3xl:px-[40px] pointer-events-auto relative after:pointer-events-none after:h-[50px] after:w-full after:absolute after:bottom-0 after:left-0 after:translate-y-full after:bg-green overflow-hidden  h-[50px] flex items-center justify-center cursor-pointer">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/tools/bundle-subscriptions/bundle/7636268974229?product=make-a-box&selling_plan=onetime"
+                                       class="border bg-white text-green border-green  py-[15px] px-[30px] 3xl:px-[40px] pointer-events-auto relative after:pointer-events-none after:h-[50px] after:w-full after:absolute after:bottom-0 after:left-0 after:translate-y-full after:bg-green overflow-hidden  h-[50px] flex items-center justify-center cursor-pointer">
                     <span class="text-[18px] uppercase z-10">
                       Make a box
                     </span>
-                  </a>
-                </li>
-                <li>
-                  <a href="/tools/bundle-subscriptions/bundle/7692164694165?product=make-a-boost-box&selling_plan=onetime" class="border bg-white text-green border-green  py-[15px] px-[30px] 3xl:px-[40px] pointer-events-auto relative after:pointer-events-none after:h-[50px] after:w-full after:absolute after:bottom-0 after:left-0 after:translate-y-full after:bg-green overflow-hidden  h-[50px] flex items-center justify-center cursor-pointer">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/tools/bundle-subscriptions/bundle/7692164694165?product=make-a-boost-box&selling_plan=onetime"
+                                       class="border bg-white text-green border-green  py-[15px] px-[30px] 3xl:px-[40px] pointer-events-auto relative after:pointer-events-none after:h-[50px] after:w-full after:absolute after:bottom-0 after:left-0 after:translate-y-full after:bg-green overflow-hidden  h-[50px] flex items-center justify-center cursor-pointer">
                     <span class="text-[18px] uppercase z-10">
                       Boost Box
                     </span>
-                  </a>
-                </li>
-              </ul>
-            </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
 
-          </div>
-        </div>
+                    </div>
+                </div>
 
-        <div class="w-ful md:col-span-10 2xl:col-span-3 cart-items--buttons">
+                <div class="w-ful md:col-span-10 2xl:col-span-3 cart-items--buttons">
 
-          <div class="cart-buttons--heading">
+                    <div class="cart-buttons--heading">
             <span class="text-base lg:text-[22px] font-bold">
               Order Summary
             </span>
-          </div>
+                    </div>
 
-          <div class="cart-items--buttons-inner">
+                    <div class="cart-items--buttons-inner">
 
-            <div class="cart__note hidden">
-              <label for="Cart-note" class="inline-block font-medium pb-2">{{ 'sections.cart.note' | t }}</label>
-              <textarea class="text-area border p-3 border-gray-600" name="note" id="Cart-note" placeholder="{{ 'sections.cart.note' | t }}">{{ cart.note }}</textarea>
-            </div>
+                        <div class="cart__note hidden">
+                            <label for="Cart-note"
+                                   class="inline-block font-medium pb-2">{{ 'sections.cart.note' | t }}</label>
+                            <textarea class="text-area border p-3 border-gray-600" name="note" id="Cart-note"
+                                      placeholder="{{ 'sections.cart.note' | t }}">{{ cart.note }}</textarea>
+                        </div>
 
 
-            <div class="totals--wrapper mb-[30px]">
+                        <div class="totals--wrapper mb-[30px]">
 
-              {%- if cart.cart_level_discount_applications.size > 0 -%}
-                <div class="total-discounts flex justify-between font-medium pb-2  text-green-700" aria-label="{{ 'customer.order.discount' | t }}">
-                  {%- for discount in cart.cart_level_discount_applications -%}
-                    <i class="flex space-x-1">
-                      {% render 'icon-discount', class: 'w-4 mr-1' %}
-                      <span>{{ discount.title }}
+                            {%- if cart.cart_level_discount_applications.size > 0 -%}
+                                <div class="total-discounts flex justify-between font-medium pb-2  text-green-700"
+                                     aria-label="{{ 'customer.order.discount' | t }}">
+                                    {%- for discount in cart.cart_level_discount_applications -%}
+                                        <i class="flex space-x-1">
+                                            {% render 'icon-discount', class: 'w-4 mr-1' %}
+                                            <span>{{ discount.title }}
                       </span>
-                    </i>
-                    <span>(-{{ discount.total_allocated_amount | money }})</span>
-                  {%- endfor -%}
-                </div>
-              {%- endif -%}
+                                        </i>
+                                        <span>(-{{ discount.total_allocated_amount | money }})</span>
+                                    {%- endfor -%}
+                                </div>
+                            {%- endif -%}
 
 
-              <div class="sub-total flex justify-between text-base pb-2 font-bold">
-                <span>Subtotal</span>
-                <span>{{ cart.total_price | money }}</span>
-              </div>
+                            <div class="sub-total flex justify-between text-base pb-2 font-bold">
+                                <span>Subtotal</span>
+                                <span>{{ cart.total_price | money }}</span>
+                            </div>
 
-              {% if total_savings > 0 %}
-                <div class="sub-total flex justify-between text-base pb-2  text-grey-700">
+                            {% if total_savings > 0 %}
+                                <div class="sub-total flex justify-between text-base pb-2  text-grey-700">
                   <span>
                     {{ 'general.cart.saving' | t }}</span>
-                  <span>-{{ total_savings | money }}</span>
-                </div>
-              {% endif %}
+                                    <span>-{{ total_savings | money }}</span>
+                                </div>
+                            {% endif %}
 
 
-              <div class="sub-total flex justify-between text-base pb-2">
-                <span>Tax</span>
-                <span>$0.00</span>
-              </div>
+                            <div class="sub-total flex justify-between text-base pb-2">
+                                <span>Tax</span>
+                                <span>$0.00</span>
+                            </div>
 
-              <div class="sub-total flex justify-between text-base pb-2">
-                <span>Shipping</span>
-                <span>$0.00</span>
-              </div>
+                            <div class="sub-total flex justify-between text-base pb-2">
+                                <span>Shipping</span>
+                                <span>$0.00</span>
+                            </div>
 
 
-              <div class="sub-total flex justify-between text-base pb-2 font-bold">
-                <span>Discount applied</span>
-                <span id="cart-page-total-discounts">$0.00</span>
-                {%- comment -%} <span>{{ discount }}</span> {%- endcomment -%}
-                {%- comment -%} <span>{{ bundle_discount }}</span> {%- endcomment -%}
-              </div>
+                            <div class="sub-total flex justify-between text-base pb-2 font-bold">
+                                <span>Discount applied</span>
+                                <span id="cart-page-total-discounts">$0.00</span>
+                                {%- comment -%} <span>{{ discount }}</span> {%- endcomment -%}
+                                {%- comment -%} <span>{{ bundle_discount }}</span> {%- endcomment -%}
+                            </div>
 
-              <div class="sub-total flex justify-between text-base pb-2 font-bold">
-                <span>Total</span>
-                <span id="cart-page-total">{{ cart.total_price | money }}</span>
-              </div>
-            </div>
+                            <div class="sub-total flex justify-between text-base pb-2 font-bold">
+                                <span>Total</span>
+                                <span id="cart-page-total">{{ cart.total_price | money }}</span>
+                            </div>
+                        </div>
 
-            <div x-data="{policyCheck: false}" class="flex flex-col mt-[auto] gap-y-[20px] 2xl:items-center">
-              <div class="flex justify-between" @click="policyCheck = !policyCheck">
-                <div class="border border-green w-[20px] h-[20px] mr-[10px]">
-                  <svg x-show="policyCheck" class="h-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 490 490" style="enable-background:new 0 0 490 490" xml:space="preserve"><path d="M452.253 28.326 197.831 394.674 29.044 256.875 0 292.469l207.253 169.205L490 54.528z"/></svg>
-                </div>
-                <span class="w-[calc(100%-50px)] text-base leading-none">I have read and understand the
+                        <div x-data="{policyCheck: false}"
+                             class="flex flex-col mt-[auto] gap-y-[20px] 2xl:items-center">
+                            <div class="flex justify-between" @click="policyCheck = !policyCheck">
+                                <div class="border border-green w-[20px] h-[20px] mr-[10px]">
+                                    <svg x-show="policyCheck" class="h-full" xmlns="http://www.w3.org/2000/svg"
+                                         viewBox="0 0 490 490" style="enable-background:new 0 0 490 490"
+                                         xml:space="preserve"><path
+                                                d="M452.253 28.326 197.831 394.674 29.044 256.875 0 292.469l207.253 169.205L490 54.528z"/></svg>
+                                </div>
+                                <span class="w-[calc(100%-50px)] text-base leading-none">I have read and understand the
                   <a target="_blank" href="https://rawjuicery.com/pages/legal">Refund Policy</a>
                 </span>
-              </div>
+                            </div>
 
 
-              <button name="checkout" id="checkout" type="submit" :class="policyCheck ? 'bg-green border-green' : 'bg-greyed border-greyed'" class="border bg-green text-white h-[50px] border-green md:px-[5px] 3xl:px-[35px] py-[15px] pointer-events-auto relative after:pointer-events-none  h-[50px] flex items-center justify-center cursor-pointer w-full mb-[15px]">
+                            <button name="checkout" id="checkout" type="submit"
+                                    :class="policyCheck ? 'bg-green border-green' : 'bg-greyed border-greyed'"
+                                    class="border bg-green text-white h-[50px] border-green md:px-[5px] 3xl:px-[35px] py-[15px] pointer-events-auto relative after:pointer-events-none  h-[50px] flex items-center justify-center cursor-pointer w-full mb-[15px]">
                 <span class="text-[18px] uppercase z-10">
                   Proceed to Checkout
                 </span>
-              </button>
+                            </button>
+
+                        </div>
+
+
+                        {%- if additional_checkout_buttons -%}
+                            <div class="cart__dynamic-checkout-buttons additional-checkout-buttons">
+                                {{ content_for_additional_checkout_buttons }}
+                            </div>
+                        {%- endif -%}
+
+                    </div>
+
+                </div>
 
             </div>
 
 
-            {%- if additional_checkout_buttons -%}
-              <div class="cart__dynamic-checkout-buttons additional-checkout-buttons">
-                {{ content_for_additional_checkout_buttons }}
-              </div>
-            {%- endif -%}
-
-          </div>
-
-        </div>
-
-      </div>
-
-
-    {% else %}
-      <div class="empty-cart text-center max-w-xs md:max-w-md px-4">
-        {% render 'icon-cart', class: 'mx-auto w-8 h-8' %}
-        <h4 class="text-lg heading-font py-2 !font-bold">
-          {{ 'general.cart.cart_empty_title_html' | t }}
-        </h4>
-        <a href="/pages/cleanses" class="inline-block mx-auto px-8 py-2 text-sm text-center  w-full font-medium">
+        {% else %}
+            <div class="empty-cart text-center max-w-xs md:max-w-md px-4">
+                {% render 'icon-cart', class: 'mx-auto w-8 h-8' %}
+                <h4 class="text-lg heading-font py-2 !font-bold">
+                    {{ 'general.cart.cart_empty_title_html' | t }}
+                </h4>
+                <a href="/pages/cleanses"
+                   class="inline-block mx-auto px-8 py-2 text-sm text-center  w-full font-medium">
           <span class="text-[18px] uppercase z-10">
             {{ 'general.cart.continue_shopping' | t }}
           </span>
-        </a>
-      </div>
-    {% endif %}
-  </div>
+                </a>
+            </div>
+        {% endif %}
+    </div>
 
 </form>
+
+<script>
+
+    // jQuery.post('/cart/add.js', {
+    //     quantity: 1,
+    //     id: 37388616794261,
+    // });
+
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('cartAlpine', () => ({
+            total: 0.00,
+
+
+            updateQuantity(index, qty) {
+                console.log(index, qty)
+                let cart = window.cart
+                let item = cart.items[index]
+                let isCleanse = false;
+                if( item['product_type'].toLowerCase() == 'cleanse'){
+                    isCleanse = true;
+                }
+                console.log(isCleanse)
+
+            },
+
+        }))
+    })
+</script>

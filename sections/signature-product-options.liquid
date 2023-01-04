@@ -13,35 +13,10 @@
 -%}
 
 
-<section
-        x-data="{
-        qty: 1,
-        scheduleType: 'signature',
+<section x-data="cleanseAlpine">
 
-        addToCart(){
-          let formData = new FormData(document.querySelector('.shopify-product-form'));
-          let standardId = parseInt(Math.floor(Math.random() * 10000) + '' + Date.now());
-          formData.append('properties[standardId]', standardId);
-
-          fetch('/cart/add.js', {
-              method: 'POST',
-              body: formData
-            })
-            .then(response => {
-              return response.json();
-            })
-            .then(response => {
-              this.$dispatch('cart-updated');
-              this.$dispatch('toggle-cart');
-            })
-            .catch((error) => {
-              console.error('Error:', error);
-            });
-
-        }
-      }"
-        class="">
-    <div class="flex z-10 w-full lg:border-green lg:h-[95px] items-center lg:py-0 py-[20px] px-[20px] lg:px-[30px]">
+    <section x-show="!showUpsell">
+        <div class="flex z-10 w-full lg:border-green lg:h-[95px] items-center lg:py-0 py-[20px] px-[20px] lg:px-[30px]">
         <span
                 x-text="scheduleType + ' cleanse'"
                 x-intersect="$el.classList.add('!opacity-100')"
@@ -49,223 +24,327 @@
         >
 
         </span>
-    </div>
-    <div class="grid border-b lg:divide-x lg:border-t lg:grid-cols-2 lg:border-green lg:divide-green">
+        </div>
 
-        <div class="flex flex-col px-[20px] lg:px-[76px] lg:py-[72px] cleanse-form-wrapper">
-            {% form 'product', section.settings.signature_product %}
-                <input type="hidden" name="id" value="{{ current_variant.id }}">
-                {% comment %} <input type="hidden" name="selling_plan" value="{{ current_selling_plan_allocation.selling_plan.id | default: '' }}"> {% endcomment %}
+        <div class="grid border-b lg:divide-x lg:border-t lg:grid-cols-2 lg:border-green lg:divide-green">
 
-                <div x-show="scheduleType == 'signature'" class="cleanse-description">
-                    <p>
-                        Our best-selling, 100% Certified Organic <strong>Signature Cleanse</strong> is designed to
-                        purify, detoxify, and reawaken the best version of yourself in 3 days or less. Our recipes have
-                        been crafted and perfected over ten years using only raw, living juices from 30 of the purest
-                        ingredients found globally.
-                    </p>
+            <div class="flex flex-col px-[20px] lg:px-[76px] lg:py-[72px] cleanse-form-wrapper">
+                {% form 'product', section.settings.signature_product %}
+                    <input type="hidden" name="id" value="{{ current_variant.id }}">
+                    {% comment %} <input type="hidden" name="selling_plan" value="{{ current_selling_plan_allocation.selling_plan.id | default: '' }}"> {% endcomment %}
 
-                    <p class="mt-2">
-                        Leverage nature's most powerful metabolism-boosting, gut-cleansing compounds from ingredients
-                        such as Pineapple, Grapefruit, Turmeric, Ginger, and Spirulina to quickly crush your habitual
-                        appetite, flush toxins, and beat that bloat.
-                    </p>
-                </div>
+                    <div x-show="scheduleType == 'signature'" class="cleanse-description">
+                        <p>
+                            Our best-selling, 100% Certified Organic <strong>Signature Cleanse</strong> is designed to
+                            purify, detoxify, and reawaken the best version of yourself in 3 days or less. Our recipes have
+                            been crafted and perfected over ten years using only raw, living juices from 30 of the purest
+                            ingredients found globally.
+                        </p>
 
-                <div x-show="scheduleType == 'green'" class="cleanse-description">
-                    <p>
-                        Our 100% Certified Organic <strong>Green Cleanse</strong> is designed for even deeper
-                        detoxification and benefits, but with <i>24 fewer grams</i> of sugar per day compared to our Signature
-                        Cleanse. Our recipes have been crafted and perfected over ten years using only raw, living
-                        juices from 30 of the purest ingredients found globally.
-                    </p>
+                        <p class="mt-2">
+                            Leverage nature's most powerful metabolism-boosting, gut-cleansing compounds from ingredients
+                            such as Pineapple, Grapefruit, Turmeric, Ginger, and Spirulina to quickly crush your habitual
+                            appetite, flush toxins, and beat that bloat.
+                        </p>
+                    </div>
 
-                    <p class="mt-2">
-                        Leverage nature's most powerful metabolism-boosting, gut-cleansing compounds from ingredients
-                        such as Pineapple, Grapefruit, Turmeric, Ginger, and Spirulina to quickly crush your habitual
-                        appetite, flush toxins, and beat that bloat.
-                    </p>
-                </div>
+                    <div x-show="scheduleType == 'green'" class="cleanse-description">
+                        <p>
+                            Our 100% Certified Organic <strong>Green Cleanse</strong> is designed for even deeper
+                            detoxification and benefits, but with 24 fewer grams of sugar per day compared to our Signature
+                            Cleanse. Our recipes have been crafted and perfected over ten years using only raw, living
+                            juices from 30 of the purest ingredients found globally.
+                        </p>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 2xl:grid-cols-2 gap-[10px] md:gap-[20px]">
-                    <span class="text-[18px] leading-[18px] font-normal uppercase col-span-1 md:col-span-2 lg:col-span-1 2xl:col-span-2 mt-[40px]">Choose your cleanse</span>
+                        <p class="mt-2">
+                            Leverage nature's most powerful metabolism-boosting, gut-cleansing compounds from ingredients
+                            such as Pineapple, Grapefruit, Turmeric, Ginger, and Spirulina to quickly crush your habitual
+                            appetite, flush toxins, and beat that bloat.
+                        </p>
+                    </div>
 
-                    {%- unless section.settings.signature_product.has_only_default_variant -%}
-                        {%- for variant in section.settings.signature_product.variants -%}
-                            {%- assign variant_label_state = true -%}
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 2xl:grid-cols-2 gap-[10px] md:gap-[20px]">
+                        <span class="text-[18px] leading-[18px] font-normal uppercase col-span-1 md:col-span-2 lg:col-span-1 2xl:col-span-2 mt-[40px]">Choose your cleanse</span>
 
-                            {%- if section.settings.signature_product.options.size == 1 -%}
-                                {%- unless section.settings.signature_product.variants[forloop.index0].available -%}
-                                    {%- assign variant_label_state = false -%}
-                                {%- endunless -%}
-                            {%- endif -%}
+                        {%- unless section.settings.signature_product.has_only_default_variant -%}
+                            {%- for variant in section.settings.signature_product.variants -%}
+                                {%- assign variant_label_state = true -%}
 
-                            <div class="flex items-center border-[2px] border-green">
-                                <input class="hidden" type="radio"
-                                        {% if variant.id == current_variant.id %} checked="checked"{% endif %}
-                                       value="{{ variant.id | escape }}"
-                                       data-index="option{{ forloop.index }}"
-                                       name="variant"
-                                       id="option-{{ variant.id }}"
-                                >
-                                <label {% if variant.title contains 'GREEN' %}@click="scheduleType = 'green'"
-                                       {% else %}@click="scheduleType = 'signature'"{% endif %}
-                                       for="option-{{ variant.id }}"
-                                       class="flex px-[10px] py-[10px] items-center gap-x-[15px] text-base w-full cursor-pointer">
+                                {%- if section.settings.signature_product.options.size == 1 -%}
+                                    {%- unless section.settings.signature_product.variants[forloop.index0].available -%}
+                                        {%- assign variant_label_state = false -%}
+                                    {%- endunless -%}
+                                {%- endif -%}
+
+                                <div class="flex items-center border-[2px] border-green">
+                                    <input class="hidden" type="radio"
+                                            {% if variant.id == current_variant.id %} checked="checked"{% endif %}
+                                           value="{{ variant.id | escape }}"
+                                           data-index="option{{ forloop.index }}"
+                                           name="variant"
+                                           id="option-{{ variant.id }}"
+                                    >
+                                    <label {% if variant.title contains 'GREEN' %}@click="scheduleType = 'green'"
+                                           {% else %}@click="scheduleType = 'signature'"{% endif %}
+                                           for="option-{{ variant.id }}"
+                                           class="flex px-[10px] py-[10px] items-center gap-x-[15px] text-base w-full cursor-pointer">
                                 <span class="w-[20px] h-[20px] border border-green rounded-full relative">
                                     <div class="w-[12px] h-[12px] bg-green rounded-full absolute left-[calc(50%-6px)] top-[calc(50%-6px)] hidden"></div>
                                 </span>
-                                    {{ variant.title }}
+                                        {{ variant.title }}
 
-                                    {% if variant.title contains '2' %}
-                                        <span class="ml-auto text-right">14 Bottles</span>
-                                    {% else %}
-                                        <span class="ml-auto text-right">21 Bottles</span>
-                                    {% endif %}
-                                </label>
-                            </div>
-                        {%- endfor -%}
-                    {%- endunless -%}
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 2xl:grid-cols-2 md:gap-[20px] mt-[40px] mb-[20px]">
-                    <span class="text-[18px] leading-[18px] font-normal uppercase col-span-1 md:col-span-2 lg:col-span-1 2xl:col-span-2">Purchase Options</span>
-                </div>
+                                        {% if variant.title contains '2' %}
+                                            <span class="ml-auto text-right">14 Bottles</span>
+                                        {% else %}
+                                            <span class="ml-auto text-right">21 Bottles</span>
+                                        {% endif %}
+                                    </label>
+                                </div>
+                            {%- endfor -%}
+                        {%- endunless -%}
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 2xl:grid-cols-2 md:gap-[20px] mt-[40px] mb-[20px]">
+                        <span class="text-[18px] leading-[18px] font-normal uppercase col-span-1 md:col-span-2 lg:col-span-1 2xl:col-span-2">Purchase Options</span>
+                    </div>
 
-                <button
-                        type="submit"
-                        name="add"
-                        class="add-to-cart-button  button__primary w-full text-white text center bg-green uppercase py-[19px]"
-                >
+                    <button
+                            type="submit"
+                            name="add"
+                            class="add-to-cart-button  button__primary w-full text-white text center bg-green uppercase py-[19px]"
+                    >
                 <span>
                     Add to cart
                 </span>
-                </button>
-            {% endform %}
-        </div>
+                    </button>
+                {% endform %}
+            </div>
 
-        <div x-data="bottles" class="grid grid-cols-2 md:grid-cols-4 gap-[1px] mt-[25px] md:mt-[30px] lg:mt-0">
-            {%- for block in section.blocks -%}
-                {%- case block.type -%}
-                    {%- when 'schedule' -%}
-                        <div @click="showBottle('{{ block.settings.effect }}')" x-show="scheduleType == 'signature'"
-                             class="py-[20px] transition-colors bg-cream hover:bg-green hover:text-cream group cursor-pointer text-center">
+            <div class="grid auto-rows-min grid-cols-2 md:grid-cols-4 gap-[1px] mt-[25px] md:mt-[30px] lg:mt-0">
+                {%- for block in section.blocks -%}
+                    {%- case block.type -%}
+                        {%- when 'schedule' -%}
+                            <div @click="showBottle('{{ block.settings.effect }}')" x-show="scheduleType == 'signature'"
+                                 class="py-[20px] transition-colors bg-cream hover:bg-green hover:text-cream group cursor-pointer text-center">
 
-                            <div class="px-[20px] font-bold">{{ block.settings.time }}</div>
+                                <div class="px-[20px] font-bold">{{ block.settings.time }}</div>
 
-                            {% if block.settings.image %}
-                                <div>
-                                    {%- capture sizes -%}(min-width: {{ settings.page_width }}px) {% if section.blocks.size == 1 %}calc({{ settings.page_width }}px - 100px){% else %}{{ settings.page_width | minus: 100 | times: 0.67 | round }}px{% endif %}, (min-width: 750px){% if section.blocks.size == 1 %} calc(100vw - 100px){% else %} 500px{% endif %}, calc(100vw - 30px)}{%- endcapture -%}
+                                {% if block.settings.image %}
+                                    <div>
+                                        {%- capture sizes -%}(min-width: {{ settings.page_width }}px) {% if section.blocks.size == 1 %}calc({{ settings.page_width }}px - 100px){% else %}{{ settings.page_width | minus: 100 | times: 0.67 | round }}px{% endif %}, (min-width: 750px){% if section.blocks.size == 1 %} calc(100vw - 100px){% else %} 500px{% endif %}, calc(100vw - 30px)}{%- endcapture -%}
 
-                                    {{ block.settings.image | image_url: width: 400 | image_tag:
-                                    loading: 'lazy',
-                                    class: 'object-cover w-full object-center mx-auto mt-[15px] mb-[25px] md:group-hover:animate-float',
-                                    alt: block.settings.image.alt,
-                                    sizes: sizes,
-                                    widths: '550, 720, 990, 1100, 1500, 2200, 3000'
-                                    }}
+                                        {{ block.settings.image | image_url: width: 400 | image_tag:
+                                        loading: 'lazy',
+                                        class: 'object-cover w-full object-center mx-auto mt-[15px] mb-[25px] md:group-hover:animate-float',
+                                        alt: block.settings.image.alt,
+                                        sizes: sizes,
+                                        widths: '550, 720, 990, 1100, 1500, 2200, 3000'
+                                        }}
 
-                                    {%- comment -%} <img class="object-cover w-[400px] mx-auto mt-[15px] mb-[25px] md:group-hover:animate-float" src="{{ block.settings.image | image_url }}" alt=""> {%- endcomment -%}
+                                        {%- comment -%} <img class="object-cover w-[400px] mx-auto mt-[15px] mb-[25px] md:group-hover:animate-float" src="{{ block.settings.image | image_url }}" alt=""> {%- endcomment -%}
+                                    </div>
+                                {% endif %}
+
+                                <div class="px-[20px]">
+                                    {%- if block.settings.product_name != blank -%}
+                                        <div>
+                                            <span>{{ block.settings.product_name }}</span>
+                                        </div>
+                                    {%- endif -%}
+
+                                    {% comment %}
+                                        {%- if block.settings.effect != blank -%}
+                                            <div class="text-sm" style="padding-top: 5px">{{ block.settings.effect }}</div>
+                                        {%- endif -%}
+                                    {% endcomment %}
                                 </div>
-                            {% endif %}
 
-                            <div class="px-[20px]">
-                                {%- if block.settings.product_name != blank -%}
-                                    <div>
-                                        <span>{{ block.settings.product_name }}</span>
-                                    </div>
-                                {%- endif -%}
+                            </div>
 
-                                {% comment %}
-                                    {%- if block.settings.effect != blank -%}
-                                        <div class="text-sm" style="padding-top: 5px">{{ block.settings.effect }}</div>
+
+                        {%- when 'green_schedule' -%}
+                            <div @click="showBottle('{{ block.settings.effect }}')" x-show="scheduleType == 'green'"
+                                 class="flex flex-col py-[20px] transition-colors bg-cream hover:bg-green duration-300 hover:text-cream group cursor-pointer text-center">
+                                <span class="px-[20px] font-bold">{{ block.settings.time }}</span>
+                                {% if block.settings.image %}
+                                    <img class="object-cover w-[400px] mx-auto mt-[15px] mb-[25px] md:group-hover:animate-float"
+                                         src="{{ block.settings.image | image_url }}" alt="">
+                                {% endif %}
+
+                                <div class="px-[20px]">
+                                    {%- if block.settings.product_name != blank -%}
+                                        <div>
+                                            <span>{{ block.settings.product_name }}</span>
+                                        </div>
                                     {%- endif -%}
-                                {% endcomment %}
+                                    {% comment %}
+                                        {%- if block.settings.effect != blank -%}
+                                            <div class="text-sm" style="padding-top: 5px">{{ block.settings.effect }}</div>
+                                        {%- endif -%}
+                                    {% endcomment %}
+                                </div>
+                            </div>
+                    {% endcase %}
+                {% endfor %}
+
+
+                <section style="z-index: 1000;" id="modal" x-show="modelOpen" class="fixed inset-0 overflow-y-auto"
+                         aria-labelledby="modal-title" role="dialog" aria-modal="true">
+                    <div class="flex items-end justify-center min-h-screen px-4 text-center items-center sm:block sm:p-0">
+                        <div x-cloak @click="modelOpen = false" x-show="modelOpen"
+                             x-transition:enter="transition ease-out duration-300 transform"
+                             x-transition:enter-start="opacity-0"
+                             x-transition:enter-end="opacity-100"
+                             x-transition:leave="transition ease-in duration-200 transform"
+                             x-transition:leave-start="opacity-100"
+                             x-transition:leave-end="opacity-0"
+                             class="fixed inset-0 transition-opacity bg-gray-500 bg-opacity-40" aria-hidden="true"
+                        ></div>
+
+                        <div x-cloak x-show="modelOpen"
+                             x-transition:enter="transition ease-out duration-300 transform"
+                             x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                             x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
+                             x-transition:leave="transition ease-in duration-200 transform"
+                             x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+                             x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                             class="inline-block w-full max-w-xl p-8 my-20 overflow-hidden text-left transition-all transform bg-white rounded-lg shadow-xl 2xl:max-w-2xl">
+
+                            <div class="flex items-center justify-between space-x-4">
+                                <h1 class="text-xl md:text-3xl font-bold uppercase" x-text="selectedBottle['title']"></h1>
+
+                                <button @click="modelOpen = false"
+                                        class="text-gray-600 focus:outline-none hover:text-gray-700">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                         stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                              d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                </button>
+                            </div>
+
+                            <div id="bottle-description">
+                                <h2 class="uppercase text-lg mt-3">Description</h2>
+                                <div x-html="selectedBottle['description']"></div>
                             </div>
 
                         </div>
-
-
-                    {%- when 'green_schedule' -%}
-                        <div @click="showBottle('{{ block.settings.effect }}')" x-show="scheduleType == 'green'"
-                             class="flex flex-col py-[20px] transition-colors bg-cream hover:bg-green duration-300 hover:text-cream group cursor-pointer text-center">
-                            <span class="px-[20px] font-bold">{{ block.settings.time }}</span>
-                            {% if block.settings.image %}
-                                <img class="object-cover w-[400px] mx-auto mt-[15px] mb-[25px] md:group-hover:animate-float"
-                                     src="{{ block.settings.image | image_url }}" alt="">
-                            {% endif %}
-
-                            <div class="px-[20px]">
-                                {%- if block.settings.product_name != blank -%}
-                                    <div>
-                                        <span>{{ block.settings.product_name }}</span>
-                                    </div>
-                                {%- endif -%}
-                                {% comment %}
-                                    {%- if block.settings.effect != blank -%}
-                                        <div class="text-sm" style="padding-top: 5px">{{ block.settings.effect }}</div>
-                                    {%- endif -%}
-                                {% endcomment %}
-                            </div>
-                        </div>
-                {% endcase %}
-            {% endfor %}
-
-
-            <section style="z-index: 1000;" id="modal" x-show="modelOpen" class="fixed inset-0 overflow-y-auto"
-                     aria-labelledby="modal-title" role="dialog" aria-modal="true">
-                <div class="flex items-end justify-center min-h-screen px-4 text-center items-center sm:block sm:p-0">
-                    <div x-cloak @click="modelOpen = false" x-show="modelOpen"
-                         x-transition:enter="transition ease-out duration-300 transform"
-                         x-transition:enter-start="opacity-0"
-                         x-transition:enter-end="opacity-100"
-                         x-transition:leave="transition ease-in duration-200 transform"
-                         x-transition:leave-start="opacity-100"
-                         x-transition:leave-end="opacity-0"
-                         class="fixed inset-0 transition-opacity bg-gray-500 bg-opacity-40" aria-hidden="true"
-                    ></div>
-
-                    <div x-cloak x-show="modelOpen"
-                         x-transition:enter="transition ease-out duration-300 transform"
-                         x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                         x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
-                         x-transition:leave="transition ease-in duration-200 transform"
-                         x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
-                         x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                         class="inline-block w-full max-w-xl p-8 my-20 overflow-hidden text-left transition-all transform bg-white rounded-lg shadow-xl 2xl:max-w-2xl">
-
-                        <div class="flex items-center justify-between space-x-4">
-                            <h1 class="text-xl md:text-3xl font-bold uppercase" x-text="selectedBottle['title']"></h1>
-
-                            <button @click="modelOpen = false"
-                                    class="text-gray-600 focus:outline-none hover:text-gray-700">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                     stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                          d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                                </svg>
-                            </button>
-                        </div>
-
-                        <div id="bottle-description">
-                            <h2 class="uppercase text-lg mt-3">Description</h2>
-                            <div x-html="selectedBottle['description']"></div>
-                        </div>
-
                     </div>
-                </div>
-            </section>
+                </section>
+            </div>
         </div>
-    </div>
+    </section>
+
+
+    <section id="upsell" x-show="showUpsell" class="container mx-auto pb-8">
+
+        <div class="p-4 text-center text-green uppercase text-2xl font-bold">
+            Cleanse Successfully Added To Cart
+        </div>
+
+        <div class="p-4 text-center">
+            Want To Boost Your Immunity? Order below
+        </div>
+        
+        <div id="upsell-products" class="p-4 flex flex-wrap justify-center gap-7">
+            <div id="upsell-mini-boss">
+                <div style="max-width: 15rem;">
+                    <div>
+                        <img src="https://cdn.shopify.com/s/files/1/1379/7759/products/Mini_v02.png?v=1664896696" alt="Mini Boss Boost Pack">
+                    </div>
+
+                    <form method="post" action="/cart/add" accept-charset="UTF-8" enctype="multipart/form-data">
+                        <input type="hidden" name="form_type" value="product" />
+                        <input type="hidden" name="utf8" value="✓" />
+                        <input type="hidden" name="id" value="37388616794261">
+
+                        <button type="submit"
+                                name="add"
+                                class="add-to-cart-button  button__primary w-full text-white text center bg-green uppercase py-[19px] mt-4">
+                            Add to cart
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div id="upsell-g3-fire">
+                <div style="max-width: 15rem;">
+                    <div>
+                        <img src="https://cdn.shopify.com/s/files/1/1379/7759/products/G3_v02.png?v=1664896888&width=800" alt="G3 Fire Boost Pack">
+                    </div>
+
+                    <form method="post" action="/cart/add" accept-charset="UTF-8" enctype="multipart/form-data">
+                        <input type="hidden" name="form_type" value="product" />
+                        <input type="hidden" name="utf8" value="✓" />
+                        <input type="hidden" name="id" value="37388618367125">
+
+                        <button type="submit"
+                                name="add"
+                                class="add-to-cart-button  button__primary w-full text-white text center bg-green uppercase py-[19px] mt-4">
+                            Add to cart
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+
+            <div id="upsell-shine-time">
+                <div style="max-width: 15rem;">
+                    <div>
+                        <img src="https://cdn.shopify.com/s/files/1/1379/7759/products/Shine_v02.png?v=1664896801&width=800" alt="Shine Time Boost Pack">
+                    </div>
+
+                    <form method="post" action="/cart/add" accept-charset="UTF-8" enctype="multipart/form-data">
+                        <input type="hidden" name="form_type" value="product" />
+                        <input type="hidden" name="utf8" value="✓" />
+                        <input type="hidden" name="id" value="41518380449941">
+
+                        <button type="submit"
+                                name="add"
+                                class="add-to-cart-button  button__primary w-full text-white text center bg-green uppercase py-[19px] mt-4">
+                            Add to cart
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div id="upsell-no-thanks" class="p-4 text-center">
+            <a href="/cart" class="text-xl">
+                No Thanks, Go To Cart
+            </a>
+        </div>
+
+    </section>
+
 </section>
 
 
 <script>
+
+    // jQuery.post('/cart/add.js', {
+    //     quantity: 1,
+    //     id: 37388616794261,
+    // });
+
     document.addEventListener('alpine:init', () => {
-        Alpine.data('bottles', () => ({
+        Alpine.data('cleanseAlpine', () => ({
             modelOpen: false,
+            showUpsell: false,
+            qty: 1,
+            scheduleType: 'signature',
             selectedBottle: {
                 'title': null,
                 'description': null
+            },
+
+            init() {
+                let cleanseForm = document.getElementsByClassName("shopify-product-form")[0]
+                cleanseForm.addEventListener('submit', (event) => {
+                    event.preventDefault();
+                    this.addToCart();
+                });
             },
 
             showBottle(product_slug) {
@@ -276,10 +355,47 @@
                 }).then(function (data) {
                     self.selectedBottle = data
                     self.modelOpen = true;
-                    console.log(data);
                 }).catch(function (err) {
                     console.log('Fetch Error :-S', err);
                 });
+            },
+
+            hideNonUpsellSections(product_slug) {
+                this.showUpsell = true;
+                let sections = document.querySelectorAll("main .shopify-section")
+                sections.forEach(section => {
+                    if (! section.classList.contains('signature-product-options')){
+                        section.classList.add('hidden');
+                    }
+                });
+                document.getElementById('shopify-section-insta-feed').classList.add('hidden')
+                document.getElementById('shopify-section-footer').classList.add('hidden')
+                document.getElementById("upsell").scrollIntoView({behavior: "smooth", block: "start"});
+            },
+
+            addToCart(){
+                this.hideNonUpsellSections()
+                let formData = new FormData(document.querySelector('.shopify-product-form'));
+                let standardId = parseInt(Math.floor(Math.random() * 10000) + '' + Date.now());
+                formData.append('properties[standardId]', standardId);
+
+                fetch('/cart/add.js', {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(response => {
+                        return response.json();
+                    })
+                    .then(response => {
+                        console.log('Products added to cart');
+                        console.log(response);
+                        this.$dispatch('cart-updated');
+                        this.$dispatch('toggle-cart');
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                    });
+
             },
 
         }))
@@ -319,6 +435,7 @@
 {% schema %}
 {
   "name": "Signature Product Options",
+  "class": "signature-product-options",
   "settings": [
     {
       "type": "text",
@@ -399,3 +516,9 @@
   ]
 }
 {% endschema %}
+
+{% stylesheet %}
+#upsell .bundleapp-container{
+display: none;
+}
+{% endstylesheet %}

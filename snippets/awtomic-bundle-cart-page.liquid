@@ -24,7 +24,7 @@
 
 
 
-{%- comment -%} 
+{%- comment -%}
 <div class="block">
   {{ bundle_variant_object.metafields.custom.percentage_discount | json }}
 
@@ -32,19 +32,18 @@
   {%- for variant in bundle_product.variants -%}
 
     {%- if variant.id ==  bundle_variant_id -%}
-      
+
       {{ variant.metafields.custom.percentage_discount }}
 
     {%- endif -%}
 
   {%- endfor -%}
-  
+
 </div> {%- endcomment -%}
 
 
 <div class="cart-item">
   <div class="cart-item--inner">
-
 
     <div class="col-span-4 flex flex-col lg:flex-row gap-x-5 gap-y-[20px]">
 
@@ -134,7 +133,7 @@
 
 
                     <small class="block lg:hidden text-right">{{ item.price | money }}</small>
-      
+
                   </div>
                 </div>
               </div>
@@ -190,7 +189,7 @@
       <div class="flex flex-col gap-y-[10px]">
         {%- for item in cart.items -%}
           {%- if item.properties['_bundleUid'] == current_bundleUid -%}
-            
+
             {%- assign bundle_product_type = item.product.type -%}
 
                 {%- assign bundle_price = item.price | times: item.quantity | plus: bundle_price -%}
@@ -211,7 +210,7 @@
 
             {%- assign bundle_discount_amount = bundle_price | times: discount -%}
             {%- assign bundle_new_price = bundle_price | minus: bundle_discount_amount -%}
-          
+
 
             {%- comment -%} {%- assign bundle_discount = bundle_discount_amount | plus: bundle_discount -%} {%- endcomment -%}
 

@@ -31,7 +31,6 @@
     {% endif %}
 {% endfor %}
 
-Discount {{ discount }}
 
 
 <form action="{{ routes.cart_url }}" method="post" class="h-full relative flex flex-col lg:flex-row" id="cart"
@@ -63,8 +62,6 @@ Discount {{ discount }}
                             {% else %}
 
                                 {%- unless item.properties['_bundleUid'] -%}
-
-
 
                                     <div class="cart-item">
                                         <div class="cart-item--inner">

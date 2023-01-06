@@ -227,7 +227,7 @@
                     </div>
 
 
-                    <form method="post" action="/cart/add" accept-charset="UTF-8" enctype="multipart/form-data">
+                    <form @submit="addingUpsellToCart = true" method="post" action="/cart/add" accept-charset="UTF-8" enctype="multipart/form-data">
                         <input type="hidden" name="form_type" value="product" />
                         <input type="hidden" name="utf8" value="✓" />
                         <input type="hidden" name="id" value="37388611223701">
@@ -235,8 +235,10 @@
                         <input type="hidden" value="signature-cleanse" name="properties[_bundleHandle]">
 
                         <button type="submit"
+                                x-bind:disabled="addingUpsellToCart"
+                                x-bind:class="addingUpsellToCart ? 'opacity-25' : ''"
                                 name="add"
-                                class="add-to-cart-button  button__primary w-full text-white text center bg-green uppercase py-[19px] mt-4">
+                                class="add-to-cart-button button__primary w-full text-white text center bg-green uppercase py-[19px] mt-4">
                             3 for <s>$12.50</s> $10
                         </button>
                     </form>
@@ -265,8 +267,10 @@
                         <input type="hidden" value="signature-cleanse" name="properties[_bundleHandle]">
 
                         <button type="submit"
+                                x-bind:disabled="addingUpsellToCart"
+                                x-bind:class="addingUpsellToCart ? 'opacity-25' : ''"
                                 name="add"
-                                class="add-to-cart-button  button__primary w-full text-white text center bg-green uppercase py-[19px] mt-4">
+                                class="add-to-cart-button button__primary w-full text-white text center bg-green uppercase py-[19px] mt-4">
                             3 for <s>$12.50</s> $10
                         </button>
                     </form>
@@ -295,8 +299,10 @@
                         <input type="hidden" value="signature-cleanse" name="properties[_bundleHandle]">
 
                         <button type="submit"
+                                x-bind:disabled="addingUpsellToCart"
+                                x-bind:class="addingUpsellToCart ? 'opacity-25' : ''"
                                 name="add"
-                                class="add-to-cart-button  button__primary w-full text-white text center bg-green uppercase py-[19px] mt-4">
+                                class="add-to-cart-button button__primary w-full text-white text center bg-green uppercase py-[19px] mt-4">
                             3 for <s>$12.50</s> $10
                         </button>
                     </form>
@@ -373,6 +379,7 @@
         Alpine.data('cleanseAlpine', () => ({
             modelOpen: false,
             showUpsell: false,
+            addingUpsellToCart: false,
             cleanseIdAddedToCart: null,
             qty: 1,
             scheduleType: 'signature',

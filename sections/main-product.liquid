@@ -247,6 +247,34 @@
     </section>
   {% endif %}
 
+  {% if product.metafields.custom.ingredientss.value != blank %}
+    <section>
+      <h2 class="uppercase px-4">Ingredient Section</h2>
+
+      <div class="flex flex-wrap divide-x">
+        {% for ingredient in product.metafields.custom.ingredientss.value -%}
+          <div class="w-1/4">
+
+            <div class="p-8">
+              <div class="max-w-xs mx-auto">
+                <img src="{{ ingredient.image }}" alt="{{ ingredient.name }}">
+              </div>
+
+              <div class="mt-2 text-2xl font-bold">
+                {{ ingredient.name }}
+              </div>
+
+              <div class="mt-1">
+                {{ ingredient.location }}
+              </div>
+            </div>
+
+          </div>
+        {%- endfor %}
+      </div>
+    </section>
+  {% endif %}
+
 </section>
 
 {% javascript %}

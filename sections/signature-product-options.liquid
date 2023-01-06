@@ -193,49 +193,6 @@
                 {% endfor %}
 
 
-                <section style="z-index: 1000;" id="modal" x-show="modelOpen" class="fixed inset-0 overflow-y-auto"
-                         aria-labelledby="modal-title" role="dialog" aria-modal="true">
-                    <div class="flex items-end justify-center min-h-screen px-4 text-center items-center sm:block sm:p-0">
-                        <div x-cloak @click="modelOpen = false" x-show="modelOpen"
-                             x-transition:enter="transition ease-out duration-300 transform"
-                             x-transition:enter-start="opacity-0"
-                             x-transition:enter-end="opacity-100"
-                             x-transition:leave="transition ease-in duration-200 transform"
-                             x-transition:leave-start="opacity-100"
-                             x-transition:leave-end="opacity-0"
-                             class="fixed inset-0 transition-opacity bg-gray-500 bg-opacity-40" aria-hidden="true"
-                        ></div>
-
-                        <div x-cloak x-show="modelOpen"
-                             x-transition:enter="transition ease-out duration-300 transform"
-                             x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                             x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
-                             x-transition:leave="transition ease-in duration-200 transform"
-                             x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
-                             x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                             class="inline-block w-full max-w-xl p-8 my-20 overflow-hidden text-left transition-all transform bg-white rounded-lg shadow-xl 2xl:max-w-2xl">
-
-                            <div class="flex items-center justify-between space-x-4">
-                                <h1 class="text-xl md:text-3xl font-bold uppercase" x-text="selectedBottle['title']"></h1>
-
-                                <button @click="modelOpen = false"
-                                        class="text-gray-600 focus:outline-none hover:text-gray-700">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                         stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                              d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                                    </svg>
-                                </button>
-                            </div>
-
-                            <div id="bottle-description">
-                                <h2 class="uppercase text-lg mt-3">Description</h2>
-                                <div x-html="selectedBottle['description']"></div>
-                            </div>
-
-                        </div>
-                    </div>
-                </section>
             </div>
         </div>
     </section>
@@ -243,7 +200,7 @@
 
     <section id="upsell" x-show="showUpsell" class="container mx-auto pb-8">
 
-        <div class="p-4 text-center text-green uppercase text-[40px] font-bold mt-4">
+        <div class="p-4 text-center text-green uppercase text-[40px] font-bold mt-4 leading-[48px]">
             <svg style="height: 45px; width: 45px" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="mb-8 mx-auto">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
@@ -254,12 +211,21 @@
             Add a 3-Pack of Boosts for $10 more
         </div>
         
-        <div id="upsell-products" class="p-4 flex flex-wrap justify-center gap-7">
+        <div id="upsell-products" class="p-4 flex flex-wrap justify-center" style="gap: 4rem">
             <div id="upsell-mini-boss">
-                <div style="max-width: 15rem;">
-                    <div>
-                        <img src="https://cdn.shopify.com/s/files/1/1379/7759/products/Mini_v02.png?v=1664896696" alt="Mini Boss Boost Pack">
+                <div style="max-width: 19rem;" class="flex flex-col justify-between h-full">
+                    <div @click="showBottle('mini-boss-1')" class="cursor-pointer">
+                        <img class="rounded-xl" src="https://cdn.shopify.com/s/files/1/1379/7759/products/Mini_v02.png?v=1664896696" alt="Mini Boss Boost Pack">
+
+                        <div class="mt-4 text-[28px] text-center uppercase">
+                            Mini Boss | 3 Pack
+                        </div>
+
+                        <div class="mt-2">
+                            Ginger, Turmeric, Lemon, Camu, Himalayan Salt, Black Pepper
+                        </div>
                     </div>
+
 
                     <form method="post" action="/cart/add" accept-charset="UTF-8" enctype="multipart/form-data">
                         <input type="hidden" name="form_type" value="product" />
@@ -278,9 +244,17 @@
             </div>
 
             <div id="upsell-g3-fire">
-                <div style="max-width: 15rem;">
-                    <div>
-                        <img src="https://cdn.shopify.com/s/files/1/1379/7759/products/G3_v02.png?v=1664896888&width=800" alt="G3 Fire Boost Pack">
+                <div style="max-width: 19rem;" class="flex flex-col justify-between h-full">
+                    <div @click="showBottle('g3-fire-3-pack')" class="cursor-pointer">
+                        <img class="rounded-xl" src="https://cdn.shopify.com/s/files/1/1379/7759/products/G3_v02.png?v=1664896888&width=800" alt="G3 Fire Boost Pack">
+
+                        <div class="mt-4 text-[28px] text-center uppercase">
+                            G3 Live | 3 Pack
+                        </div>
+
+                        <div class="mt-2">
+                            Ginger, Orange, Jalapeño, Blue-Green Algae, Lemon
+                        </div>
                     </div>
 
                     <form method="post" action="/cart/add" accept-charset="UTF-8" enctype="multipart/form-data">
@@ -297,13 +271,20 @@
                         </button>
                     </form>
                 </div>
-
             </div>
 
             <div id="upsell-shine-time">
-                <div style="max-width: 15rem;">
-                    <div>
-                        <img src="https://cdn.shopify.com/s/files/1/1379/7759/products/Shine_v02.png?v=1664896801&width=800" alt="Shine Time Boost Pack">
+                <div style="max-width: 19rem;" class="flex flex-col justify-between h-full">
+                    <div @click="showBottle('shine-time-3-pack-1')" class="cursor-pointer">
+                        <img class="rounded-xl" src="https://cdn.shopify.com/s/files/1/1379/7759/products/Shine_v02.png?v=1664896801&width=800" alt="Shine Time Boost Pack">
+
+                        <div class="mt-4 text-[28px] text-center uppercase">
+                            Shine Time | 3 Pack
+                        </div>
+
+                        <div class="mt-2">
+                            Mango, Golden Berry, Turmeric, Ginger, Echinacea, Lion's Mane
+                        </div>
                     </div>
 
                     <form method="post" action="/cart/add" accept-charset="UTF-8" enctype="multipart/form-data">
@@ -325,12 +306,57 @@
 
         </div>
 
-        <div id="upsell-no-thanks" class="p-4 text-center">
-            <a href="/cart" class="text-xl">
+        <div id="upsell-no-thanks" class="p-4 text-center mt-6 mb-8">
+            <a href="/cart" class="text-xl border p-4">
                 NO THANKS, PROCEED TO CART
             </a>
         </div>
 
+    </section>
+
+
+    <section style="z-index: 1000;" id="modal" x-show="modelOpen" class="fixed inset-0 overflow-y-auto"
+             aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="flex items-end justify-center min-h-screen px-4 text-center items-center sm:block sm:p-0">
+            <div x-cloak @click="modelOpen = false" x-show="modelOpen"
+                 x-transition:enter="transition ease-out duration-300 transform"
+                 x-transition:enter-start="opacity-0"
+                 x-transition:enter-end="opacity-100"
+                 x-transition:leave="transition ease-in duration-200 transform"
+                 x-transition:leave-start="opacity-100"
+                 x-transition:leave-end="opacity-0"
+                 class="fixed inset-0 transition-opacity bg-gray-500 bg-opacity-40" aria-hidden="true"
+            ></div>
+
+            <div x-cloak x-show="modelOpen"
+                 x-transition:enter="transition ease-out duration-300 transform"
+                 x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                 x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
+                 x-transition:leave="transition ease-in duration-200 transform"
+                 x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+                 x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                 class="inline-block w-full max-w-xl p-8 my-20 overflow-hidden text-left transition-all transform bg-white rounded-lg shadow-xl 2xl:max-w-2xl">
+
+                <div class="flex items-center justify-between space-x-4">
+                    <h1 class="text-xl md:text-3xl font-bold uppercase" x-text="selectedBottle['title']"></h1>
+
+                    <button @click="modelOpen = false"
+                            class="text-gray-600 focus:outline-none hover:text-gray-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                             stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                  d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <div id="bottle-description">
+                    <h2 class="uppercase text-lg mt-3">Description</h2>
+                    <div x-html="selectedBottle['description']"></div>
+                </div>
+
+            </div>
+        </div>
     </section>
 
 </section>
@@ -386,7 +412,7 @@
                 });
                 document.getElementById('shopify-section-insta-feed').classList.add('hidden')
                 document.getElementById('shopify-section-footer').classList.add('hidden')
-                document.getElementById("upsell").scrollIntoView({behavior: "smooth", block: "start"});
+                document.getElementsByTagName("body")[0].scrollIntoView({behavior: "smooth", block: "start"});
             },
 
             addToCart(){

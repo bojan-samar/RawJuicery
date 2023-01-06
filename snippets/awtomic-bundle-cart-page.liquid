@@ -110,12 +110,10 @@
                     <span class="uppercase underline text-[0.875rem]">Remove</span>
                 </button>
 
-                <div class="flex flex-col gap-y-[10px] justify-end h-full">
-
-
+                <div id="bundle-product-names" class="flex flex-col gap-y-[10px] justify-end h-full">
                     {%- for item in cart.items -%}
                         {%- if item.properties['_bundleUid'] == current_bundleUid -%}
-                            <div class="bundle-subitem flex items-center gap-x-[10px]">
+                            <div class="bundle-subitem flex items-center gap-x-[10px] {% if forloop.index > 4 %} hide-extra-products{% endif %}">
                                 {% if item.image %}
                                     {% comment %}
                                       Leave empty space due to a:empty CSS display: none rule
@@ -155,7 +153,7 @@
                         {% if item.line_level_discount_allocations.size > 0 %}
                             {% assign item_discount = item.original_price | minus: item.price %}
 
-                            <div class="font-medium text-gray-500 mt-2 flex flex-col gap-y-[5px]">
+                            <div class="font-medium text-gray-500 mt-2 flex flex-col gap-y-[5px] {% if forloop.index > 4 %} hide-extra-products {% endif %}">
                                 <small class="money text-red-700">
                                     {{ item.price | money_with_currency }}
                                 </small>
@@ -171,7 +169,7 @@
 
                         {% else %}
 
-                            <div class="font-medium text-gray-500 mt-2">
+                            <div class="font-medium text-gray-500 mt-2 {% if forloop.index > 4 %} hide-extra-products {% endif %}">
                                 <small>
                                     {{ item.price | money }}
                                 </small>
@@ -184,27 +182,24 @@
             </div>
         </div>
 
-
         <div class="cart-item--qty-wrapper hidden lg:flex flex-col justify-end">
 
             {% comment %}<input class="text-center bg-white border border-gray-600 w-full" type="number" min="1" size="2" value="1"{% endcomment %}
-                   {% comment %}name="quantity">{% endcomment %}
+            {% comment %}name="quantity">{% endcomment %}
 
             <div class="flex flex-col gap-y-[10px]">
                 {%- for item in cart.items -%}
                     {%- if item.properties['_bundleUid'] == current_bundleUid -%}
-
                         {%- assign bundle_product_type = item.product.type -%}
-
                         {%- assign bundle_price = item.price | times: item.quantity | plus: bundle_price -%}
-                        <div class="text-center bg-white w-full mt-2 font-medium text-gray-500 flex justify-between lg:justify-start">
+
+                        <div class="text-center bg-white w-full mt-2 font-medium text-gray-500 flex justify-between lg:justify-start {% if forloop.index > 4 %} hide-extra-products {% endif %}">
                             <small>{{ item.quantity }}</small>
                         </div>
                     {%- endif -%}
                 {%- endfor -%}
             </div>
         </div>
-
 
         <div class="cart-item--sub-total-wrapper flex flex-col">
             {%- if bundle_product_type == discount_product_type -%}
@@ -237,8 +232,9 @@
 
         </div>
 
-
     </div>
+
+
 </div>
 
 

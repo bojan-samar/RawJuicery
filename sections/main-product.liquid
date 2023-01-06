@@ -249,12 +249,11 @@
 
   {% if product.metafields.custom.ingredientss.value != blank %}
     <section>
-      <h2 class="uppercase px-4">Ingredient Section</h2>
+      <h2 class="uppercase px-8 text-center py-7 mt-4 text-[32px]">Ingredients</h2>
 
       <div class="flex flex-wrap divide-x">
         {% for ingredient in product.metafields.custom.ingredientss.value -%}
-          <div class="w-1/4">
-
+          <div class="w-1/4 {% if forloop.index > 4 %} hide-extra-ingredients {% endif %}">
             <div class="p-8">
               <div class="max-w-xs mx-auto">
                 <img src="{{ ingredient.image }}" alt="{{ ingredient.name }}">
@@ -268,10 +267,16 @@
                 {{ ingredient.location }}
               </div>
             </div>
-
           </div>
         {%- endfor %}
       </div>
+
+      {% if product.metafields.custom.ingredientss.value.size > 4 %}
+        <div id="show-more-ingredients" class="text-center mt-[40px] cursor-pointer">
+          <span class="p-4 border">See More</span>
+        </div>
+      {% endif %}
+
     </section>
   {% endif %}
 
@@ -327,6 +332,16 @@
 {% endif %}
 
 <script>
+  // Show the rest of the ingredients
+  let showMoreIngredientsButton = document.getElementById('show-more-ingredients');
+  showMoreIngredientsButton.addEventListener('click', function () {
+    let ingredients = document.getElementsByClassName('hide-extra-ingredients')
+    while (ingredients.length) {
+      ingredients[0].classList.remove('hide-extra-ingredients');
+    }
+    showMoreIngredientsButton.classList.add('hidden')
+  })
+
   document.addEventListener('DOMContentLoaded', function() {
     function isIE() {
       const ua = window.navigator.userAgent;
@@ -803,3 +818,9 @@
     ]
   }
 {% endschema %}
+
+{% stylesheet %}
+.hide-extra-ingredients{
+display: none;
+}
+{% endstylesheet %}

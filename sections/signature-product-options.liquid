@@ -259,7 +259,7 @@
                         </div>
                     </div>
 
-                    <form method="post" action="/cart/add" accept-charset="UTF-8" enctype="multipart/form-data">
+                    <form @submit="addingUpsellToCart = true" method="post" action="/cart/add" accept-charset="UTF-8" enctype="multipart/form-data">
                         <input type="hidden" name="form_type" value="product" />
                         <input type="hidden" name="utf8" value="✓" />
                         <input type="hidden" name="id" value="37388611158165">
@@ -291,7 +291,7 @@
                         </div>
                     </div>
 
-                    <form method="post" action="/cart/add" accept-charset="UTF-8" enctype="multipart/form-data">
+                    <form @submit="addingUpsellToCart = true" method="post" action="/cart/add" accept-charset="UTF-8" enctype="multipart/form-data">
                         <input type="hidden" name="form_type" value="product" />
                         <input type="hidden" name="utf8" value="✓" />
                         <input type="hidden" name="id" value="41848146362517">

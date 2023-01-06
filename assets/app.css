@@ -1,3 +1,7 @@
+.errors{
+  color: #f87171;
+}
+
 .auto-rows-min {
   grid-auto-rows: min-content
 }

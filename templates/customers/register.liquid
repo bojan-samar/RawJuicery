@@ -10,7 +10,8 @@
 	} {% endcomment %}
 </style>
 
-<div class="customerRegisterRoot customerRegisterContainer px-[30px] py-[30px] max-w-[650px] mx-auto">
+<div x-data="{ isRegistering: false }"
+		class="customerRegisterRoot customerRegisterContainer px-[30px] py-[30px] max-w-[650px] mx-auto">
 
 	<div class="flex flex-col gap-y-[19px]">
 		<h3 class="heading-3">Sign Up</h3>
@@ -58,7 +59,11 @@
 					class="w-full border border-green py-[18px] px-[20px] text-[18px] {% if form.errors contains 'password' %}input-error{% endif %}"
 					placeholder="{{ 'customer.register.password' | t }}"> 
 					
-				<input type="submit" value="{{ 'customer.register.submit' | t }}" class="bg-green text-white py-[18px] px-[20px] text-[18px] uppercase">
+				<button @click="isRegistering = true"
+						x-bind:class="isRegistering ? 'opacity-25' : ''"
+						type="submit" class="bg-green text-white py-[18px] px-[20px] text-[18px] uppercase">
+					Create
+				</button>
 				
 				<p>Already have an account? <a href="/account/login">Login</a></p> 
 				

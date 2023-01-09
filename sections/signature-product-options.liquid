@@ -20,6 +20,7 @@
 
 <section x-data="cleanseAlpine">
 
+
     <section x-show="!showUpsell">
         <div class="flex z-10 w-full lg:border-green lg:h-[95px] items-center lg:py-0 py-[20px] px-[20px] lg:px-[30px]">
         <span
@@ -230,9 +231,16 @@
                     <form @submit="addingUpsellToCart = true" method="post" action="/cart/add" accept-charset="UTF-8" enctype="multipart/form-data">
                         <input type="hidden" name="form_type" value="product" />
                         <input type="hidden" name="utf8" value="✓" />
-                        <input type="hidden" name="id" value="37388611223701">
-                        <input type="hidden" value="{{ bundleUid }}"  name="properties[_bundleUid]">
-                        <input type="hidden" value="signature-cleanse" name="properties[_bundleHandle]">
+
+                        <input type="hidden" name="items[0][id]" x-model="cleanseIdAddedToCart">
+                        <input type="hidden" name="items[0][selling_plan]" x-model="sellingPlan">
+                        <input type="hidden" value="{{ bundleUid }}" name="items[0][properties][_bundleUid]">
+                        <input type="hidden" value="signature-cleanse" name="items[0][properties][_bundleHandle]">
+
+                        <input type="hidden" name="items[1][id]" value="37388611223701">
+                        <input type="hidden" name="items[1][selling_plan]" x-model="sellingPlan">
+                        <input type="hidden" value="{{ bundleUid }}"  name="items[1][properties][_bundleUid]">
+                        <input type="hidden" value="signature-cleanse" name="items[1][properties][_bundleHandle]">
 
                         <button type="submit"
                                 x-bind:disabled="addingUpsellToCart"
@@ -262,9 +270,16 @@
                     <form @submit="addingUpsellToCart = true" method="post" action="/cart/add" accept-charset="UTF-8" enctype="multipart/form-data">
                         <input type="hidden" name="form_type" value="product" />
                         <input type="hidden" name="utf8" value="✓" />
-                        <input type="hidden" name="id" value="37388611158165">
-                        <input type="hidden" value="{{ bundleUid }}" name="properties[_bundleUid]">
-                        <input type="hidden" value="signature-cleanse" name="properties[_bundleHandle]">
+
+                        <input type="hidden" name="items[0][id]" x-model="cleanseIdAddedToCart">
+                        <input type="hidden" name="items[0][selling_plan]" x-model="sellingPlan">
+                        <input type="hidden" value="{{ bundleUid }}" name="items[0][properties][_bundleUid]">
+                        <input type="hidden" value="signature-cleanse" name="items[0][properties][_bundleHandle]">
+
+                        <input type="hidden" name="items[1][id]" value="37388611158165">
+                        <input type="hidden" name="items[1][selling_plan]" x-model="sellingPlan">
+                        <input type="hidden" value="{{ bundleUid }}" name="items[1][properties][_bundleUid]">
+                        <input type="hidden" value="signature-cleanse" name="items[1][properties][_bundleHandle]">
 
                         <button type="submit"
                                 x-bind:disabled="addingUpsellToCart"
@@ -294,9 +309,16 @@
                     <form @submit="addingUpsellToCart = true" method="post" action="/cart/add" accept-charset="UTF-8" enctype="multipart/form-data">
                         <input type="hidden" name="form_type" value="product" />
                         <input type="hidden" name="utf8" value="✓" />
-                        <input type="hidden" name="id" value="41848146362517">
-                        <input type="hidden" value="{{ bundleUid }}" name="properties[_bundleUid]">
-                        <input type="hidden" value="signature-cleanse" name="properties[_bundleHandle]">
+
+                        <input type="hidden" name="items[0][id]" x-model="cleanseIdAddedToCart">
+                        <input type="hidden" name="items[0][selling_plan]" x-model="sellingPlan">
+                        <input type="hidden" value="{{ bundleUid }}" name="items[0][properties][_bundleUid]">
+                        <input type="hidden" value="signature-cleanse" name="items[0][properties][_bundleHandle]">
+
+                        <input type="hidden" name="items[1][id]" value="41848146362517">
+                        <input type="hidden" name="items[1][selling_plan]" x-model="sellingPlan">
+                        <input type="hidden" value="{{ bundleUid }}" name="items[1][properties][_bundleUid]">
+                        <input type="hidden" value="signature-cleanse" name="items[1][properties][_bundleHandle]">
 
                         <button type="submit"
                                 x-bind:disabled="addingUpsellToCart"
@@ -312,10 +334,22 @@
 
         </div>
 
+
         <div id="upsell-no-thanks" class="p-4 text-center mt-6 mb-8">
-            <a href="/cart" class="text-xl border p-4">
-                NO THANKS, PROCEED TO CART
-            </a>
+            <form @submit="addingUpsellToCart = true" method="post" action="/cart/add" accept-charset="UTF-8" enctype="multipart/form-data">
+                <input type="hidden" name="form_type" value="product" />
+                <input type="hidden" name="utf8" value="✓" />
+                <input type="hidden" name="selling_plan" x-model="sellingPlan">
+                <input type="hidden" name="id" x-model="cleanseIdAddedToCart">
+
+                <button type="submit"
+                        x-bind:disabled="addingUpsellToCart"
+                        x-bind:class="addingUpsellToCart ? 'opacity-25' : ''"
+                        name="add"
+                        class="text-xl border p-4">
+                    NO THANKS, PROCEED TO CART
+                </button>
+            </form>
         </div>
 
     </section>
@@ -381,12 +415,14 @@
             showUpsell: false,
             addingUpsellToCart: false,
             cleanseIdAddedToCart: null,
+            sellingPlan: null,
             qty: 1,
             scheduleType: 'signature',
             selectedBottle: {
                 'title': null,
                 'description': null
             },
+
 
             init() {
                 let cleanseForm = document.getElementsByClassName("shopify-product-form")[0]
@@ -395,6 +431,7 @@
                     this.addToCart();
                 });
             },
+
 
             showBottle(product_slug) {
                 self = this;
@@ -409,6 +446,7 @@
                 });
             },
 
+
             hideNonUpsellSections(product_slug) {
                 this.showUpsell = true;
                 let sections = document.querySelectorAll("main .shopify-section")
@@ -422,9 +460,15 @@
                 document.getElementsByTagName("body")[0].scrollIntoView({behavior: "smooth", block: "start"});
             },
 
+
             addToCart(){
                 this.hideNonUpsellSections()
                 let formData = new FormData(document.querySelector('.shopify-product-form'));
+                this.cleanseIdAddedToCart = formData.get('id');
+                this.sellingPlan = formData.get('selling_plan');
+                return;
+
+                //Old code below
                 let standardId = parseInt(Math.floor(Math.random() * 10000) + '' + Date.now());
                 formData.append('properties[standardId]', standardId);
                 formData.append('properties[_bundleUid]', {{ bundleUid }});
@@ -439,8 +483,6 @@
                         return response.json();
                     })
                     .then(response => {
-                        console.log('Products added to cart');
-                        console.log(response);
                         this.$dispatch('cart-updated');
                         this.$dispatch('toggle-cart');
                     })
@@ -458,7 +500,6 @@
 <script type="text/javascript">
     var sellingPlanContainer = document.querySelector('.selling-plan-fieldset')
     var productVariants = {{ section.settings.signature_product.variants | json }};
-    console.log(productVariants);
     var productForm = document.querySelector('.shopify-product-form');
     var findSelectedVariant = function () {
         var selectedVariantId = parseInt(document.querySelector('.shopify-product-form [name="id"]').value);
@@ -473,6 +514,7 @@
 
         return selectedVariant;
     }
+
 
     productForm.addEventListener('change', function () {
         productForm.querySelector('input[name="id"]').value = productForm.querySelector('input[name="variant"]:checked').value

@@ -1,0 +1,338 @@
+<div x-data="makeABox" style="padding-bottom: 3000px">
+
+    <section id="errors" class="container mx-auto px-4 text-red-600">
+        <template x-for="error in errors">
+            <div x-text="error"></div>
+        </template>
+    </section>
+
+
+    <section id="box-size-selection" class="container mx-auto pt-12 px-4">
+        <h2>Select Box Size:</h2>
+
+        <div class="flex list-none gap-4 lg:gap-7 mt-2">
+            <template x-for="[key, value] in Object.entries(sizes)" :key="key">
+                <li @click="selectBoxSize(key)"
+                    :class="key == makeABox.size ? 'bg-green text-white' : ''"
+                    class="border p-2 hover:bg-green hover:text-white transition-colors duration-300 cursor-pointer h-32 w-32 flex flex-col justify-center items-center">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="ionicon h-8 w-8" viewBox="0 0 512 512"><title>
+                            Cube</title>
+                        <path d="M448 341.37V170.61A32 32 0 00432.11 143l-152-88.46a47.94 47.94 0 00-48.24 0L79.89 143A32 32 0 0064 170.61v170.76A32 32 0 0079.89 369l152 88.46a48 48 0 0048.24 0l152-88.46A32 32 0 00448 341.37z"
+                              fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                              stroke-width="32"/>
+                        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                              stroke-width="32" d="M69 153.99l187 110 187-110M256 463.99v-200"/>
+                    </svg>
+
+                    <div x-text="value._bundleLabel" class="mt-2 text-center"></div>
+                </li>
+            </template>
+        </div>
+    </section>
+
+
+    <section id="delivery-selection" class="container mx-auto pt-6 px-4">
+        <h2>Delivery:</h2>
+
+
+        <div class="flex flex-wrap gap-4 lg:gap-7 mt-2">
+            <template x-for="plan in plans" :key="plan.id">
+                <label :for="plan.id"
+                       :class="makeABox.delivery == plan.id ? 'bg-green text-white' : ''"
+                       class="py-3 px-4 border uppercase flex items-center justify-center text-center cursor-pointer">
+                    <span x-text="plan.name"></span>
+                    <input class="hidden" type="radio" :id="plan.id" :name="plan.id" :value="plan.id" x-model="makeABox.delivery">
+                </label>
+            </template>
+        </div>
+
+    </section>
+
+
+    <section id="box-fill-summary" class="container mx-auto flex space-x-4 py-12">
+        <template x-for="[index, item] in Object.entries(makeABox.items)">
+            <div @click="removeItem(index, item)" class="h-10 w-10 object-cover relative cursor-pointer">
+                <img :src="products[item]['image']" :alt="products[item]['name']">
+
+                <div style="right: -6px"
+                     class="absolute bg-red-600 flex h-5 w-5 items-center justify-center right-0 rounded-full text-white top-0">
+                    x
+                </div>
+            </div>
+        </template>
+
+        <template x-for="i in makeABox.size - makeABox.items.length">
+            <div class="bg-gray-200 w-10 h-10 rounded"></div>
+        </template>
+    </section>
+
+
+    <section id="products" class="container mx-auto px-4 grid grid-cols-2 md:grid-cols-5 py-12 divide-x">
+        <template x-for="product in products">
+
+            <section class="p-6 flex flex-col justify-between">
+
+                <div>
+                    <div class="max-w-xs mx-auto">
+                        <img :src="product.image" :alt="product.name">
+                    </div>
+
+                    <h2 class="text-3xl font-bold" x-text="product.name"></h2>
+
+                    <div x-text="product.ingredients"></div>
+                </div>
+
+                <div class="flex justify-between border text-lg mt-4">
+                    <div @click="updateQty(product.id, -1)"
+                         class="px-4 py-2 hover:bg-green hover:text-white cursor-pointer">-
+                    </div>
+                    <div class="p-2" x-text="product.qty"></div>
+                    <div @click="updateQty(product.id, 1)"
+                         class="px-4 py-2 hover:bg-green hover:text-white cursor-pointer">+
+                    </div>
+                </div>
+            </section>
+
+        </template>
+    </section>
+
+
+    <section class="container mx-auto px-4 pt-8">
+        <button :class="makeABox.size === makeABox.items.length ? 'bg-green text-white' : 'bg-gray-200'"
+                @click="addToCart"
+                class="px-4 py-3">Add To Cart</button>
+    </section>
+
+</div>
+
+<script>
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('makeABox', () => ({
+            errors: [],
+            modelOpen: false,
+            step: 1,
+            currentBottle: 'celery',
+            makeABox: null,
+            sizes: {
+                10: {
+                    "_bundleUid": "404fdbc8-5ca8-41f4-8fc2-6d841e825606",
+                    "_bundleHandle": "make-your-box",
+                    "_bundleType": "dynamicBaB",
+                    "_bundleLabel": "10 Pack",
+                    "_bundleProductId": "gid://shopify/Product/7636268974229",
+                    "_bundleName": "MAKE A BOX",
+                    "_bundleBoxSize": 10,
+                    "_variantId": "gid://shopify/ProductVariant/42674480414869"
+                },
+                15: {
+                    "_bundleUid": "fa9e2d7e-14f3-4b3e-ae1e-22c3c0766471",
+                    "_bundleHandle": "make-your-box",
+                    "_bundleType": "dynamicBaB",
+                    "_bundleLabel": "15 Pack (10% Off)",
+                    "_bundleProductId": "gid://shopify/Product/7636268974229",
+                    "_bundleName": "MAKE A BOX",
+                    "_bundleBoxSize": 15,
+                    "_variantId": "gid://shopify/ProductVariant/42674572918933"
+                },
+                20: {
+                    "_bundleUid": "e6d02f06-6301-4c6e-8851-a6cf945e97f9",
+                    "_bundleHandle": "make-your-box",
+                    "_bundleType": "dynamicBaB",
+                    "_bundleLabel": "20 Pack (20% Off)",
+                    "_bundleProductId": "gid://shopify/Product/7636268974229",
+                    "_bundleName": "MAKE A BOX",
+                    "_bundleBoxSize": 20,
+                    "_variantId": "gid://shopify/ProductVariant/42674572951701"
+                }
+            },
+            plans: [
+                {'id': 'no-plan', 'name': 'One Time'},
+                {'id': 932446357, 'name': 'Every 1 Month (3% OFF)'},
+                {'id': 924418197, 'name': 'Every 2 Weeks (5% OFF)'},
+                {'id': 924385429, 'name': 'Every 1 Weeks (7% OFF)'},
+            ],
+            products: {
+                37388620071061: {
+                    'id': 37388620071061,
+                    'name': 'Celery Juice',
+                    'ingredients': "Celery, Lemon",
+                    'image': "https://cdn.shopify.com/s/files/1/1379/7759/products/Celery_v21_Trans_large.png",
+                    'qty': 0
+                },
+                42654561927317: {
+                    'id': 42654561927317,
+                    'name': 'Earth Nectar',
+                    'ingredients': "Cantelope, Golden Berry, Jicama, Lemon, Turmeric",
+                    'image': "https://cdn.shopify.com/s/files/1/1379/7759/files/Product-Earth_large.png",
+                    'qty': 0
+                },
+            },
+            discounts: {
+                10: null,
+                15: "BOX-DISCOUNT-8MFAQ6",
+                20: "BOX-DISCOUNT-Q93TK0"
+            },
+
+
+            init() {
+                let makeABoxCookie = this.getCookie('makeABox');
+                if (makeABoxCookie) {
+                    this.makeABox = JSON.parse(makeABoxCookie);
+                    this.makeABox.items.forEach((item) => {
+                        this.products[item].qty++
+                    })
+                    this.step = 2;
+                } else {
+                    this.makeABox = {
+                        'size': 10,
+                        'delivery': "no-plan",
+                        'items': [],
+                    }
+                }
+
+                this.$watch('makeABox.delivery', (value, oldValue) => {
+                    this.setCookie()
+                })
+
+            },
+
+
+            getCookie(cookieName) {
+                return document.cookie
+                    .split('; ')
+                    .find((row) => row.startsWith(cookieName + '='))
+                    ?.split('=')[1];
+            },
+
+
+            setCookie() {
+                var d = new Date();
+                d.setTime(d.getTime() + (365 * 24 * 60 * 60 * 1000));
+                var expires = "expires=" + d.toGMTString();
+                document.cookie = 'makeABox' + "=" + JSON.stringify(this.makeABox) + ";" + expires + ";path=/";
+            },
+
+
+            selectBoxSize(size) {
+                size = parseInt(size);
+                // delete items from cart if larger than current box size
+                if (this.makeABox.items.length > size) {
+                    for (let i = size; i < this.makeABox.items.length; i++) {
+                        let productId = this.makeABox.items[i]
+                        this.products[productId].qty--;
+                    }
+
+                    this.makeABox.items = this.makeABox.items.slice(0, size)
+                }
+
+                this.makeABox.size = size;
+                this.setCookie()
+            },
+
+
+            removeItem(index, item) {
+                this.makeABox.items.splice(index, 1);
+                this.products[item].qty--;
+                this.setCookie();
+            },
+
+
+            updateQty(id, qty) {
+                if (qty > 0 && this.makeABox.items.length >= this.makeABox.size) {
+                    alert('Max items added. Change box size if you want more.')
+                    return;
+                }
+
+
+                this.products[id].qty = this.products[id]['qty'] + qty;
+
+                if (qty < 0) {
+                    for (let i = 0; i < this.makeABox.items.length; i++) {
+                        if (this.makeABox.items[i] == id) {
+                            this.makeABox.items.splice(i, 1)
+                            break;
+                        }
+                    }
+
+                } else {
+                    this.makeABox.items.push(id);
+                }
+
+                this.setCookie();
+            },
+
+
+            addToCart(){
+                //check if the box is full
+                if (this.makeABox.size != this.makeABox.items.length){
+                    this.errors = [];
+                    this.errors.push('Box is not full. Fill it up!!!');
+                    return;
+                }
+
+                let cart = {
+                    'items': []
+                };
+                let self = this;
+
+                this.makeABox.items.forEach(function (item) {
+                    // Check if the item is already in the cart
+                    let itemExists = false;
+                    let itemExistsIndex = null;
+                    for (let i = 0; i < cart.items.length; i++) {
+                        if (cart.items[i].id === item) {
+                            itemExists = true;
+                            itemExistsIndex = i;
+                            break;
+                        }
+                    }
+
+                    //Update item quantity if in the cart already else add it
+                    if (itemExists) {
+                        cart.items[itemExistsIndex].quantity++
+                    }else {
+                        let newItem = {};
+                        newItem.id = item;
+                        newItem.quantity = 1;
+                        newItem.properties = self.sizes[self.makeABox.size];
+                        if (self.makeABox.delivery){
+                            if (self.makeABox.delivery != 'no-plan'){
+                                newItem.selling_plan = self.makeABox.delivery;
+                            }
+                        }
+                        cart.items.push(newItem)
+                    }
+                })
+
+                //Get discount code and cart url
+                let discountCode = this.discounts[this.makeABox.size];
+                let cartUrl = "/cart";
+                if (discountCode){
+                    cartUrl = `https://rawjuicery.com/discount/${discountCode}?redirect=/cart`;
+                }
+
+
+                //Add to cart
+                fetch('/cart/add.js', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(cart)
+                })
+                    .then(response => {
+                        return response.json();
+                    })
+                    .then(response => {
+                        location.href = cartUrl;
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                    });
+
+            }
+
+        }))
+    })
+</script>
